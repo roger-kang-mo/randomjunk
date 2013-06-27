@@ -1,1 +1,9 @@
 Here we are!
+
+I'm using this rails app to host a bunch of random things I feel like doing.
+So far, it's a really crappy implementation of minesweeper and a scattergories sorta thing
+
+Currently hosted on http://rocky-anchorage-2661.herokuapp.com/
+(but please for the love of all that is good and nice in the world, don't play minesweeper)
+
+(scattergories would be fun though)
