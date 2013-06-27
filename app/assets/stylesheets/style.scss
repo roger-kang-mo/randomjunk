@@ -9,6 +9,7 @@ div#scattergories {
 			float: left;
 			padding-bottom: 10px;
 			margin-left: 35%;
+			cursor: hand; cursor: pointer;
 
 			span.plus-image {
 				height: 20px;
@@ -43,6 +44,7 @@ div#scattergories {
 					height: 20px;
 					margin-left: 16px;
 					margin-top: 5px;
+					cursor: hand; cursor: pointer;
 
 					&.inc-score-button {
 						background-position: -408px -96px;
@@ -63,7 +65,6 @@ div#scattergories {
 	}
 
 	div#options{
-		
 		button {
 			width: 12%;
 		}
@@ -101,7 +102,8 @@ table#mineboard > tbody > tr {
 
 .status-header {
 	margin-left: 35%;
-	font-size: 20px;
+	font-size: 30px;
+	color: #ffffff;
 }
 
 .boardspot {
@@ -131,7 +133,7 @@ table#mineboard > tbody > tr {
 }
 
 .input-title {
-	font-size: 15px;
+	font-size: 20px;
 	padding-left: 10px;
 }
 
@@ -140,7 +142,7 @@ table#mineboard > tbody > tr {
 }
 
 .mini-text {
-	font-size: 12px;
+	font-size: 15px;
 }
 
 #generate-board {
@@ -174,6 +176,7 @@ body { font-family: 'Lato', sans-serif; }
 
 #header-bar {
 	padding: 10px;
+	margin-bottom: 0px;
 
 	// background-color: #333;
 	background-color: #121F2E; 
@@ -189,7 +192,11 @@ body { font-family: 'Lato', sans-serif; }
 }
 
 div#main {
-	padding:10px;
+	padding:20px;
+	height:45em;
+	// color: #ffffff;
+	// background-color: #2E5077;
+	background-color: #E5E5E5;
 }
 
 #nav-list li {
