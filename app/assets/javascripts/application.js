@@ -12,4 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require nothing_special.js.coffee
 //= require_tree .

@@ -1,0 +1,201 @@
+div#scattergories {
+	div#players {
+		display: inline;
+		float: left;
+		width: 40%;
+		height: 25em;
+
+		strong#add-player {
+			float: left;
+			padding-bottom: 10px;
+			margin-left: 35%;
+
+			span.plus-image {
+				height: 20px;
+				width: 20px;
+				float: right;
+				margin-left: 6px;
+				margin-top: -17px;
+				background:url(glyphicons-halflings.png) transparent;
+				background-position: -408px -96px;
+			}
+		}
+
+		ul.player-list {
+			height: 80%;
+			list-style-type: none;
+			overflow-y: scroll;
+
+			li {
+				display: inline-block;
+				width: 80%;
+
+				.player {
+					float: left;
+					width: 35%
+				}
+
+				.score-butt {
+					background:url(glyphicons-halflings.png) transparent;
+					width: 20px;
+					display: inline-block;
+					height: 20px;
+					margin-left: 16px;
+					margin-top: 5px;
+
+					&.inc-score-button {
+						background-position: -408px -96px;
+					}
+
+					&.dec-score-button {
+						background-position: -433px -96px;
+					}
+				}
+				
+				.score-input {
+					float: right;
+					width: 35%;
+				}
+			}
+		}
+	}
+
+	div#options{
+		
+		button {
+			width: 12%;
+		}
+
+		div#current-letter {
+			padding: 10px;
+
+			strong {
+				padding-left: 3%;
+				font-size: 100px;
+			}
+		}
+	}
+
+	div#cat-list {
+		float:right;
+		width: 48%;
+
+		ol.category-list {
+			margin-left: 18%;
+
+			li {
+				font-size: 25px;
+				padding-top: 20px;
+			}
+		}
+	}
+
+}
+
+table#mineboard > tbody > tr {
+	padding-top: 5px;
+	margin-left: 10%;
+}
+
+.status-header {
+	margin-left: 35%;
+	font-size: 20px;
+}
+
+.boardspot {
+	background-color: #333;
+	width: 25px;
+	height: 25px;
+	padding: 5px;
+	border: 1px;
+	border-color: #ccc;
+
+	&.revealed {
+		background-color: #999;
+
+		strong.spotval {
+			padding-left: 10px;
+			display: inline;
+		}
+	}
+
+	strong.spotval {
+		display: none;
+	}
+}
+
+.input-header {
+
+}
+
+.input-title {
+	font-size: 15px;
+	padding-left: 10px;
+}
+
+.mine-input {
+	padding-left: 5px;
+}
+
+.mini-text {
+	font-size: 12px;
+}
+
+#generate-board {
+	margin-left: 15px;
+	margin-bottom: 10px;
+}
+
+.minesweeper-board {
+	.spot {
+		background-color: #ccc;
+
+		.revealed {
+			.mine {
+				background:url(glyphicons-halflings.png) transparent;
+				background-position: -72px -120px;
+			}
+
+			.empty {
+				background-color: #333;
+			}
+		}
+
+		.flagged {
+			background:url(glyphicons-halflings.png) transparent;
+			background-position: -408px -144px;
+		}
+	}
+}
+
+body { font-family: 'Lato', sans-serif; }
+
+#header-bar {
+	padding: 10px;
+
+	// background-color: #333;
+	background-color: #121F2E; 
+   	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3E4B5D), to(#121F2E));
+   	background-image: -webkit-linear-gradient(top, #3E4B5D, #121F2E); 
+   	background-image:    -moz-linear-gradient(top, #3E4B5D, #121F2E);
+   	background-image:     -ms-linear-gradient(top, #3E4B5D, #121F2E);
+   	background-image:      -o-linear-gradient(top, #3E4B5D, #121F2E);
+	
+	ul li a {
+		color: #759CC9;
+	}
+}
+
+div#main {
+	padding:10px;
+}
+
+#nav-list li {
+	display:inline;
+	padding-left: 15px;
+	font-size: 15px;
+	a.nav-link:hover {
+		text-decoration: none;
+		color: #ffffff;
+	}
+}

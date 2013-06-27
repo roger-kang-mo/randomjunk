@@ -1,0 +1,41 @@
+<% content_for :main do %>
+	<div id="scattergories">
+		<div id="players">
+			<ul class="player-list">
+				<li><input type="text" class="player" id="player1" placeholder="player name" value="Player 1 name">
+					<span class="inc-score-button score-butt"></span>
+					<span class="dec-score-button score-butt"></span>
+					<input type="number" id="player1score" min='0' class="score-input" value=0 >
+				</li>
+			</ul>
+
+			<strong id="add-player">Add Player <span class="plus-image"></span></strong>
+		</div>
+		<div id="cat-list">
+			<ol class="category-list">
+				<li>poop</li>
+				<li>poop</li>
+				<li>poop</li>
+				<li>poop</li>
+				<li>poop</li>
+				<li>poop</li>
+				<li>poop</li>
+				<li>poop</li>
+				<li>poop</li>
+				<li>poop</li>
+			</ol>
+		</div>
+		<div id="options">
+			<div id="current-letter">
+				<strong>A</strong>
+			</div>
+			<button id="generate-list">New list</button><br>
+			<button id="generate-letter">New letter</button><br>
+			<button id="clear-scores">Clear Scores</button><br>
+		</div>
+	</div>
+
+	<script>
+		randoms.scattergories()
+	</script>
+<% end %>
