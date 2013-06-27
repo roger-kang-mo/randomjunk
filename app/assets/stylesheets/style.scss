@@ -3,7 +3,7 @@ div#scattergories {
 		display: inline;
 		float: left;
 		width: 40%;
-		height: 25em;
+		height: 40em;
 
 		strong#add-player {
 			float: left;
@@ -32,7 +32,8 @@ div#scattergories {
 
 				.player {
 					float: left;
-					width: 35%
+					width: 35%;
+					text-align: center;
 				}
 
 				.score-butt {
@@ -55,6 +56,7 @@ div#scattergories {
 				.score-input {
 					float: right;
 					width: 35%;
+					text-align: center;
 				}
 			}
 		}
