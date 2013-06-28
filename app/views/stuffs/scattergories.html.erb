@@ -33,14 +33,15 @@
 				<strong>A</strong>
 			</div>
 			<button id="generate-list" class="hide-when-timer">New list</button><br>
-			<button id="generate-letter" class="timer-begin hide-when-timer">New letter</button><br>
 			<button id="clear-scores" class="hide-when-timer">Clear Scores</button><br>
+			<br><br>
+			<button id="generate-letter" class="timer-begin hide-when-timer">Start Round</button><br>
 		</div>
 
 	</div>
 
 	<script>
 		randoms.scattergories()
-		randoms.simpleTimer({timeLimit: 0.1})
+		randoms.simpleTimer({timeLimit: 3})
 	</script>
 <% end %>
