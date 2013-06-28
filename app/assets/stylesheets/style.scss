@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'sosa-regular-webfont';    
+  src: url('/assets/sosa-regular-webfont.woff') format('woff'); 
+
+  font-weight: normal;
+  font-style: normal;
+}
+
 div#scattergories {
 	div#players {
 		display: inline;
@@ -103,7 +111,7 @@ table#mineboard > tbody > tr {
 .status-header {
 	margin-left: 35%;
 	font-size: 30px;
-	color: #ffffff;
+	color: #3F3F3F;
 }
 
 .boardspot {
@@ -193,7 +201,8 @@ body { font-family: 'Lato', sans-serif; }
 
 div#main {
 	padding:20px;
-	height:45em;
+	height:50em;
+
 	// color: #ffffff;
 	// background-color: #2E5077;
 	background-color: #E5E5E5;
@@ -203,8 +212,52 @@ div#main {
 	display:inline;
 	padding-left: 15px;
 	font-size: 15px;
+
+	a.nav-link span.icon-font {
+		font-family: sosa-regular-webfont;
+		src: url(sosa-regular-webfont.woff);
+	}	
+
 	a.nav-link:hover {
 		text-decoration: none;
 		color: #ffffff;
+	}
+}
+
+span.icon-font {
+	font-family: sosa-regular-webfont;
+	src: url(sosa-regular-webfont.woff);
+	padding-left: 3px;
+}
+
+span.carousel-button {
+	font-size: 30px;
+	position: absolute;
+	cursor: hand; cursor: pointer;
+
+	&.left {
+		float:left;
+		margin-top: 23%;
+	}
+
+	&.right {
+		float:right;
+		margin-left: 95%;
+		margin-top: -22%;
+	}
+}
+
+ul.roundaboot {
+	margin-left: 19.3%;
+
+	li {
+	 	iframe {
+			width: 100%;
+			height:100%;
+		}
+		img.zoidberg {
+			width: 100%;
+			height: 100%;
+		}
 	}
 }

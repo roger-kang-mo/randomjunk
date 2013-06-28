@@ -25,8 +25,8 @@ randoms.scattergories = (args) ->
 		numPlayers++
 		newPlayerHtml = '<li><input type="text" class="player" placeholder="player name" id="player' + numPlayers + '">'
 
-		newPlayerHtml +='<span class="inc-score-button score-butt"></span>
-					<span class="dec-score-button score-butt"></span>
+		newPlayerHtml +='<span class="inc-score-button score-butt tips" title="Increase Score"></span>
+					<span class="dec-score-button score-butt tips" title="Decrease Score"></span>
 					<input type="number" id="player' + numPlayers + 'score" value=0 min="0" class="score-input">
 				</li>'
 				
