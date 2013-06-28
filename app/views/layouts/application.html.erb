@@ -9,8 +9,9 @@
 </head>
 <body>
 <%= render :partial => 'layouts/header' %>
-
+<img src="/assets/loader.gif" class="page-loader" />
 <div id="main">
+	<div id="page-load-overlay"></div>
 	<%= yield :main %>
 </div>
 </body>

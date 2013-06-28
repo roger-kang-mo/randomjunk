@@ -11,3 +11,9 @@ $(document).ready ->
 	      at: 'top center'
 	    adjust:
 	    	y: -5
+
+	$('.outbound').click ->
+		$('#page-load-overlay').fadeIn(100)
+		$('.page-loader').show()
+		console.log 'hi'
+

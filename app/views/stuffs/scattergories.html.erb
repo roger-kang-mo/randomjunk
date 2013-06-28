@@ -1,6 +1,6 @@
 <% content_for :main do %>
 	<div id="scattergories">
-		<div id="players">
+		<div id="players" class="hide-when-timer">
 			<ul class="player-list">
 				<li><input type="text" class="player" id="player1" placeholder="player name" value="Player 1 name">
 					<span class="inc-score-button score-butt tips" title="Increase Score"></span>
@@ -26,16 +26,21 @@
 			</ol>
 		</div>
 		<div id="options">
-			<div id="current-letter">
+			<div id="timer" class="show-when-timer hide-after-timer">
+			<strong>3:00</strong>
+		</div>
+			<div id="current-letter" class="show-when-timer">
 				<strong>A</strong>
 			</div>
-			<button id="generate-list">New list</button><br>
-			<button id="generate-letter">New letter</button><br>
-			<button id="clear-scores">Clear Scores</button><br>
+			<button id="generate-list" class="hide-when-timer">New list</button><br>
+			<button id="generate-letter" class="timer-begin hide-when-timer">New letter</button><br>
+			<button id="clear-scores" class="hide-when-timer">Clear Scores</button><br>
 		</div>
+
 	</div>
 
 	<script>
 		randoms.scattergories()
+		randoms.simpleTimer({timeLimit: 0.1})
 	</script>
 <% end %>
