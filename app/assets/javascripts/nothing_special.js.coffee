@@ -2,6 +2,14 @@ window.randoms = {
 	
 }
 
+window.onload = ->
+	$('#main-page-loader').fadeOut('slow')
+	$('#page-load-overlay').fadeOut('slow')
+
+$.fn.preload = ->
+  @each ->
+    $("<img/>")[0].src = this	
+
 $(document).ready ->
 	$('.tips').qtip
 	    content:

@@ -1,0 +1,108 @@
+div#scattergories {
+	div#players {
+		display: inline;
+		float: left;
+		width: 40%;
+		height: 40em;
+
+		strong#add-player {
+			float: left;
+			padding-bottom: 10px;
+			margin-left: 35%;
+			cursor: hand; cursor: pointer;
+
+			span.plus-image {
+				height: 20px;
+				width: 20px;
+				float: right;
+				margin-left: 6px;
+				margin-top: -17px;
+				background:url(glyphicons-halflings.png) transparent;
+				background-position: -408px -96px;
+			}
+		}
+
+		ul.player-list {
+			height: 80%;
+			list-style-type: none;
+			overflow-y: scroll;
+
+			li {
+				display: inline-block;
+				width: 80%;
+
+				.player {
+					float: left;
+					width: 35%;
+					text-align: center;
+				}
+
+				.score-butt {
+					background:url(glyphicons-halflings.png) transparent;
+					width: 20px;
+					display: inline-block;
+					height: 20px;
+					margin-left: 16px;
+					margin-top: 5px;
+					cursor: hand; cursor: pointer;
+
+					&.inc-score-button {
+						background-position: -408px -96px;
+					}
+
+					&.dec-score-button {
+						background-position: -433px -96px;
+					}
+				}
+				
+				.score-input {
+					float: right;
+					width: 35%;
+					text-align: center;
+				}
+			}
+		}
+	}
+
+	div#options{
+		button {
+			width: 12%;
+		}
+
+		div#timer {
+			padding: 10px;
+			margin-left: 5%;
+			padding-bottom: 10%;
+			margin-top: 28%;
+			display:none;
+			font-size: 20em;
+			position: absolute;
+
+			&.times-up { font-size: 8em; }
+		}
+
+		div#current-letter {
+			position: absolute;
+			padding: 10px;
+			margin-top: 6%;
+			margin-left: 21%;
+			display: none;
+			font-size: 20em;
+		}
+	}
+
+	div#cat-list {
+		float:right;
+		width: 48%;
+
+		ol.category-list {
+			margin-left: 18%;
+
+			li {
+				font-size: 25px;
+				padding-top: 20px;
+			}
+		}
+	}
+
+}

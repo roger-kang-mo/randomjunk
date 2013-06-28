@@ -1,0 +1,39 @@
+#whatis {
+	h3.indented-text{ 
+		margin-top: -28px;
+		padding-left: 14em; 
+	}
+}
+
+span.carousel-button {
+	font-size: 30px;
+	position: absolute;
+	cursor: hand; cursor: pointer;
+
+	&.left {
+		float:left;
+		margin-top: 20%;
+	}
+
+	&.right {
+		float:right;
+		margin-left: 95%;
+		margin-top: -22%;
+	}
+}
+
+ul.roundaboot {
+	margin-left: 19.3%;
+	margin-top: -50px;
+
+	li {
+	 	iframe {
+			width: 100%;
+			height:100%;
+		}
+		img.zoidberg {
+			width: 100%;
+			height: 100%;
+		}
+	}
+}

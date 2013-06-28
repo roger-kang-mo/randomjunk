@@ -3,6 +3,13 @@ randoms.whatis = ->
 	carouselRight = $(".carousel-button.right")
 	zoidbergHolder =  $('.roundabout-holder')
 
+	window.onload = ->
+  		$(['/assets/zoidberg.png']).preload()
+  		$(['/assets/zoidberg-paying-attention.png']).preload()
+  		$(['/assets/zoidberg-minesweeper.png']).preload()
+  		$('#page-load-overlay').fadeOut('slow')
+  		$('#main-page-loader').fadeOut('slow')
+
 	$(document).ready ->
 		$('.roundabout-holder').roundabout()
 

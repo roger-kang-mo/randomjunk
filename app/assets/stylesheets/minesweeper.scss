@@ -1,0 +1,74 @@
+div#minesweeper-main {
+
+	div#words_space {
+		h1.input-header {
+
+		}
+
+		span.input-title {
+			font-size: 20px;
+			padding-left: 10px;
+		}
+
+		input.mine-input {
+			padding-left: 5px;
+		}
+
+		button#generate-board {
+			margin-left: 15px;
+			margin-bottom: 10px;
+		}
+	}
+
+	div#board_space {
+		table#mineboard tbody tr {
+			padding-top: 5px;
+			margin-left: 10%;
+
+			.boardspot {
+				background-color: #333;
+				width: 25px;
+				height: 25px;
+				padding: 5px;
+				border: 1px;
+				border-color: #ccc;
+
+				&.revealed {
+					background-color: #999;
+
+					strong.spotval {
+						padding-left: 10px;
+						display: inline;
+					}
+				}
+
+				strong.spotval {
+					display: none;
+				}
+			}
+		}
+
+	}
+
+	.minesweeper-board {
+		.spot {
+			background-color: #ccc;
+
+			.revealed {
+				.mine {
+					background:url(glyphicons-halflings.png) transparent;
+					background-position: -72px -120px;
+				}
+
+				.empty {
+					background-color: #333;
+				}
+			}
+
+			.flagged {
+				background:url(glyphicons-halflings.png) transparent;
+				background-position: -408px -144px;
+			}
+		}
+	}
+}
