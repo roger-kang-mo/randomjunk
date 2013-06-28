@@ -59,6 +59,8 @@ module Randomjunk
     config.assets.paths << "#{Rails.root}/app/assets/fonts" 
 
     config.assets.initialize_on_precompile = false
+    
+    # RAILS_ENV=production bundle exec rake assets:precompile
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
