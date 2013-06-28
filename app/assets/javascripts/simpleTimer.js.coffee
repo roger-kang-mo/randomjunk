@@ -4,7 +4,7 @@ randoms.simpleTimer = (args) ->
 	timeLimit = args.timeLimit
 	timeLeft = 60 * timeLimit
 	timerDiv = $('div#timer')
-
+	
 	elemsToHide = $('.hide-when-timer')
 	elemsToShow = $('.show-when-timer')
 

@@ -67,6 +67,8 @@ div#scattergories {
 	div#options{
 		button {
 			width: 12%;
+
+			&#generate-list { margin-top: 22%; }
 		}
 
 		div#timer {

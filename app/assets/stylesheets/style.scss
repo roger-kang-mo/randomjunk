@@ -1,9 +1,15 @@
 @font-face {
-  font-family: 'sosa-regular-webfont';    
+  font-family: sosa-regular-webfont;    
   src: url('/assets/sosa-regular-webfont.woff') format('woff'); 
 
   font-weight: normal;
   font-style: normal;
+}
+
+span.icon-font {
+	font-family: sosa-regular-webfont;
+	src: url(sosa-regular-webfont.woff);
+	padding-left: 3px;
 }
 
 .status-header {
@@ -49,21 +55,15 @@ div#main {
 	padding-left: 15px;
 	font-size: 15px;
 
-	a.nav-link span.icon-font {
-		font-family: sosa-regular-webfont;
-		src: url(sosa-regular-webfont.woff);
-	}	
+	// a.nav-link span.icon-font {
+	// 	font-family: sosa-regular-webfont;
+	// 	src: url(sosa-regular-webfont.woff);
+	// }	
 
 	a.nav-link:hover {
 		text-decoration: none;
 		color: #ffffff;
 	}
-}
-
-span.icon-font {
-	font-family: sosa-regular-webfont;
-	src: url(sosa-regular-webfont.woff);
-	padding-left: 3px;
 }
 
 #page-load-overlay{
