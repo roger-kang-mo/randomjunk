@@ -42,7 +42,7 @@ randoms.scattergoriesCategoryLists = [
 			"things you get tickets for ",
 			"things you do at work",
 			"foreign words used in english",
-			"thigns you shouldn't touch",
+			"things you shouldn't touch",
 			"spicy foods",
 			"things at a carnival",
 			"things you make",

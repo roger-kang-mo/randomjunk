@@ -1,15 +1,30 @@
 <% content_for :main do %>
-<h1>Welcome!</h1>
+<div id="index-main">
+	<h1>Welcome!</h1>
 
-<p class="intro-info">
-	This is a an app I created to gather together some random, smaller projects.
-</p>
+	<p class="intro-info">
+		This is a an app I created to gather together some random, smaller projects.
+	</p>
 
-<p class="intro-info">
-	Here you'll find a very bad implementation of minesweeper. Also, a convenient way to get a game of scattergories going!
-</p>
 
-<br><br>
-</span>
+	<div class="section group" id="implementations">
+		<div class="col span_1_of_3">
+		<p class="intro-info">
+			A very bad implementation of minesweeper. I didn't do a very good job of revealing spots adjacent to the one you click.
+		</p><p><img src="assets/minesweeper-screencap.png" alt=""></p>
+		</div>
+		<div class="col span_1_of_3">
+			<p>Some Zoidberg. Because why not? There wasn't much to be said.</p>
+
+		</div>
+		<div class="col span_1_of_3">
+			<p>You can play scattergories! Er... Copyright.. Disperseagories.</p>
+			<p><img src="assets/scattergories-screencap.png" alt=""></p>
+		</div>
+	</div>
+
+	<br><br>
+	</span>
+</div>
 
 <% end %>
