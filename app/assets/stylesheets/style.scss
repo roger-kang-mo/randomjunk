@@ -22,7 +22,10 @@ span.icon-font {
 	font-size: 15px;
 }
 
-body { font-family: 'Lato', sans-serif; }
+body { 
+	font-family: 'Lato', sans-serif; 
+	background-color: #E5E5E5;
+}
 
 #header-bar {
 	padding: 10px;
@@ -47,7 +50,7 @@ div#main {
 
 	// color: #ffffff;
 	// background-color: #2E5077;
-	background-color: #E5E5E5;
+	// background-color: #E5E5E5;
 }
 
 #nav-list li {

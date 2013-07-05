@@ -25,7 +25,7 @@ div#scattergories {
 		ul.player-list {
 			height: 80%;
 			list-style-type: none;
-			overflow-y: scroll;
+			overflow-y: auto;
 
 			li {
 				display: inline-block;
