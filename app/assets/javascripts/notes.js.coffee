@@ -65,7 +65,7 @@ randoms.notes = (args) ->
 		thisContent = contentBox.val()
 		noteId = data.note.id
 
-		noteHTML = '<div class="note" data-x="247" data-y="540" data-note-id="'+noteId+'">
+		noteHTML = '<div class="note" data-x="247" data-y="540" data-id="'+noteId+'">
 						<div class="delete-bar"><span class="icon-font">ã</span></div>
 						<div class="author">' + thisAuthor + '</div>
 						<div class="content">' + thisContent + '</div>
