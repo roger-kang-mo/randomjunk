@@ -131,7 +131,7 @@ randoms.notes = (args) ->
 
 		$.confirm
 	      title: "Are You Sure?"
-	      message: "You can delete any of the notes, but that takes the joy away from others who<br/>won't get to see that note!"
+	      message: "You can delete any of the notes, but that takes the joy away from others who won't get to see that note!"
 	      buttons:
 	        Yes:
 	          class: "blue"
