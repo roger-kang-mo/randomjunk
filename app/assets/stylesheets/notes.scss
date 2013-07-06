@@ -32,10 +32,11 @@ div#notes {
 			}
 
 			div.author, div.content{
-				width: 100%;
+				width: 93%;
 				cursor: default;
 				padding: 5px;
 				vertical-align: middle;
+				overflow: hidden;
 
 				&.author {
 					font-size: 20px;

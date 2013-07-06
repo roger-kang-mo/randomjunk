@@ -31,7 +31,11 @@ randoms.notes = (args) ->
 
 	$(document).on 'click', '.note', (e) -> updateZIndex(e.target)
 
-	submitButt.click ->
+	submitButt.click -> submitNewNote()
+	contentBox.keyup (e) ->
+		submitNewNote() if e.which == 13
+
+	submitNewNote = ->
 		thisAuthor = authorBox.val()
 		thisContent = contentBox.val()
 

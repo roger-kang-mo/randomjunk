@@ -7,9 +7,10 @@ class Note < ActiveRecord::Base
 				:size,
 				:z
 
-	attr_default :x, 0
-	attr_default :y, 0
+	attr_default :x, 20
+	attr_default :y, 71
+	attr_default :z, 500
 
-	validates :content,	presence: true, length: { maximum: 200 }
+	validates :content,	presence: true, length: { maximum: 400 }
 	validates :author, presence: true, length: { maximum: 20 }
 end
