@@ -39,6 +39,7 @@ class NotesController < ApplicationController
 			current_note = Note.find(note[1]['id'].to_i)
 			current_note.x = note[1]['coords']['x'].to_i
 			current_note.y = note[1]['coords']['y'].to_i
+			current_note.z = note[1]['coords']['z'].to_i
 
 			temp = current_note.save
 			puts temp

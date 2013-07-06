@@ -7,6 +7,7 @@ randoms.notes = (args) ->
 	savePosition = $('#save-position')
 	positionLoader = $('#position-loader')
 	highestZ = 0
+	zOffset = 0
 
 	$(document).ready ->
 		notes = $('#notes-area .note')
@@ -86,6 +87,8 @@ randoms.notes = (args) ->
 	updateZIndex = (args) ->
 		$(args).css({'z-index': highestZ})
 		highestZ++
+		if highestZ == 600
+			zOffset = 100
 
 	# savePosition.click -> saveNotePositions()
 
@@ -115,8 +118,11 @@ randoms.notes = (args) ->
 			thisID =  $(notes[i]).data('id')
 			thisX = $(notes[i]).position().left
 			thisY = $(notes[i]).position().top
+			thisZ = $(notes[i]).css('z-index') - zOffset
 
-			retData.push { id: thisID, coords: { x: thisX, y: thisY }}
+			retData.push { id: thisID, coords: { x: thisX, y: thisY, z: thisZ }}
+
+		zOffset = 0 if zOffset == 100
 
 		retData
 
