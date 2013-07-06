@@ -82,7 +82,15 @@ randoms.notes = (args) ->
 			start: -> updateZIndex(this)
 			stop: -> saveNotePositions()
 		})
-		newNote.position({ 'top': '42%', 'left': '42%' })
+		# newNote.position({ 'top': '42%', 'left': '42%' })
+		$('.tips').qtip
+		    content:
+		      attr: 'title'
+		    position:
+		      my: 'bottom center'
+		      at: 'top center'
+		    adjust:
+		    	y: -5
 
 
 	showError = (data) ->

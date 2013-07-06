@@ -3,7 +3,7 @@
 		<div id="notes-area">
 			<% @notes.each do |note| %>
 				<div class="note" data-x="<%= note.x %>" data-y="<%= note.y %>" data-id="<%=note.id%>" style="top: <%=note.y%>px; left: <%=note.x%>px; z-index: <%= note.z %>">
-					<div class="delete-bar"><span class="icon-font note-delete">ç</span></div>
+					<div class="delete-bar"><span class="icon-font note-delete tips" title="Delete note">ç</span></div>
 					<div class="author"><%= note.author %></div>
 					<div class="content"><%= note.content %></div>
 				</div>
