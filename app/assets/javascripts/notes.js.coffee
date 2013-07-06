@@ -143,7 +143,6 @@ randoms.notes = (args) ->
 	            	dataType: 'json'
 	            	success: ->
 	            		child = $('.to-delete').fadeOut()
-	            		child.parent().removeChild(child)
 	            	error: (e) -> console.log e
 	        No:
 	          class: "inactive"
