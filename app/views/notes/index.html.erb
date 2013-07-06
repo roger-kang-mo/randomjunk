@@ -1,0 +1,33 @@
+<% content_for :main do %>
+	<div id="notes">
+		<div id="notes-area">
+			<% @notes.each do |note| %>
+				<div class="note" data-x="<%= note.x %>" data-y="<%= note.y %>" data-id="<%=note.id%>" style="top: <%=note.y%>px; left: <%=note.x%>px; z-index: <%= note.z %>">
+					<div class="delete-bar"><span class="icon-font note-delete">ç</span></div>
+					<div class="author"><%= note.author %></div>
+					<div class="content"><%= note.content %></div>
+				</div>
+			<% end %>
+		</div>
+		<div id="not-notes-area" class="section group">
+			<div class="col span_1_of_3">
+				<p>Take a note, leave a note!</p>
+				<!-- <p>Note: The ordering of notes will be saved, unless you don't tell it to save. (also, no pun intended)</p> -->
+			</div>
+			<div class="col span_1_of_3">
+				<p>Feel free to leave a note. I don't care what it is. They're completely anonymous.</p><br>
+				<!-- <p><button id="save-position" class="btn btn-inverse">Save Positioning</button><img src="/assets/loader.gif" alt="loader" id="position-loader" class="loader"></p> -->
+			</div>
+			
+			<div id="add-notes-area" class="col span_1_of_3">
+				<input type="text" id="note-author" placeholder="Your name"><br>
+				<textarea name="" id="note-content" cols="30" rows="10" placeholder="What have you to say"></textarea><br>
+				<button id="submit-note" class="btn btn-inverse">Submit Comment</button><img src="/assets/loader.gif" alt="loader" id="submit-loader" class="loader"><br>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		randoms.notes({notes: <%= JSON(@notes.as_json).html_safe %>});
+	</script>
+<% end %>

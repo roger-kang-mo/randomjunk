@@ -11,6 +11,9 @@ Randomjunk::Application.routes.draw do
   get '/minesweeper' => 'stuffs#minesweeper'
   get '/scattergories' => 'stuffs#scattergories'
   get '/whatis' => 'stuffs#whatis'
+  post '/notes/update_positions' => 'notes#update_positions'
+  
+  resources :notes
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
