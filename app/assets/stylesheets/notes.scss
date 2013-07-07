@@ -24,12 +24,22 @@ div#notes {
 				width: 100%;
 				padding:0px;
 
-				span.icon-font {
-					color: #FFFFFF;
-					float: right;
-					padding: 0px;
-					cursor: pointer;
+				span {
 					font-size: 10px;
+					color: #FFFFFF;
+
+					&.date-time {
+						float:left;
+						padding-left: 5px;
+						margin-top: -2px;
+						cursor: default;
+					}
+
+					&.icon-font {
+						float: right;
+						padding: 0px;
+						cursor: pointer;
+					}
 				}
 			}
 

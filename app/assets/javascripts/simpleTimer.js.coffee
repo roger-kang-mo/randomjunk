@@ -1,15 +1,15 @@
 randoms.simpleTimer = (args) ->
 	timerParent = $('div#timer')
 	timeDisplay = timerParent.find('strong')
-	timeLimit = args.timeLimit
-	timeLeft = 60 * timeLimit
+	timeLimit = 60 * args.timeLimit 
+	timeLeft = timeLimit
 	timerDiv = $('div#timer')
 	
 	elemsToHide = $('.hide-when-timer')
 	elemsToShow = $('.show-when-timer')
 
 	$('.timer-begin').click -> 
-		timeLeft = 60 * timeLimit if timeLimit = 0
+		timeLeft = timeLimit if timeLeft == 0
 		elemsToHide.css({ visibility: 'hidden' })
 		timerParent.removeClass('times-up')
 		elemsToShow.fadeIn()

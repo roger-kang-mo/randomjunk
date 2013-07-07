@@ -32,12 +32,12 @@ randoms.notes = (args) ->
 	$(document).on 'click', '.note', (e) -> updateZIndex(e.target)
 
 	submitButt.click -> submitNewNote()
-	contentBox.keyup (e) ->
-		submitNewNote() if e.which == 13
+	# contentBox.keyup (e) ->
+	# 	submitNewNote() if e.which == 13
 
 	submitNewNote = ->
-		thisAuthor = authorBox.val()
-		thisContent = contentBox.val()
+		thisAuthor = removeTags(authorBox.val())
+		thisContent = removeTags(contentBox.val())
 
 		if thisAuthor.length == 0
 			console.log 'here'
@@ -65,8 +65,8 @@ randoms.notes = (args) ->
 		contentBox.val('')
 
 	createNote = (data) ->
-		thisAuthor = authorBox.val()
-		thisContent = contentBox.val()
+		thisAuthor = removeTags(authorBox.val())
+		thisContent = removeTags(contentBox.val())
 		noteId = data.note.id
 
 		noteHTML = '<div class="note" data-x="247" data-y="540" data-id="'+noteId+'">
@@ -115,9 +115,9 @@ randoms.notes = (args) ->
 			type: 'POST'
 			dataType: 'json'
 			success: (data) ->
-				console.log data
+				# console.log data
 			error: (data) ->
-				console.log data
+				# console.log data
 			# complete: ->
 			# 	positionLoader.hide()
 
@@ -137,6 +137,9 @@ randoms.notes = (args) ->
 		zOffset = 0 if zOffset == 100
 
 		retData
+
+
+# AUTO REFRESH
 
 	$(document).on 'click', '.note-delete', (e) ->
 		$(e.target).parents('.note').addClass('to-delete')
