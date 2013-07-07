@@ -9,6 +9,7 @@ randoms.simpleTimer = (args) ->
 	elemsToShow = $('.show-when-timer')
 
 	$('.timer-begin').click -> 
+		timeLeft = 60 * timeLimit if timeLimit = 0
 		elemsToHide.css({ visibility: 'hidden' })
 		timerParent.removeClass('times-up')
 		elemsToShow.fadeIn()
