@@ -17,6 +17,7 @@ div#notes {
 			border: solid #000;
 			border-width: 1px 1px;
 			position: absolute;
+			// overflow: scroll;
 
 			div.delete-bar {
 				background-color: #102140;
@@ -48,13 +49,16 @@ div#notes {
 				cursor: default;
 				padding: 5px;
 				vertical-align: middle;
-				overflow: hidden;
+				// overflow: hidden;
+				overflow-x: hidden;
+				overflow-y: scroll;
 
 				&.author {
 					font-size: 20px;
 				}
 
 				&.content {
+					height: 65px;
 					padding: 5px;
 				}
 			}
