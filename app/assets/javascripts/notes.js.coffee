@@ -97,7 +97,9 @@ randoms.notes = (args) ->
 		console.log 'there was an error'
 
 	updateZIndex = (args) ->
-		$(args).css({'z-index': highestZ})
+		elem = args
+		elem = $(args).parents('.note') unless $(elem).hasClass 'note'
+		$(elem).css({'z-index': highestZ})
 		highestZ++
 		if highestZ == 600
 			zOffset = 100
