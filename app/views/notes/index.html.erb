@@ -8,7 +8,7 @@
 						<span class="icon-font note-delete tips" title="Delete note">ç</span>
 					</div>
 					<div class="author"><%= note.author %></div>
-					<div class="content"><%= note.content %></div>
+					<div class="content"><%= note.content.html_safe %></div>
 				</div>
 			<% end %>
 		</div>

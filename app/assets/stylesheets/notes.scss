@@ -60,6 +60,12 @@ div#notes {
 				&.content {
 					height: 65px;
 					padding: 5px;
+
+					a {
+						color: #E5E5E5;
+
+						&:hover { color: #102140; }
+					}
 				}
 			}
 		}

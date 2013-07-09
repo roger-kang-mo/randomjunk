@@ -12,6 +12,7 @@ gem 'pry'
 gem 'thin'
 gem 'attr_default'
 gem 'awesome_print'
+gem 'rspec'
 
 
 # Gems used only for assets and not required

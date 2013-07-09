@@ -37,7 +37,7 @@ randoms.notes = (args) ->
 
 	submitNewNote = ->
 		thisAuthor = removeTags(authorBox.val())
-		thisContent = removeTags(contentBox.val())
+		thisContent = randoms.linkifierize(removeTags(contentBox.val()))
 
 		if thisAuthor.length == 0
 
@@ -83,7 +83,7 @@ randoms.notes = (args) ->
 			stop: -> saveNotePositions()
 		})
 		updateZIndex(newNote)
-		# newNote.position({ 'top': '42%', 'left': '42%' })
+
 		$('.tips').qtip
 		    content:
 		      attr: 'title'
