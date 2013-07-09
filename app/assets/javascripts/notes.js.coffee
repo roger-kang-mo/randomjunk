@@ -40,9 +40,9 @@ randoms.notes = (args) ->
 		thisContent = removeTags(contentBox.val())
 
 		if thisAuthor.length == 0
-			console.log 'here'
+
 		else if thisContent.length == 0
-			console.log 'here2'
+
 		else
 			sendData = { note: { author: thisAuthor, content: thisContent } } 
 			submitLoader.show()
@@ -52,7 +52,7 @@ randoms.notes = (args) ->
 				type: 'POST'
 				dataType: 'json'
 				success: (data) ->
-					console.log data
+					# console.log data
 					createNote(data)
 					clearFields()
 				error: (data) ->

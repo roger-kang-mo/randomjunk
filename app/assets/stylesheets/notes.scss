@@ -49,9 +49,9 @@ div#notes {
 				cursor: default;
 				padding: 5px;
 				vertical-align: middle;
-				// overflow: hidden;
-				overflow-x: hidden;
-				overflow-y: scroll;
+				overflow: hidden;
+				// overflow-x: hidden;
+				// overflow-y: scroll;
 
 				&.author {
 					font-size: 20px;
