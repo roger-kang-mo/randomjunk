@@ -15,3 +15,12 @@ production:
   encoding: utf8
   host: localhost
   pool: 5
+
+test:
+  adapter: postgresql
+  database: randoms_test
+  username: kangmo
+  password: stageit123
+  encoding: utf8
+  host: localhost
+  pool: 5

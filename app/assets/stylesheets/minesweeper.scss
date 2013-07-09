@@ -5,9 +5,16 @@ div#minesweeper-main {
 
 		}
 
-		span.input-title {
+		div.input-title {
+			width:100%;
 			font-size: 20px;
 			padding-left: 10px;
+			float:left;
+
+			input { 
+				text-align: middle; 
+				float:right;
+			}
 		}
 
 		input.mine-input {
@@ -15,35 +22,48 @@ div#minesweeper-main {
 		}
 
 		button#generate-board {
+			float:right;
 			margin-left: 15px;
 			margin-bottom: 10px;
+		}
+
+		div.status-header {
+			line-height: 35px;
+			padding-top: 50px;
+			font-size: 30px;
+			color: #3F3F3F;
 		}
 	}
 
 	div#board_space {
-		table#mineboard tbody tr {
-			padding-top: 5px;
-			margin-left: 10%;
+		table#mineboard {
+			margin-left: 15%;
 
-			.boardspot {
-				background-color: #333;
-				width: 25px;
-				height: 25px;
-				padding: 5px;
-				border: 1px;
-				border-color: #ccc;
+			tbody tr {
+				padding-top: 5px;
+				margin-left: 10%;
 
-				&.revealed {
-					background-color: #999;
+				.boardspot {
+					background-color: #333;
+					width: 25px;
+					height: 25px;
+					padding: 5px;
+					border: 1px;
+					border: solid #E5E5E5;
+					border-width: 1px 1px;
+
+					&.revealed {
+						// background-color: #999;
+
+						strong.spotval {
+							padding-left: 10px;
+							display: inline;
+						}
+					}
 
 					strong.spotval {
-						padding-left: 10px;
-						display: inline;
+						display: none;
 					}
-				}
-
-				strong.spotval {
-					display: none;
 				}
 			}
 		}

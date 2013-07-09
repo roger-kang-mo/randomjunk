@@ -16,7 +16,11 @@ randoms.minesweeper = (args) ->
 	$(document).on 'click', '.boardspot', (e) ->
 		unless gameOver
 			clickedElem = $(e.target)
-			clickedElem.addClass('revealed')
+			clickedElem.addClass('revealed').css("-webkit-transition","all 0.6s ease")
+		    .css("backgroundColor","#999")
+		    .css("-moz-transition","all 0.6s ease")
+		    .css("-o-transition","all 0.6s ease")
+		    .css("-ms-transition","all 0.6s ease")
 			numRevealed++		
 
 			if clickedElem.data('value') == 'x'
@@ -36,12 +40,20 @@ randoms.minesweeper = (args) ->
 			if foundIn
 				if board[coords[0]][coords[1]] == 0 and board[x][y] != 'x'
 					unless thisSpot.hasClass('revealed')
-						thisSpot.addClass('revealed')
+						thisSpot.addClass('revealed').css("-webkit-transition","all 0.6s ease")
+					    .css("backgroundColor","#999")
+					    .css("-moz-transition","all 0.6s ease")
+					    .css("-o-transition","all 0.6s ease")
+					    .css("-ms-transition","all 0.6s ease")
 						numRevealed++
 			else
 				# $('[data-coords="' + x + ',' + y + '"]').addClass('revealed')
 				unless thisSpot.hasClass('revealed')
-						thisSpot.addClass('revealed')
+						thisSpot.addClass('revealed').css("-webkit-transition","all 0.6s ease")
+					    .css("backgroundColor","#999")
+					    .css("-moz-transition","all 0.6s ease")
+					    .css("-o-transition","all 0.6s ease")
+					    .css("-ms-transition","all 0.6s ease")
 						numRevealed++
 				revealFuncs[0].push revealConnectedZeros
 				revealFuncs[1].push [x, y]
@@ -49,7 +61,11 @@ randoms.minesweeper = (args) ->
 
 	loseCase = ->
 		updateStatus('You lose')
-		$('.boardspot').addClass('revealed')
+		$('.boardspot').addClass('revealed').css("-webkit-transition","all 0.6s ease")
+	    .css("backgroundColor","#999")
+	    .css("-moz-transition","all 0.6s ease")
+	    .css("-o-transition","all 0.6s ease")
+	    .css("-ms-transition","all 0.6s ease")
 
 	winCase = ->
 		updateStatus('You Win! B)')
@@ -68,8 +84,8 @@ randoms.minesweeper = (args) ->
 		else
 			updateStatus('TOO MANY MINES') if numMines > (width * height)
 			updateStatus('TOO FEW MINES') if numMines < 1
-			updateStatus('Height has to be between 2 and 15') if height < 2 or height > 15
-			updateStatus('Width has to be between 2 and 15') if width < 2 or width > 15
+			updateStatus('Height must be between 2 and 15') if height < 2 or height > 15
+			updateStatus('Width must be between 2 and 15') if width < 2 or width > 15
 
 	generateBoard = (args) ->
 		width = args.width

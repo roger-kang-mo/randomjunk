@@ -1,18 +1,18 @@
 <% content_for :main do %>
-<div id="minesweeper-main">
-	<div id="words_space">
+<div id="minesweeper-main" class="section group">
+	<div id="words_space" class="col span_1_of_3">
 		<h1 class="input-header">Board Setup</h1>
-		<span class="input-title">Width <span class="mini-text">(limit 15)</span>: <input type="number" id="board-width" class="mine-input" placeholder="ex: 12"></span>
-		<span class="input-title">Height<span class="mini-text">(limit 15)</span>: <input type="number" id="board-height" class="mine-input" placeholder="ex: 8"></span>
-		<span class="input-title">Num. Mines:<input type="number" id="num-mines" class="mine-input" placeholder="ex: 15"></span>
+		<div class="input-title">Width <span class="mini-text">(limit 15)</span>: <input type="number" id="board-width" class="mine-input" placeholder="ex: 12"></div>
+		<div class="input-title">Height<span class="mini-text">(limit 15)</span>: <input type="number" id="board-height" class="mine-input" placeholder="ex: 8"></div>
+		<div class="input-title">Num. Mines:<input type="number" id="num-mines" class="mine-input" placeholder="ex: 15"></div>
 		<button id="generate-board" class="btn btn-inverse">Generate</button>
-		<br>
+		<br/>
 
-		<span class="status-header">GET STARTED</span>
+		<div class="status-header">GET STARTED</div>
 	</div>
 
 
-	<div id="board_space">
+	<div id="board_space" class="col span_2_of_3">
 
 	</div>
 </div>
