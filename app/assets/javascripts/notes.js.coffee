@@ -65,8 +65,8 @@ randoms.notes = (args) ->
 		contentBox.val('')
 
 	createNote = (data) ->
-		thisAuthor = removeTags(authorBox.val())
-		thisContent = removeTags(contentBox.val())
+		thisAuthor = data.note.author
+		thisContent = data.note.content
 		noteId = data.note.id
 
 		noteHTML = '<div class="note" data-x="247" data-y="540" data-id="'+noteId+'">
@@ -107,6 +107,7 @@ randoms.notes = (args) ->
 
 	# savePosition.click -> saveNotePositions()
 
+	#  TODO: Save only last one
 	saveNotePositions = ->
 		# positionLoader.show()
 
@@ -142,7 +143,7 @@ randoms.notes = (args) ->
 		retData
 
 
-# AUTO REFRESH
+# TODO: auto refresh
 
 	$(document).on 'click', '.note-delete', (e) ->
 		$(e.target).parents('.note').addClass('to-delete')
