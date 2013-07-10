@@ -162,6 +162,7 @@ randoms.notes = (args) ->
 	            	dataType: 'json'
 	            	success: ->
 	            		child = $('.to-delete').fadeOut()
+	            		setTimeout (-> child.remove()), 1000
 	            	error: (e) -> console.log e
 	        No:
 	          class: "inactive"
