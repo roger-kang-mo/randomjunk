@@ -14,7 +14,7 @@ randoms.notes = (args) ->
 		notes.draggable({ 
 			containment: '#notes-area'
 			start: -> updateZIndex(this)
-			stop: -> saveNotePositions()
+			stop: -> saveNotePositions(this)
 			})
 
 		allNotes = args.notes
@@ -29,7 +29,9 @@ randoms.notes = (args) ->
 		# 	noteY = thisNote.attributes['data-y'].nodeValue
 		# 	$(thisNote).offset({ top: noteY, left: noteX})
 
-	$(document).on 'click', '.note', (e) -> updateZIndex(e.target)
+	$(document).on 'click', '.note', (e) -> 
+		updateZIndex(e.target)
+		saveNotePositions(e.target)
 
 	submitButt.click -> submitNewNote()
 	# contentBox.keyup (e) ->
@@ -80,7 +82,7 @@ randoms.notes = (args) ->
 		newNote.draggable({ 
 			containment: '#notes-area'
 			start: -> updateZIndex(this)
-			stop: -> saveNotePositions()
+			stop: -> saveNotePositions(this)
 		})
 		updateZIndex(newNote)
 
@@ -108,10 +110,10 @@ randoms.notes = (args) ->
 	# savePosition.click -> saveNotePositions()
 
 	#  TODO: Save only last one
-	saveNotePositions = ->
+	saveNotePositions = (args, saveAll = null)->
 		# positionLoader.show()
 
-		sendData = { notes: collectPositions() }
+		sendData = { notes: collectPositions(args, saveAll) }
 
 		$.ajax
 			url: '/notes/update_positions'
@@ -125,8 +127,16 @@ randoms.notes = (args) ->
 			# complete: ->
 			# 	positionLoader.hide()
 
-	collectPositions = ->
-		notes = $('.note')
+	collectPositions = (args, saveAll = null) ->
+		elem = args
+		elem = $(args).parents('.note') unless $(elem).hasClass 'note'
+		
+		if saveAll
+			notes = $('.note')
+		else 
+			notes = [elem]
+
+
 		retData = []
 
 		for i in [0..notes.length - 1]
