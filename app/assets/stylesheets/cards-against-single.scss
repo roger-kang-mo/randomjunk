@@ -1,0 +1,64 @@
+div#cards-against-single {
+	height: 100%;
+
+	div#cards-area {
+		height: 50%;
+
+		div.card-area{
+			height: 100%;
+			.card {
+				height: 100%;
+				border-width: 1px 1px;
+				-webkit-border-radius: 15px;
+				-moz-border-radius: 15px;
+				border-radius: 15px;
+				
+
+				.card-text{
+					display:block;
+					font-size: 40px;
+					padding: 2%;
+					line-height: 50px;
+					overflow: auto;
+				}
+
+			}
+
+			&#black-card-area > #black-card {
+				background-color: #000;
+				border: solid #999;
+				// border: solid #FFF;
+
+				color: #FFF;
+			}
+
+			&#white-card-area > #white-card{
+				background-color: #FFF;
+				border: solid #999;
+				color: #000;
+			}
+		}
+	}
+	div#locks-wrapper {
+		margin-top: 0%;
+		
+		.lock-wrapper {
+					.lock-icon {
+						margin-left: 45%;
+						height:40px;
+						width:40px;
+						font-size: 40px;
+						line-height: 40px;
+						cursor: pointer;
+					}
+				}
+
+	}
+
+
+	div#options-area {
+		// padding-top: 50px;
+
+	}
+
+}

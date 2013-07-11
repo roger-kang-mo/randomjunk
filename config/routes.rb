@@ -12,7 +12,9 @@ Randomjunk::Application.routes.draw do
   get '/scattergories' => 'stuffs#scattergories'
   get '/whatis' => 'stuffs#whatis'
   post '/notes/update_positions' => 'notes#update_positions'
-  
+  get '/cards_against/single' => 'cards#single'
+  get '/cards_against/single/get_cards' => 'cards#get_cards'
+
   resources :notes
 
   # Sample of named route:

@@ -24,6 +24,8 @@ randoms.linkifierize = (content)->
 			"http://youtu.be/g5WB-p-QBJc"
 			"http://youtu.be/G7Od4H9uIJ8"
 			"http://youtu.be/dJQG6V1MOVY"
+			"http://youtu.be/5I_QzPLEjM4"
+			"http://youtu.be/NtILxBszyf8"
 			"http://youtu.be/FArZxLj6DLk"
 			"http://youtu.be/ji5_MqicxSo"
 			"http://youtu.be/iIiAAhUeR6Y"

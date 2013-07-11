@@ -9,7 +9,10 @@
 span.icon-font {
 	font-family: sosa-regular-webfont;
 	src: url(sosa-regular-webfont.woff);
-	padding-left: 3px;
+
+	&.header-icon { padding-left: 3px; }
+
+	&#cards-against-icon { font-size: 30px; }
 }
 
 .mini-text {
