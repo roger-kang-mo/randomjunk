@@ -21,14 +21,11 @@ randoms.cardsAgainstSingle = ->
 
 		clickedId = clickedElem.attr('id')
 		eval(clickedId + " = !" + clickedId)
-		console.log 'black: ' + blackLocked
-		console.log 'white: ' + whiteLocked
 
 	getNewCards = ->
 		unless retries == 3
 			retries = 0
 			sendData = { 'black' : !blackLocked, 'white' : !whiteLocked }
-			console.log sendData
 
 			$.ajax
 				url: '/cards_against/single/get_cards'
