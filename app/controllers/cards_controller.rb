@@ -15,8 +15,8 @@ class CardsController < ApplicationController
 	end
 
 	def get_cards
-		white = params[:white]
-		black = params[:black]
+		white = params[:white] # get white?
+		black = params[:black] # get black?
 
 		@cards = CardsAgainstHumanityCards.get_card(white, black)
 
