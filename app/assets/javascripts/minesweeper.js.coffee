@@ -14,9 +14,9 @@ randoms.minesweeper = (args) ->
 
 
 	$(document).on 'click', '.boardspot', (e) ->
-		unless gameOver
-			clickedElem = $(e.target)
-			clickedElem = clickedElem.parents('.boardspot') if clickedElem.hasClass('spotval')
+		clickedElem = $(e.target)
+		clickedElem = clickedElem.parents('.boardspot') if clickedElem.hasClass('spotval')
+		unless gameOver or clickedElem.hasClass('revealed')
 			clickedElem.addClass('revealed').css("-webkit-transition","all 0.6s ease")
 		    .css("backgroundColor","#999")
 		    .css("-moz-transition","all 0.6s ease")
