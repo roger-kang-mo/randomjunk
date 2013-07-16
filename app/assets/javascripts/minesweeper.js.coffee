@@ -12,11 +12,22 @@ randoms.minesweeper = (args) ->
 	gameOver = false
 	revealFuncs = [[], []]
 
+	window.oncontextmenu = (e) ->
+		clickedElem = $(e.target)
+		if $('#mineboard').find(clickedElem).length
+			clickedElem = clickedElem.parents('.boardspot') if clickedElem.hasClass('spotval') or clickedElem.hasClass('flagspot')
+			unless clickedElem.hasClass('revealed')
+				if clickedElem.hasClass('flagged')
+					clickedElem.removeClass('flagged')
+				else
+					clickedElem.addClass('flagged')
+			return false
+
 
 	$(document).on 'click', '.boardspot', (e) ->
 		clickedElem = $(e.target)
-		clickedElem = clickedElem.parents('.boardspot') if clickedElem.hasClass('spotval')
-		unless gameOver or clickedElem.hasClass('revealed')
+		clickedElem = clickedElem.parents('.boardspot') if clickedElem.hasClass('spotval') or clickedElem.hasClass('flagspot')
+		unless gameOver or clickedElem.hasClass('revealed') or clickedElem.hasClass('flagged')
 			clickedElem.addClass('revealed').css("-webkit-transition","all 0.6s ease")
 		    .css("backgroundColor","#999")
 		    .css("-moz-transition","all 0.6s ease")
@@ -38,26 +49,27 @@ randoms.minesweeper = (args) ->
 	revealConnectedZeros = (coords) ->
 		updateSpotNumbers(coords, ['x',1,2,3,4,5,6,7,8,9,10], (foundIn, x, y) ->
 			thisSpot = $('[data-coords="' + x + ',' + y + '"]')
-			if foundIn
-				if board[coords[0]][coords[1]] == 0 and board[x][y] != 'x'
+			unless thisSpot.hasClass('flagged')
+				if foundIn
+					if board[coords[0]][coords[1]] == 0 and board[x][y] != 'x'
+						unless thisSpot.hasClass('revealed')
+							thisSpot.addClass('revealed').removeClass('flagged').css("-webkit-transition","all 0.6s ease")
+						    .css("backgroundColor","#999")
+						    .css("-moz-transition","all 0.6s ease")
+						    .css("-o-transition","all 0.6s ease")
+						    .css("-ms-transition","all 0.6s ease")
+							numRevealed++
+				else
+					# $('[data-coords="' + x + ',' + y + '"]').addClass('revealed')
 					unless thisSpot.hasClass('revealed')
-						thisSpot.addClass('revealed').css("-webkit-transition","all 0.6s ease")
-					    .css("backgroundColor","#999")
-					    .css("-moz-transition","all 0.6s ease")
-					    .css("-o-transition","all 0.6s ease")
-					    .css("-ms-transition","all 0.6s ease")
-						numRevealed++
-			else
-				# $('[data-coords="' + x + ',' + y + '"]').addClass('revealed')
-				unless thisSpot.hasClass('revealed')
-						thisSpot.addClass('revealed').css("-webkit-transition","all 0.6s ease")
-					    .css("backgroundColor","#999")
-					    .css("-moz-transition","all 0.6s ease")
-					    .css("-o-transition","all 0.6s ease")
-					    .css("-ms-transition","all 0.6s ease")
-						numRevealed++
-				revealFuncs[0].push revealConnectedZeros
-				revealFuncs[1].push [x, y]
+							thisSpot.addClass('revealed').removeClass('flagged').css("-webkit-transition","all 0.6s ease")
+						    .css("backgroundColor","#999")
+						    .css("-moz-transition","all 0.6s ease")
+						    .css("-o-transition","all 0.6s ease")
+						    .css("-ms-transition","all 0.6s ease")
+							numRevealed++
+					revealFuncs[0].push revealConnectedZeros
+					revealFuncs[1].push [x, y]
 		)	
 
 	loseCase = ->
@@ -71,6 +83,9 @@ randoms.minesweeper = (args) ->
 	winCase = ->
 		updateStatus('You Win! B)')
 		gameOver = true
+
+	$('#num-mines').keyup (e) ->
+		$('#generate-board').click() if e.which == 13
 
 	$('#generate-board').click ->
 		width = widthBox.val()
@@ -174,7 +189,7 @@ randoms.minesweeper = (args) ->
 		for i in [0..width - 1]
 			rowsToAppend += '<tr>'
 			for j in [0..height - 1]
-				rowsToAppend += "<td class='boardspot' data-coords=" + i + "," + j + " data-value='" + board[i][j] + "'><strong class='spotval'>" + board[i][j] + "</strong></td>"
+				rowsToAppend += "<td class='boardspot' data-coords=" + i + "," + j + " data-value='" + board[i][j] + "'><span class='flagspot icon-font'>j</span><strong class='spotval'>" + board[i][j] + "</strong></td>"
 
 			rowsToAppend += '</tr>'
 
