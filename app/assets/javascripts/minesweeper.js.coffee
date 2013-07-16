@@ -35,7 +35,7 @@ randoms.minesweeper = (args) ->
 		    .css("-ms-transition","all 0.6s ease")
 			numRevealed++		
 
-			if clickedElem.data('value') == 'x'
+			if clickedElem.data('value') == 'W'
 				loseCase()
 			else if	numRevealed >= nonMineSpots
 				winCase()
@@ -46,12 +46,14 @@ randoms.minesweeper = (args) ->
 				seqParams.params = revealFuncs[1]
 				$.sequentialize(seqParams)
 
+		console.log numRevealed
+
 	revealConnectedZeros = (coords) ->
-		updateSpotNumbers(coords, ['x',1,2,3,4,5,6,7,8,9,10], (foundIn, x, y) ->
+		updateSpotNumbers(coords, ['W',1,2,3,4,5,6,7,8,9,10], (foundIn, x, y) ->
 			thisSpot = $('[data-coords="' + x + ',' + y + '"]')
 			unless thisSpot.hasClass('flagged')
 				if foundIn
-					if board[coords[0]][coords[1]] == 0 and board[x][y] != 'x'
+					if board[coords[0]][coords[1]] == 0 and board[x][y] != 'W'
 						unless thisSpot.hasClass('revealed')
 							thisSpot.addClass('revealed').removeClass('flagged').css("-webkit-transition","all 0.6s ease")
 						    .css("backgroundColor","#999")
@@ -112,6 +114,7 @@ randoms.minesweeper = (args) ->
 		gameOver = false
 
 		nonMineSpots = (width * height) - numMines
+		console.log 'mines' + nonMineSpots
 
 		for i in [0..width - 1]
 			board[i] = new Array(width)
@@ -123,10 +126,10 @@ randoms.minesweeper = (args) ->
 			spotFound = false
 			while not spotFound
 				coords = gimmeRandomCoords()
-				unless board[coords[0]][coords[1]] == 'x'
-					board[coords[0]][coords[1]] = 'x'
+				unless board[coords[0]][coords[1]] == 'W'
+					board[coords[0]][coords[1]] = 'W'
 					spotFound = true
-					updateSpotNumbers(coords, ['x'], (foundIn, x, y) ->
+					updateSpotNumbers(coords, ['W'], (foundIn, x, y) ->
 						unless foundIn
 							board[x][y]++
 					)
@@ -189,7 +192,9 @@ randoms.minesweeper = (args) ->
 		for i in [0..width - 1]
 			rowsToAppend += '<tr>'
 			for j in [0..height - 1]
-				rowsToAppend += "<td class='boardspot' data-coords=" + i + "," + j + " data-value='" + board[i][j] + "'><span class='flagspot icon-font'>j</span><strong class='spotval'>" + board[i][j] + "</strong></td>"
+				valHTML = if board[i][j] == 'W' then "<strong class='spotval minespot icon-font'>" else "<strong class='spotval'>"
+				valHTML += board[i][j] + "</strong>"
+				rowsToAppend += "<td class='boardspot' data-coords=" + i + "," + j + " data-value='" + board[i][j] + "'><span class='flagspot icon-font'>j</span>" + valHTML + "</td>"
 
 			rowsToAppend += '</tr>'
 

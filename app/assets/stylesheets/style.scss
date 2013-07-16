@@ -6,13 +6,14 @@
   font-style: normal;
 }
 
-span.icon-font {
+.icon-font {
 	font-family: sosa-regular-webfont;
 	src: url(sosa-regular-webfont.woff);
 
 	&.header-icon { padding-left: 3px; }
 
 	&#cards-against-icon { font-size: 30px; }
+	
 }
 
 .mini-text {
