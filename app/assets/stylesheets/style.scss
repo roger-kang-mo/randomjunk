@@ -13,7 +13,7 @@
 	&.header-icon { padding-left: 3px; }
 
 	&#cards-against-icon { font-size: 30px; }
-	
+
 }
 
 .mini-text {
@@ -28,6 +28,9 @@ body {
 #header-bar {
 	padding: 10px;
 	margin-bottom: 0px;
+	width: 100%;
+	position: fixed;
+	z-index: 10000;
 
 	// background-color: #333;
 	background-color: #121F2E; 
@@ -45,6 +48,7 @@ body {
 div#main {
 	padding:20px;
 	height:50em;
+	padding-top: 5%;
 
 	// color: #ffffff;
 	// background-color: #2E5077;
