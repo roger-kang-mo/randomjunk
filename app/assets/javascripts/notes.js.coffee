@@ -14,7 +14,7 @@ randoms.notes = (args) ->
 		notes.draggable({ 
 			containment: '#notes-area'
 			start: -> updateZIndex(this)
-			stop: -> saveNotePositions(this)
+			stop: -> saveNotePositions(this, updateZIndex(this).saveAll)
 			})
 
 		allNotes = args.notes
@@ -30,8 +30,8 @@ randoms.notes = (args) ->
 		# 	$(thisNote).offset({ top: noteY, left: noteX})
 
 	$(document).on 'click', '.note', (e) -> 
-		updateZIndex(e.target)
-		saveNotePositions(e.target)
+		saveAll = updateZIndex(e.target)
+		saveNotePositions(e.target, saveAll.saveAll)
 
 	submitButt.click -> submitNewNote()
 	# contentBox.keyup (e) ->
@@ -100,12 +100,17 @@ randoms.notes = (args) ->
 		console.log 'there was an error'
 
 	updateZIndex = (args) ->
+		saveAll = false
 		elem = args
 		elem = $(args).parents('.note') unless $(elem).hasClass 'note'
 		$(elem).css({'z-index': highestZ})
 		highestZ++
-		if highestZ == 600
+		if highestZ >= 600
 			zOffset = 100
+			saveAll = true
+
+		return {'saveAll': saveAll}
+
 
 	# savePosition.click -> saveNotePositions()
 
