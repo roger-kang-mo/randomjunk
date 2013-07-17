@@ -16,7 +16,7 @@ randoms.minesweeper = (args) ->
 		clickedElem = $(e.target)
 		if $('#mineboard').find(clickedElem).length
 			clickedElem = clickedElem.parents('.boardspot') if clickedElem.hasClass('spotval') or clickedElem.hasClass('flagspot')
-			unless clickedElem.hasClass('revealed')
+			unless clickedElem.hasClass('revealed') or gameOver
 				if clickedElem.hasClass('flagged')
 					clickedElem.removeClass('flagged')
 				else
@@ -76,7 +76,7 @@ randoms.minesweeper = (args) ->
 
 					revealFuncs[0].push revealConnectedZeros
 					revealFuncs[1].push [x, y]
-					
+
 				if numRevealed >= nonMineSpots
 					winCase()
 		)	
