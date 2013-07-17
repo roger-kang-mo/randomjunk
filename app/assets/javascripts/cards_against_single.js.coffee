@@ -26,11 +26,32 @@ randoms.cardsAgainstSingle = ->
 
 	getNewCards = ->
 		whiteCard = randoms.WHITE_CARDS[Math.floor(Math.random() * (numWhiteCards - 1 + 1))] unless whiteLocked
-		blackCard = randoms.BLACK_CARDS[Math.floor(Math.random() * (numBlackCards - 1 + 1))] unless blackLocked
+		if blackLocked
+			blackCard = blackCardText.text()
+		else
+			blackCard = randoms.BLACK_CARDS[Math.floor(Math.random() * (numBlackCards - 1 + 1))]
 
 		# Each blank consists of 10 underscores.
-		if not (blackLocked or whiteLocked) and blackCard.match(/_/g) and blackCard.match(/_/g).length == 20
-			whiteCard += '<br/><br/>' + randoms.WHITE_CARDS[Math.floor(Math.random() * (numWhiteCards - 1 + 1))] 
+		if blackCard.match(/_/g)
+			
+			for i in [1..((blackCard.match(/_/g).length - 10)/10)] by 1
+				whiteCard += '<br/><br/>' + randoms.WHITE_CARDS[Math.floor(Math.random() * (numWhiteCards - 1 + 1))] 
+
+		if whiteLocked 
+			if whiteCardText.html().match(/<br><br>/g)
+				numBlanksToGet = whiteCardText.html().match(/<br><br>/g).length + 1	
+			else
+				numBlanksToGet = 1
+
+			blackCard = ''
+			
+			while blackCard == ''
+				blackCard = randoms.BLACK_CARDS[Math.floor(Math.random() * (numBlackCards - 1 + 1))]
+				if blackCard.match(/_/g)
+					blackCard = "" unless (blackCard.match(/_/g).length / 10) == numBlanksToGet
+				else
+					blackCard = "" unless numBlanksToGet == 1
+
 
 		cards = { 'white': whiteCard, 'black': blackCard}
 		loadNewCards(cards)

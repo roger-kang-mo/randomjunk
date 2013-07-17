@@ -627,5 +627,5 @@ randoms.BLACK_CARDS = [
 	"I never truly understood __________ until I encountered __________.",
 	"Rumor has it that Vladimir Putin's favorite dish is __________ stuffed with __________.",
 	"Lifetime presents __________, the story of __________.",
-	"What's the next superhero/sidekick duo?"
+	"What's the next superhero/sidekick duo? __________ and __________" 
 ]
