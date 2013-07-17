@@ -16,7 +16,7 @@ $ ->
 			if funCount == funLimit
 				return "All Done!"
 			else
-				$.when(seqFunctions[funCount].apply(undefined, seqParams[funCount])).then (funStatus = true) ->
+				$.when(seqFunctions[funCount].call(undefined, seqParams[funCount])).then (funStatus = true) ->
 					if funStatus 
 						funCount++
 						doFunc()

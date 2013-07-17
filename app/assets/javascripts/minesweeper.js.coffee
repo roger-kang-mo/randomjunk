@@ -33,27 +33,30 @@ randoms.minesweeper = (args) ->
 		    .css("-moz-transition","all 0.6s ease")
 		    .css("-o-transition","all 0.6s ease")
 		    .css("-ms-transition","all 0.6s ease")
-			numRevealed++		
+			numRevealed++
+			console.log(clickedElem.data('coords') + ' revealed')
 
 			if clickedElem.data('value') == 'W'
 				loseCase()
 			else if	numRevealed >= nonMineSpots
 				winCase()
 			else
+				revealFuncs = [[], []]
 				revealConnectedZeros(clickedElem.data('coords').split(','))
 				seqParams = {}
+
 				seqParams.functions = revealFuncs[0]
 				seqParams.params = revealFuncs[1]
+				revealFuncs = [[], []]
 				$.sequentialize(seqParams)
-
-		console.log numRevealed
+			console.log 'numRevealed: ' + numRevealed
 
 	revealConnectedZeros = (coords) ->
 		updateSpotNumbers(coords, ['W',1,2,3,4,5,6,7,8,9,10], (foundIn, x, y) ->
 			thisSpot = $('[data-coords="' + x + ',' + y + '"]')
 			unless thisSpot.hasClass('flagged')
 				if foundIn
-					if board[coords[0]][coords[1]] == 0 and board[x][y] != 'W'
+					if board[x][y] != 'W' and thisSpot
 						unless thisSpot.hasClass('revealed')
 							thisSpot.addClass('revealed').removeClass('flagged').css("-webkit-transition","all 0.6s ease")
 						    .css("backgroundColor","#999")
@@ -61,8 +64,8 @@ randoms.minesweeper = (args) ->
 						    .css("-o-transition","all 0.6s ease")
 						    .css("-ms-transition","all 0.6s ease")
 							numRevealed++
-				else
-					# $('[data-coords="' + x + ',' + y + '"]').addClass('revealed')
+
+				else if thisSpot # is a 0
 					unless thisSpot.hasClass('revealed')
 							thisSpot.addClass('revealed').removeClass('flagged').css("-webkit-transition","all 0.6s ease")
 						    .css("backgroundColor","#999")
@@ -70,13 +73,14 @@ randoms.minesweeper = (args) ->
 						    .css("-o-transition","all 0.6s ease")
 						    .css("-ms-transition","all 0.6s ease")
 							numRevealed++
+
 					revealFuncs[0].push revealConnectedZeros
 					revealFuncs[1].push [x, y]
 		)	
 
 	loseCase = ->
 		updateStatus('You lose')
-		$('.boardspot').addClass('revealed').css("-webkit-transition","all 0.6s ease")
+		$('.boardspot').addClass('revealed').removeClass('flagged').css("-webkit-transition","all 0.6s ease")
 	    .css("backgroundColor","#999")
 	    .css("-moz-transition","all 0.6s ease")
 	    .css("-o-transition","all 0.6s ease")
@@ -114,7 +118,6 @@ randoms.minesweeper = (args) ->
 		gameOver = false
 
 		nonMineSpots = (width * height) - numMines
-		console.log 'mines' + nonMineSpots
 
 		for i in [0..width - 1]
 			board[i] = new Array(width)
@@ -180,7 +183,7 @@ randoms.minesweeper = (args) ->
 		if theY > 0
 			if board[theX][theY-1] in values then aFunction(true, theX, theY-1) else aFunction(false, theX, theY-1)
 				
-		if theY < height + 1
+		if theY < height #+ 1
 			if board[theX][theY+1] in values then aFunction(true, theX, theY+1) else aFunction(false, theX, theY+1)
 			
 

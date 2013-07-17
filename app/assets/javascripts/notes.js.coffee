@@ -115,7 +115,7 @@ randoms.notes = (args) ->
 	# savePosition.click -> saveNotePositions()
 
 	#  TODO: Save only last one
-	saveNotePositions = (args, saveAll = null)->
+	saveNotePositions = (args, saveAll = null) ->
 		# positionLoader.show()
 
 		sendData = { notes: collectPositions(args, saveAll) }
