@@ -183,7 +183,7 @@ randoms.minesweeper = (args) ->
 		if theY > 0
 			if board[theX][theY-1] in values then aFunction(true, theX, theY-1) else aFunction(false, theX, theY-1)
 				
-		if theY < height #+ 1
+		if theY < height - 1#+ 1
 			if board[theX][theY+1] in values then aFunction(true, theX, theY+1) else aFunction(false, theX, theY+1)
 			
 
