@@ -76,6 +76,9 @@ randoms.minesweeper = (args) ->
 
 					revealFuncs[0].push revealConnectedZeros
 					revealFuncs[1].push [x, y]
+					
+				if numRevealed >= nonMineSpots
+					winCase()
 		)	
 
 	loseCase = ->
