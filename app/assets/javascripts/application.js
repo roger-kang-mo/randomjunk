@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require nothing_special.js.coffee
+//= require underscore.js
+//= require backbone.js
 //= require_tree .

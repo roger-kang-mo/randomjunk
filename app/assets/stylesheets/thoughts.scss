@@ -1,0 +1,95 @@
+div#thoughts {
+
+	div#thoughts-top {
+		width: 100%;
+		height: 20%;
+
+	}
+
+	div#add-thought-modal{
+		display:none;
+		width: 40%;
+		height: 30%;
+		margin-left: 30%;
+		top: 35%;
+		z-index: 10001;
+		position:absolute;
+		background-color: #E5E5E5;
+
+		#thought-input {
+			padding: 5%;
+
+			textarea { width: 97%; }
+			button { 
+				float: right;
+				padding: 5px;
+				
+				&#close-thought-modal { margin-right: 10px; }
+			}
+		}
+	}
+	
+	div#thoughts-area {
+		padding-top: 5%;
+
+		.thought-card {
+
+			width: 25%;
+			height: 25%;
+			background-color: #34D0B6;
+			color: #FFFFFF;
+			margin-top: 10px;
+
+			.thought-header {
+				background-color: #00A287;
+				width: 100%;
+				height: 20%;
+
+				span { 
+					margin-left: 90%;
+					padding-right: 5px;
+					&:hover{
+						cursor: pointer;
+						color: #3AA6D0;
+					}
+				}
+				
+			}
+
+			.thought-content {
+
+				padding: 5px;
+
+				strong:hover {
+					cursor: pointer;
+					color: #3AA6D0;
+				}
+
+				span.actual-thought {
+					display: none;
+				}
+
+			}
+
+			.thought-bottom-bar {
+				width: 100%;
+				height: 20%;
+				background-color: #00A287;
+
+				span {
+					padding: 0px 5px;
+
+					&:hover {
+						cursor: pointer;
+						color: #3AA6D0;
+					}
+
+					&.comments { float: right; }
+					&.thumbs > .icon-font {
+						padding: 0px;
+					}
+				}
+			}
+		}
+	}	
+}

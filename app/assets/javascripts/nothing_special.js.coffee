@@ -25,3 +25,12 @@ $(document).ready ->
 			$('#page-load-overlay').fadeIn(100)
 			$('.page-loader').show()
 
+randoms.initTips = ->
+	$('.tips').qtip
+	    content:
+	      attr: 'title'
+	    position:
+	      my: 'bottom center'
+	      at: 'top center'
+	    adjust:
+	    	y: -5

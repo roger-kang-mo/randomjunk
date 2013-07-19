@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130706184549) do
+ActiveRecord::Schema.define(:version => 20130717213927) do
+
+  create_table "comments", :force => true do |t|
+    t.text     "author"
+    t.text     "content"
+    t.datetime "created_at"
+    t.integer  "thought_id"
+  end
 
   create_table "notes", :force => true do |t|
     t.text     "content"
@@ -21,6 +28,12 @@ ActiveRecord::Schema.define(:version => 20130706184549) do
     t.integer  "y"
     t.integer  "size"
     t.integer  "z"
+  end
+
+  create_table "thoughts", :force => true do |t|
+    t.text     "content"
+    t.datetime "created_at"
+    t.integer  "thumbs"
   end
 
 end

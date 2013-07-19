@@ -15,7 +15,10 @@ Randomjunk::Application.routes.draw do
   get '/cards_against/single' => 'cards#single'
   # get '/cards_against/single/get_cards' => 'cards#get_cards'
 
+  get '/thoughts/get_all' => 'thoughts#get_all'
+
   resources :notes
+  resources :thoughts
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

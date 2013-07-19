@@ -1,0 +1,33 @@
+<% content_for :main do %>
+
+	<div id="thoughts">
+
+		<div id="thoughts-top">
+			<button id="add-thought-button" class="btn btn-inverse">Add Thought</button>
+			<button id="sort-by-id" class="btn btn-inverse">Sort by ID</button>
+			<button id="sort-by-length" class="btn btn-inverse">Sort by length</button>
+		</div>
+
+		<div id="thoughts-area">
+			
+		</div>
+
+
+		<div id="add-thought-modal">
+			
+			<div id="thought-input">
+				
+				<textarea type="text" id="new-thought" cols="200" rows="5" placeholder="Thoughts?"></textarea><br>
+
+				<button class="btn btn-inverse" id="save-thought">Save</button>&nbsp;
+				<button class="btn btn-inverse" id="close-thought-modal">Close</button>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<script>randoms.thoughts({ thoughts: <%= JSON((@thoughts or {}).as_json).html_safe %> })</script>
+
+<% end %>
