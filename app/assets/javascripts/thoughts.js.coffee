@@ -27,7 +27,7 @@ randoms.thoughts = (args) ->
 						<span class="preview">
 							<%= content.slice(0, 100) + (content.length > 100 ? "... <strong>(more)</strong>" : "") %>
 						</span>
-					<span class="actual-thought"><%= content %></span>
+						<span class="actual-thought hidden"><%= content %></span>
 					</div>
 					<div class="thought-bottom-bar">
 						<span class="thumbs icon-font"><%= thumbs > 0 ? "e" : "f" %></span>
@@ -75,13 +75,15 @@ randoms.thoughts = (args) ->
 			console.log this.collection
 			this.render()
 
-			# @$saveNewThoughtButton.click ->
 			$('#save-thought').click ->
 				newThought = new Thought({'content': $('#new-thought').val()})
 				newThought.save()
 				self.collection.add(newThought)
+				self.closeThoughtSaveModal(self)
 				self.render()
-				self.closeThoughtSaveModal()
+
+			$('#close-thought-modal').click ->
+				self.closeThoughtSaveModal(self)
 
 			$('#sort-by-id').click ->
 				$container.isotope
@@ -97,11 +99,7 @@ randoms.thoughts = (args) ->
 				$('#modal-overlay').fadeIn()
 				$('#add-thought-modal').fadeIn()
 				
-
-
 		events: {
-			'#save-thought' : 'saveNewThought'
-			'click #close-thought-modal' : 'closeThoughtSaveModal'
 			'click .expand-unspand' : 'toggleThoughtSize'
 		}
 
@@ -109,21 +107,14 @@ randoms.thoughts = (args) ->
 			cardElem = $(elem.target).parents('.thought-card')
 			cardElem.toggleClass('maximize')
 			cardElem.find('.thought-header').children().toggleClass('hidden')
+			cardElem.find('.thought-content').children().toggleClass('hidden')
 
 			$(this.el).isotope 'reLayout'
 
-
-		saveNewThought: ->
-			newThought = new Thought({'content': $('#new-thought')})
-			newThought.save()
-			self.collection.add(newThought)
-			self.render()
-			closeThoughtSaveModal()
-
-		closeThoughtSaveModal: ->
-			@$newThoughtModal.fadeOut()
-			@$newThoughtInput.val('')
-			@$modalOverlay.fadeOut()
+		closeThoughtSaveModal: (self) ->
+			self.$newThoughtModal.fadeOut()
+			self.$newThoughtInput.val('')
+			self.$modalOverlay.fadeOut()
 
 		initIsotope: (self) ->
 			$(self.el).isotope

@@ -40,9 +40,8 @@ div#thoughts {
 			.thought-card {
 
 				float: left;
-				width: 19%;
+				width: 200px;
 				height: auto;
-				// background-color: #34D0B6;
 				color: #FFFFFF;
 				margin: 10px;
 
@@ -61,7 +60,7 @@ div#thoughts {
 				&.theme3 { background-color: #6B8FD4; .thought-header,.thought-bottom-bar { background-color: #1144AA; } }
 				&.theme4 { background-color: #33CEC3; .thought-header,.thought-bottom-bar { background-color: #11867D; } }
 				&.theme5 { background-color: #F80012; .thought-header,.thought-bottom-bar { background-color: #A2000C; } }
-				// &.theme6 { background-color: #F80012; .thought-header,.thought-bottom-bar { background-color: #1DD300; } }
+				&.theme6 { background-color: #34D0B6; .thought-header,.thought-bottom-bar { background-color: #00A287; } }
 				&.theme7 { background-color: #540EAD; .thought-header,.thought-bottom-bar { background-color: #FFE900; } }
 				&.theme8 { background-color: #FF6CD0; .thought-header,.thought-bottom-bar { background-color: #009E8E; } }
 				&.theme9 { background-color: #102E37; .thought-header,.thought-bottom-bar { background-color: #2BBBD8; } }
@@ -71,8 +70,8 @@ div#thoughts {
 				&.theme13 { background-color: #097054; .thought-header,.thought-bottom-bar { background-color: #FFDE00; } }
 
 				&.maximize {
-					height: 350px;
-					width: 350px;
+					height: 300px;
+					width: 200px;
 					-webkit-border-radius: 10px;
 					-moz-border-radius: 10px;
 					border-radius: 10px;
@@ -111,9 +110,9 @@ div#thoughts {
 						color: #3AA6D0;
 					}
 
-					span.actual-thought {
-						display: none;
-					}
+					span.hidden { display: none; }
+
+					span.actual-thought { overflow-y: scroll; }
 
 				}
 
