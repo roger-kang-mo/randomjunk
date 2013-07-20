@@ -6,20 +6,26 @@ randoms.thoughts = (args) ->
 		defaults: 
 			content: ''
 			thumbs: 0
+			themeNum: 'theme1'
+  				
+
 
 
 		initialize: (args) ->
+			themeNum = 'theme' + Math.floor(Math.random() * (13) + 1)
+			this.set('themeNum', themeNum)
 
 	ThoughtsView = Backbone.View.extend
 		model: Thought
-		tagName: 'div'
-		template: _.template('<div class="thought-card" data-id="<%= id %>">
+		
+		template: _.template('<div data-id="<%= id %>" class="thought-card <%= themeNum %>">
 					<div class="thought-header">
-						<span class="expand icon-font">^</span>
+						<span class="expand expand-unspand icon-font">^</span>
+						<span class="unspand expand-unspand icon-font hidden">_</span>
 					</div>
 					<div class="thought-content">
 						<span class="preview">
-							<%= content.slice(0, 100) + "... <strong>(more)</strong>" %>
+							<%= content.slice(0, 100) + (content.length > 100 ? "... <strong>(more)</strong>" : "") %>
 						</span>
 					<span class="actual-thought"><%= content %></span>
 					</div>
@@ -32,7 +38,7 @@ randoms.thoughts = (args) ->
 			_.bindAll(this, 'render')
 
 		render: -> 
-			$(this.el).html(this.template({ id: this.model.get('id'), content: this.model.get('content'), thumbs: this.model.get('thumbs')}))
+			$(this.el).html(this.template({ id: this.model.get('id'), content: this.model.get('content'), thumbs: this.model.get('thumbs'), themeNum: this.model.get('themeNum')}))
 			return this
 
 	ThoughtsList = Backbone.Collection.extend
@@ -41,7 +47,6 @@ randoms.thoughts = (args) ->
 
 	ThoughtsListView = Backbone.View.extend
 		el: $('#thoughts-area')
-		events: {}
 		render: ->
 			self = this
 			$(self.el).html('')
@@ -49,13 +54,12 @@ randoms.thoughts = (args) ->
 			  self.appendItem thought
 			), this
 
-			this.initIsotope()
+			this.initIsotope(self)
 			randoms.initTips()
 
 		initialize: ->
-			
 			self = this
-
+			$container = $(self.el)
 			# Save new thought modal
 			@$newThoughtInput = $('#new-thought')
 			@$newThoughtModal = $('#add-thought-modal')
@@ -80,13 +84,15 @@ randoms.thoughts = (args) ->
 				self.closeThoughtSaveModal()
 
 			$('#sort-by-id').click ->
-				$(self.el).isotope
+				$container.isotope
 					sortBy: 'id'
+				$container.isotope 'reLayout'
 
 			$('#sort-by-length').click ->
-				$(self.el).isotope
+				$container.isotope
 					sortBy: 'length'
-			
+				$container.isotope 'reLayout'
+
 			$('#add-thought-button').click ->
 				$('#modal-overlay').fadeIn()
 				$('#add-thought-modal').fadeIn()
@@ -95,8 +101,17 @@ randoms.thoughts = (args) ->
 
 		events: {
 			'#save-thought' : 'saveNewThought'
-			'#close-thought-modal' : 'closeThoughtSaveModal'
+			'click #close-thought-modal' : 'closeThoughtSaveModal'
+			'click .expand-unspand' : 'toggleThoughtSize'
 		}
+
+		toggleThoughtSize: (elem) ->
+			cardElem = $(elem.target).parents('.thought-card')
+			cardElem.toggleClass('maximize')
+			cardElem.find('.thought-header').children().toggleClass('hidden')
+
+			$(this.el).isotope 'reLayout'
+
 
 		saveNewThought: ->
 			newThought = new Thought({'content': $('#new-thought')})
@@ -110,10 +125,10 @@ randoms.thoughts = (args) ->
 			@$newThoughtInput.val('')
 			@$modalOverlay.fadeOut()
 
-		initIsotope: ->
+		initIsotope: (self) ->
 			$(self.el).isotope
 				itemSelector : '.thought-card',
-	      		layoutMode : 'fitRows'
+	      		layoutMode : 'masonry'
 	      		getSortData: 
 	      			id: ($elem) ->
 	      				parseInt $elem.data('id')
