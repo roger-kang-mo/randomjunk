@@ -6,6 +6,10 @@ div#thoughts {
 
 	}
 
+	div#comment-modal {
+		display:none;
+	}
+
 	div#add-thought-modal{
 		display:none;
 		width: 40%;
@@ -39,11 +43,12 @@ div#thoughts {
 
 			.thought-card {
 
+				position: relative;
 				float: left;
 				width: 200px;
 				height: auto;
 				color: #FFFFFF;
-				margin: 10px;
+				margin: 5px;
 
 				-webkit-border-top-right-radius: 10px;
 				-webkit-border-bottom-right-radius: 10px;
@@ -55,28 +60,30 @@ div#thoughts {
 				border-bottom-right-radius: 10px;
 				border-bottom-left-radius: 10px;
 
-				&.theme1 { background-color: #3C9DD0; .thought-header,.thought-bottom-bar { background-color: #086CA2; } }
-				&.theme2 { background-color: #62D9A9; .thought-header,.thought-bottom-bar { background-color: #00B454; } }
-				&.theme3 { background-color: #6B8FD4; .thought-header,.thought-bottom-bar { background-color: #1144AA; } }
-				&.theme4 { background-color: #33CEC3; .thought-header,.thought-bottom-bar { background-color: #11867D; } }
-				&.theme5 { background-color: #F80012; .thought-header,.thought-bottom-bar { background-color: #A2000C; } }
-				&.theme6 { background-color: #34D0B6; .thought-header,.thought-bottom-bar { background-color: #00A287; } }
-				&.theme7 { background-color: #540EAD; .thought-header,.thought-bottom-bar { background-color: #FFE900; } }
-				&.theme8 { background-color: #FF6CD0; .thought-header,.thought-bottom-bar { background-color: #009E8E; } }
-				&.theme9 { background-color: #102E37; .thought-header,.thought-bottom-bar { background-color: #2BBBD8; } }
-				&.theme10 { background-color: #218559; .thought-header,.thought-bottom-bar { background-color: #06A2CB; } }
-				&.theme11 { background-color: #74A6BD; .thought-header,.thought-bottom-bar { background-color: #7195A3; } }
-				&.theme12 { background-color: #397249; .thought-header,.thought-bottom-bar { background-color: #C7E1BA; } }
-				&.theme13 { background-color: #097054; .thought-header,.thought-bottom-bar { background-color: #FFDE00; } }
+				&.theme1 { background-color: #3C9DD0; .thought-bottom-bar { background-color: #086CA2; } }
+				&.theme2 { background-color: #62D9A9; .thought-bottom-bar { background-color: #00B454; } }
+				&.theme3 { background-color: #6B8FD4; .thought-bottom-bar { background-color: #1144AA; } }
+				&.theme4 { background-color: #33CEC3; .thought-bottom-bar { background-color: #11867D; } }
+				&.theme5 { background-color: #F80012; .thought-bottom-bar { background-color: #A2000C; } }
+				&.theme6 { background-color: #34D0B6; .thought-bottom-bar { background-color: #00A287; } }
+				&.theme7 { background-color: #540EAD; .thought-bottom-bar { background-color: #FFE900; } }
+				&.theme8 { background-color: #FF6CD0; .thought-bottom-bar { background-color: #009E8E; } }
+				&.theme9 { background-color: #102E37; .thought-bottom-bar { background-color: #2BBBD8; } }
+				&.theme10 { background-color: #218559; .thought-bottom-bar { background-color: #06A2CB; } }
+				&.theme11 { background-color: #74A6BD; .thought-bottom-bar { background-color: #7195A3; } }
+				&.theme12 { background-color: #397249; .thought-bottom-bar { background-color: #C7E1BA; } }
+				&.theme13 { background-color: #097054; .thought-bottom-bar { background-color: #FFDE00; } }
+
+
 
 				&.maximize {
-					height: 300px;
-					width: 200px;
-					-webkit-border-radius: 10px;
-					-moz-border-radius: 10px;
-					border-radius: 10px;
+					// height: 300px;
+					// width: 200px;
+					// -webkit-border-radius: 10px;
+					// -moz-border-radius: 10px;
+					// border-radius: 10px;
 
-					.thought-content { height: 85%; }
+					// .thought-content { height: 85%; }
 				}
 
 				.thought-header {
@@ -88,7 +95,9 @@ div#thoughts {
 					border-top-right-radius: 10px;
 
 					span { 
-						padding-right: 5px;
+						padding-right: 10px;
+						padding-top: 5px;
+						font-size: 21px;
 						float: right;
 
 						&:hover{
@@ -103,7 +112,10 @@ div#thoughts {
 				.thought-content {
 
 					padding: 5px;
-					height: auto;
+					height: 85%;
+					overflow-y: hidden;
+					font-size: 14px;
+					line-height: 18px;
 
 					strong:hover {
 						cursor: pointer;
@@ -114,11 +126,43 @@ div#thoughts {
 
 					span.actual-thought { overflow-y: scroll; }
 
+					.slightly-bigger-font {
+						font-size: 17px;
+						line-height: 22px;
+					}
+
+					.even-slightly-bigger-font {
+						font-size: 25px;
+						line-height: 30px;
+					}
+
+					.mediumly-big-font {
+						font-size: 30px;
+						line-height: 35px;
+					}
+
+					.big-font {
+						font-size: 40px;
+						line-height: 45px;
+					}
+
+					.even-bigger-font {
+						font-size: 50px;
+						line-height: 55px;
+					}
+
+					.really-big-font {
+						font-size: 60px;
+						line-height: 65px;
+					}
+
 				}
 
 				.thought-bottom-bar {
 					width: 100%;
 					height: 20px;
+					position: absolute;
+					bottom: 0;
 					
 					border-bottom-right-radius: 10px;
 					border-bottom-left-radius: 10px;
@@ -128,7 +172,9 @@ div#thoughts {
 					-moz-border-radius-bottomleft: 10px;
 					
 					span {
-						padding: 0px 5px;
+
+						&.thumbs { padding-left: 5px; }
+						&.comments { padding-right: 5px; }
 
 						&:hover {
 							cursor: pointer;

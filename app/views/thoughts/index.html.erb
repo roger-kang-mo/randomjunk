@@ -16,7 +16,7 @@
 		<div id="add-thought-modal">
 			
 			<div id="thought-input">
-				
+				<input type="text" id="thought-secret"></input>
 				<textarea type="text" id="new-thought" cols="200" rows="5" placeholder="Thoughts?"></textarea><br>
 
 				<button class="btn btn-inverse" id="save-thought">Save</button>&nbsp;
@@ -24,6 +24,17 @@
 
 			</div>
 
+		</div>
+
+		<div id="comment-modal">
+			<div id="comments-area">
+				<!-- Comments will render here -->
+			</div>
+			<div id="add-comment-area">
+				<input type="text" id="new-comment-author" placeholder="Your name"><br>
+				<textarea name="" id="new-comment-input" limit="400" cols="200" rows="5" placeholder="Thoughts?"></textarea>
+				<button id="submit-comment">Submit</button>
+			</div>
 		</div>
 
 	</div>
