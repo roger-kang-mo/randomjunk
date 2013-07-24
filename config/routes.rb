@@ -16,9 +16,15 @@ Randomjunk::Application.routes.draw do
   # get '/cards_against/single/get_cards' => 'cards#get_cards'
 
   get '/thoughts/get_all' => 'thoughts#get_all'
+  get '/thoughts/supersecretthoughtroute' => 'thoughts#secret_page'
+  post '/thoughts/approve/:id' => 'thoughts#approve_thought'
+
+  get '/thoughts/comments/get_comments_for/:id' => 'comments#get_comments_for'
+
 
   resources :notes
   resources :thoughts
+  resources :comments
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

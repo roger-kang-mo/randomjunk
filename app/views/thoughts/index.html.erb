@@ -5,7 +5,8 @@
 		<div id="thoughts-top">
 			<button id="add-thought-button" class="btn btn-inverse">Add Thought</button>
 			<button id="sort-by-id" class="btn btn-inverse">Sort by ID</button>
-			<button id="sort-by-length" class="btn btn-inverse">Sort by length</button>
+			<!-- <button id="sort-by-length" class="btn btn-inverse">Sort by length</button> -->
+			<button id="shuffle" class="btn btn-inverse">Shuffle!</button>
 		</div>
 
 		<div id="thoughts-area">
@@ -16,11 +17,12 @@
 		<div id="add-thought-modal">
 			
 			<div id="thought-input">
-				<input type="text" id="thought-secret"></input>
-				<textarea type="text" id="new-thought" cols="200" rows="5" placeholder="Thoughts?"></textarea><br>
+				<!-- <input type="text" id="thought-secret"></input> -->
+				<textarea type="text" id="new-thought" maxlength='700' cols="200" rows="5" placeholder="Thoughts?"></textarea><br>
 
 				<button class="btn btn-inverse" id="save-thought">Save</button>&nbsp;
 				<button class="btn btn-inverse" id="close-thought-modal">Close</button>
+				<!-- send in the thought for approval -->
 
 			</div>
 
@@ -28,12 +30,16 @@
 
 		<div id="comment-modal">
 			<div id="comments-area">
-				<!-- Comments will render here -->
+				<ul id="comments-list">
+					<!-- Comments will render here -->
+					<li><p>No Comments to show</p></li>
+				</ul>
 			</div>
 			<div id="add-comment-area">
 				<input type="text" id="new-comment-author" placeholder="Your name"><br>
-				<textarea name="" id="new-comment-input" limit="400" cols="200" rows="5" placeholder="Thoughts?"></textarea>
-				<button id="submit-comment">Submit</button>
+				<textarea name="" id="new-comment-input" limit="400" cols="200" rows="2" placeholder="Thoughts?"></textarea><br>
+				<button class="btn btn-inverse" id="submit-comment">Submit</button>
+				<button class="btn btn-inverse" id="close-comment-modal">Close</button>
 			</div>
 		</div>
 

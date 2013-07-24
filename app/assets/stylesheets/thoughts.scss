@@ -7,7 +7,67 @@ div#thoughts {
 	}
 
 	div#comment-modal {
+
 		display:none;
+		width: 60%;
+		height: 80%;
+		margin-left: 20%;
+		top: 10.5%;
+		z-index: 10001;
+		position: fixed;
+		background-color: #E5E5E5;
+
+		#comments-area {
+			overflow-y: scroll;
+			width: 90%;
+			height: 55%;
+			margin: 5%;
+			
+			ul#comments-list {
+				margin-left: 0;
+				list-style-type: none;
+
+				li.comment {
+					border: dashed #000;
+					border-width: 1px 1px;
+					margin-top: 2px;
+					margin-bottom:2px;
+
+					.delete-comment {
+						float:right;
+						cursor: pointer;
+						margin: 3% 5% 0 0;
+						font-size: 20px;
+					}
+
+					.author {
+						margin-left: 5px;
+					}
+					
+					.content {
+						margin-top: -10px;
+						margin-left: 5px;
+					}
+				}
+			}
+
+		}
+
+		#add-comment-area {
+
+			padding: 5%;
+			position:absolute;
+			bottom: -20px;
+
+			textarea { width: 97%; resize: none;}
+			button { 
+				float: right;
+				padding: 5px;
+				
+				&#close-comment-modal { margin-right: 10px; }
+			}
+		}
+
 	}
 
 	div#add-thought-modal{
@@ -17,13 +77,13 @@ div#thoughts {
 		margin-left: 30%;
 		top: 35%;
 		z-index: 10001;
-		position:absolute;
+		position:fixed;
 		background-color: #E5E5E5;
 
 		#thought-input {
 			padding: 5%;
 
-			textarea { width: 97%; }
+			textarea { width: 97%;  resize:none;}
 			button { 
 				float: right;
 				padding: 5px;
@@ -36,6 +96,7 @@ div#thoughts {
 	div#thoughts-area {
 		padding-top: 5%;
 		height: 80%;
+		margin-left: 5%;
 		
 		div{
 			display: inline-block;
@@ -45,8 +106,8 @@ div#thoughts {
 
 				position: relative;
 				float: left;
-				width: 200px;
-				height: auto;
+				width: 173px;
+				height: 173px;
 				color: #FFFFFF;
 				margin: 5px;
 
@@ -77,8 +138,9 @@ div#thoughts {
 
 
 				&.maximize {
-					// height: 300px;
-					// width: 200px;
+					min-height: 355px;
+					height: auto;
+					width: 355px;
 					// -webkit-border-radius: 10px;
 					// -moz-border-radius: 10px;
 					// border-radius: 10px;
@@ -114,8 +176,11 @@ div#thoughts {
 					padding: 5px;
 					height: 85%;
 					overflow-y: hidden;
-					font-size: 14px;
-					line-height: 18px;
+					font-size: 16px;
+					line-height: 20px;
+					cursor: default;
+					overflow-x:hidden;
+					width:90%;
 
 					strong:hover {
 						cursor: pointer;
@@ -162,7 +227,7 @@ div#thoughts {
 					width: 100%;
 					height: 20px;
 					position: absolute;
-					bottom: 0;
+					bottom: -1px;
 					
 					border-bottom-right-radius: 10px;
 					border-bottom-left-radius: 10px;
@@ -174,14 +239,14 @@ div#thoughts {
 					span {
 
 						&.thumbs { padding-left: 5px; }
-						&.comments { padding-right: 5px; }
+						&.comments-icon { padding-right: 5px; }
 
 						&:hover {
 							cursor: pointer;
 							color: #3AA6D0;
 						}
 
-						&.comments { float: right; }
+						&.comments-icon { float: right; }
 						&.thumbs > .icon-font {
 							padding: 0px;
 						}
@@ -190,4 +255,14 @@ div#thoughts {
 			}
 		}
 	}	
+}
+
+#super-secret-page {
+	.col #thoughts .thought {
+		padding-top:5px;
+
+		.thought-content, .delete {
+				margin-left: 7px;
+		}
+	}
 }

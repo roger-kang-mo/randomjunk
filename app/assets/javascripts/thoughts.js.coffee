@@ -7,34 +7,79 @@ randoms.thoughts = (args) ->
 
 	Comment = Backbone.Model.extend
 		urlRoot: '/comments'
-		defaults: { author: 'anonymous', content: 'clickity clack' }
+		# defaults: { author: 'anonymous', content: 'clickity clack' }
 
-	CommentsView = Backbone.View.extend
+	CommentView = Backbone.View.extend
 		model: Comment
-		template: _.template('<li data-id="<%= id %>"><div class="author"><%= author %></div>
-			<div><p><%= content %></p></div></li>')
+		template: _.template('<li class="comment" data-id="<%= id %>"><div class="delete-comment icon-font tips" title="Delete comment">ç</div><div class="author"><h4><%= author %></h4></div>
+			<div class="content"><p><%= content %></p></div></li>')
+
+		render: ->
+			$(this.el).html(this.template({id: this.model.get('id'), author: this.model.get('author'), content: this.model.get('content')}))
+			return this
+
+	CommentsList = Backbone.Collection.extend
+		model: Comment
+		url: '/thoughts/comments/get_comments_for/'
+		initialize: (models, opts) ->
+			self = this
+			self.thoughtID = opts.thoughtID
+			self.url += self.thoughtID
+
+		fetch: (callback) ->
+			self = this
+			console.log self.url
+			$.ajax
+				type: "GET"
+				url: self.url
+				dataType: "json"
+				success: (data) ->
+					console.log data
+					self.reset data.comments
+					callback()
+
+				error: (data) ->
+					console.log data
 
 	CommentsListView = Backbone.View.extend
-		el: $('#comments-area')
+		el: $('#comments-list')
+		tagName: 'ul'
 		render: ->
 			self = this
-			$el.html('')
-			_(@collection.models).each ((comment) ->
-			  self.appendItem comment
-			), this
+			self.$el.html('')
+			if @collection.models.length > 0
+				_(@collection.models).each ((comment) ->
+				  self.appendItem comment
+				), this
+			else
+				self.$el.append "<li><p>No Comments to show. Add one!</p></li>"
 
-			# randoms.initTips()
-		initialize: ->
+			randoms.initTips()
+
+		initialize: (opts) ->
 			self = this
-			@$container = $el
+			@$container = $(self.el)
+			self.id = opts.id
+			self.collection.on("sync", this.render, this);
+			self.collection.on("reset", this.render, this);
 
+			@$saveNewCommentButton = $('#submit-comment')
+			@$newCommentInput = $('#new-comment-author')
+			@$newCommentAuthorInput = $('#new-comment-input')
 
-		events: {
-			'click #save-comment' : 'saveNewComment'
-		}
+			@$saveNewCommentButton.click -> self.saveNewComment(self)
 
-		saveNewComment: ->
-			newComment = new Comment({author: $('#new-comment-author').val(), content: $('#new-comment-input').val()})
+		saveNewComment: (self) ->
+			newComment = new Comment({author: @$newCommentInput.val(), content: @$newCommentAuthorInput.val(), thought_id: self.id})
+			newComment.save()
+			@$newCommentAuthorInput.val('')
+			@$newCommentInput.val('')
+
+			self.collection.add(newComment)
+
+		appendItem: (comment) ->
+		  commentView = new CommentView(model: comment)
+		  $(@el).append commentView.render().el
 
 
 	Thought = Backbone.Model.extend
@@ -43,6 +88,7 @@ randoms.thoughts = (args) ->
 			content: ''
 			thumbs: 0
 			themeNum: 'theme1'
+			approved: false
 
 		initialize: (args) ->
 			themeNum = 'theme' + Math.floor(Math.random() * (13) + 1)
@@ -51,10 +97,10 @@ randoms.thoughts = (args) ->
 	ThoughtsView = Backbone.View.extend
 		model: Thought
 		
-		template: _.template('<div data-id="<%= id %>" class="thought-card <%= themeNum %>" style="height: <%= height %>; width: <%= width %>;">
+		template: _.template('<div data-id="<%= id %>" class="thought-card <%= themeNum %>">
 					<div class="thought-header">
-						<span class="expand expand-unspand icon-font">^</span>
-						<span class="unspand expand-unspand icon-font hidden">_</span>
+						<span class="expand expand-unspand icon-font tips" title="expand!">^</span>
+						<span class="unspand expand-unspand icon-font hidden tips" title="unspand!">_</span>
 					</div>
 					<div class="thought-content">
 						<span class="preview <%= previewClass %>">
@@ -63,19 +109,25 @@ randoms.thoughts = (args) ->
 						<span class="actual-thought hidden <%= thoughtClass %>"><%= content %></span>
 					</div><br>
 					<div class="thought-bottom-bar">
-						<span class="thumbs icon-font"><%= thumbs > 0 ? "e" : "f" %></span>
-						<span class="comments tips" title="Leave a comment">  <span class="icon-font">a</span></span>
+						<span class="thumbs icon-font tips"  title="<%= thumbs %> like this!"><%= thumbs > 0 ? "e" : "f" %></span>
+						<span class="comments-icon tips" title="Leave a comment">  <span class="icon-font">a</span></span>
 					</div>
 				</div>')
 		initialize: ->
 			_.bindAll(this, 'render')
+			this.model.bind('updateThumbs', this.updateThumbs, this);
+			this.model.bind('updateComments', this.updateComments, this);
+
+			updateComments: ->
+				console.log 'hi'
+
+		updateThumbs: ->
+			thumbsCount = this.model.get('thumbs')
+			newHTML = _.template('<span class="thumbs icon-font tips"  title="<%= thumbs %> like this!"><%= thumbs > 0 ? "e" : "f" %></span>', {thumbs: thumbsCount})
+			$(this.el).find('.thumbs').replaceWith(newHTML)
+			randoms.initTips()
 
 		render: -> 
-			width = height = '173px'
-
-			if Math.floor(Math.random() * (10) + 1) == 5
-				width = height = '355px'
-
 			thoughtLength = this.model.get('content').length
 			previewClass = ''
 			actualThoughtClass = ''
@@ -88,7 +140,7 @@ randoms.thoughts = (args) ->
 				actualThoughtClass = 'even-bigger-font'
 				previewClass = 'slightly-bigger-font'
 
-			else if thoughtLength <= 75
+			else if thoughtLength <= 85
 				actualThoughtClass = 'big-font'
 				previewClass = 'slightly-bigger-font'
 
@@ -99,7 +151,13 @@ randoms.thoughts = (args) ->
 				actualThoughtClass = 'even-slightly-bigger-font'
 
 
-			$(this.el).html(this.template({ id: this.model.get('id'), content: this.model.get('content'), thumbs: this.model.get('thumbs'), themeNum: this.model.get('themeNum'), height: height, width: width, previewClass: previewClass, thoughtClass: actualThoughtClass}))
+			# $(this.el).html(this.template({ id: this.model.get('id'), content: this.model.get('content'), thumbs: this.model.get('thumbs'), themeNum: this.model.get('themeNum'), height: height, width: width, previewClass: previewClass, thoughtClass: actualThoughtClass}))
+			$(this.el).html(this.template({ id: this.model.get('id'), content: this.model.get('content'), thumbs: this.model.get('thumbs'), themeNum: this.model.get('themeNum'), previewClass: previewClass, thoughtClass: actualThoughtClass}))
+			
+			if Math.floor(Math.random() * (10) + 1) == 5
+				$(this.el).find('.thought-card').addClass('maximize')
+				$(this.el).find('.thought-content').children().toggleClass('hidden')
+				$(this.el).find('.thought-header').children().toggleClass('hidden')
 			return this
 
 	ThoughtsList = Backbone.Collection.extend
@@ -111,53 +169,110 @@ randoms.thoughts = (args) ->
 		render: ->
 			self = this
 			$(self.el).html('')
-			_(@collection.models).each ((thought) -> # in case collection is not empty
+			_(@collection.models).each ((thought) ->
 			  self.appendItem thought
 			), this
 
 			this.initIsotope(self)
+			$(self.el).isotope 'shuffle'
 			randoms.initTips()
 
 		initialize: ->
 			self = this
 			$container = $(self.el)
 			
+			this.render()
+
 			# Save new thought modal
 			@$newThoughtInput = $('#new-thought')
 			@$newThoughtModal = $('#add-thought-modal')
 			@$modalOverlay = $('#modal-overlay')
 			@$saveNewThoughtButton = $('#save-thought')
 			@$closeThoughtModalButton = $('#close-thought-modal')
-
+			@$shuffleButton = $('#shuffle')
 
 			@$expandThought = @$el.find('.expand')
 			@$thumbs = @$el.find('.thumbs')
-			@$comments = @$el.find('.comments')
+			@$commentsIcons = @$el.find('.comments-icon')
+			@$thoughtBottomBars = @$el.find('.thought-bottom-bar')
+			@$commentModal = $('#comment-modal')
+			@$commentAuthorInput = $('#new-comment-author')
+			@$commentInput = $('#new-comment-input')
+			@$closeCommentModalButton = $('#close-comment-modal')
 
-			console.log this.collection
-			this.render()
+			@$commentListViews = []
 
-			# $('#save-thought').click ->
 			@$saveNewThoughtButton.click ->
 				newThought = new Thought({'content': $('#new-thought').val()})
 				newThought.save()
-				self.collection.add(newThought)
+				# self.collection.add(newThought)
 				self.closeThoughtSaveModal(self)
-				self.render()
+				$.confirm
+			      title: "Submitted"
+			      message: "Your thought has been submitted for approval"
+			      buttons:
+			        Okay: 
+			        	action: ->
+			        		console.log 'hi'
 
-			# $('#close-thought-modal').click ->
 			@$closeThoughtModalButton.click ->
 				self.closeThoughtSaveModal(self)
+
+			@$closeCommentModalButton.click ->
+				self.closeCommentModal(self)
+
+			@$shuffleButton.click -> self.shuffleElements(self)
+
+
+			@$commentsIcons.click (e) ->
+				clickedElem = $(e.target)
+				thoughtID = clickedElem.parents('.thought-card').data('id')
+				commentsListView = null
+ 
+				_(self.$commentsListViews).each ((cListView) ->
+					if cListView.id == thoughtID
+						commentsListView = cListView
+				), this
+
+				unless commentsListView
+					commentsList = new CommentsList(null, {thoughtID: thoughtID})
+					commentsListView = new CommentsListView({ id: thoughtID, collection: commentsList})
+					self.$commentListViews.push commentsListView
+
+
+				commentsListView.collection.fetch(-> 
+					$('#comment-modal').show()
+					$('#modal-overlay').fadeIn()
+				)
+
+				# commentsListView.render()
+
+			@$thoughtBottomBars.on 'click', '.thumbs', (e) ->
+				clickedElem = $(e.target)
+				thoughtCard = clickedElem.parents('.thought-card')
+				thoughtID = thoughtCard.data('id')
+				incVal = 1
+				if thoughtCard.hasClass('liked') #unliking
+					thoughtCard.removeClass('liked')
+					incVal = -1
+				else
+					thoughtCard.addClass('liked')
+
+				model = self.collection.get(thoughtID)
+
+				model.set({thumbs: (model.get('thumbs') + incVal)})
+				model.save()
+				model.trigger('updateThumbs')
 
 			$('#sort-by-id').click ->
 				$container.isotope
 					sortBy: 'id'
 				$container.isotope 'reLayout'
 
-			$('#sort-by-length').click ->
-				$container.isotope
-					sortBy: 'length'
-				$container.isotope 'reLayout'
+			# $('#sort-by-length').click ->
+			# 	$container.isotope
+			# 		sortBy: 'length'
+			# 	$container.isotope 'reLayout'
 
 			$('#add-thought-button').click ->
 				$('#modal-overlay').fadeIn()
@@ -170,20 +285,11 @@ randoms.thoughts = (args) ->
 
 		toggleThoughtSize: (elem) ->
 			cardElem = $(elem.target).parents('.thought-card')
-			# cardElem.toggleClass('maximize')
+
 			cardElem.find('.thought-header').children().toggleClass('hidden')
 			cardElem.find('.thought-content').children().toggleClass('hidden')
 
-			if cardElem.hasClass('maximize')
-				cardElem.removeClass('maximize').css({ 'width': '173px', 'height': '173px'})
-				# cardElem.find('.thought-bottom-bar').css({ 'margin-top':'0px' })
-			else
-				# width = '346px'
-				# height = '346px'
-				width = height = '355px'
-
-				cardElem.addClass('maximize').css({ 'width': width, 'height': height})
-				thoughtLength = cardElem.find('actual-thought').text().length 
+			cardElem.toggleClass('maximize')
 
 			$(this.el).isotope 'reLayout'
 
@@ -192,10 +298,20 @@ randoms.thoughts = (args) ->
 			self.$newThoughtInput.val('')
 			self.$modalOverlay.fadeOut()
 
+		closeCommentModal: (self) ->
+			self.$commentModal.fadeOut()
+			self.$commentAuthorInput.val('')
+			self.$commentInput.val('')
+			self.$modalOverlay.fadeOut()
+
+		shuffleElements: (self) ->
+			$(self.el).isotope 'shuffle'
+
 		initIsotope: (self) ->
 			$(self.el).isotope
 				itemSelector : '.thought-card',
-	      		layoutMode : 'masonry'
+	      		layoutMode : 'masonry',
+				resizable: true,
 	      		getSortData: 
 	      			id: ($elem) ->
 	      				parseInt $elem.data('id')

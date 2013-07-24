@@ -1,48 +1,78 @@
 class ThoughtsController < ApplicationController
 
 
-def index
+	def index
 
-	@thoughts = Thought.all
+		@thoughts = Thought.where(:approved => true)
 
-	respond_to do |format|
-		format.html
+		respond_to do |format|
+			format.html
+		end
 	end
-end
 
-def show
-	@thought = Thought.find(params[:id])
+	def show
+		@thought = Thought.find(params[:id])
 
-	respond_to do |format|
-		format.json { render :json =>  { thought: @thought }}
+		respond_to do |format|
+			format.json { render :json =>  @thought }
+		end
 	end
-end
 
-def get_all
-	@thoughts = Thought.all
 
-	respond_to do |format|
-		format.json { render :json => { thoughts: [@thoughts].to_json }}
+
+	def get_all
+		@thoughts = Thought.all
+
+		respond_to do |format|
+			format.json { render :json => { thoughts: [@thoughts].to_json }}
+		end
 	end
-end
 
-def create
-	@new_thought = Thought.create(params[:thought])
-	# @new_thought.save
+	def create
+		@new_thought = Thought.create(params[:thought])
+		# @new_thought.save
 
-	respond_to do |format|
-		format.json { render :json => { status: @new_thought.save }}
+		respond_to do |format|
+			format.json { render :json => { status: @new_thought.save }}
+		end
 	end
-end
 
-def destroy
-	to_delete = Thought.find(params[:id])
+	def update
+		@to_update = Thought.find(params[:id])
+		@to_update.update_attributes(params[:thought])
 
-	@status = to_delete.delete()
+		respond_to do |format|
+			format.json { render :json => { status: @to_update.save }}
+		end
 
-	respond_to do |format|
-		format.json { render :json => { status: @status }}
 	end
-end	
+
+	def destroy
+		to_delete = Thought.find(params[:id])
+
+		@status = to_delete.delete()
+
+		respond_to do |format|
+			format.json { render :json => { status: @status }}
+		end
+	end	
+
+	def secret_page
+
+		@unapproved_thoughts = Thought.where(:approved => false)
+
+		respond_to do |format|
+			format.html
+		end
+	end
+
+	def approve_thought
+		to_approve = Thought.find(params[:id])
+		to_approve.update_attribute(:approved, true)
+
+		respond_to do |format|
+			format.json { render :json => { status: to_approve.save() }}
+		end
+	end
 
 end

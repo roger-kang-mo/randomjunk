@@ -14,15 +14,15 @@ class CardsController < ApplicationController
 		end
 	end
 
-	def get_cards
-		white = params[:white] # get white?
-		black = params[:black] # get black?
+	# def get_cards
+	# 	white = params[:white] # get white?
+	# 	black = params[:black] # get black?
 
-		@cards = CardsAgainstHumanityCards.get_card(white, black)
+	# 	@cards = CardsAgainstHumanityCards.get_card(white, black)
 
-		respond_to do |format|
-			format.json { render :json => { cards: @cards }}
-		end
-	end
+	# 	respond_to do |format|
+	# 		format.json { render :json => { cards: @cards }}
+	# 	end
+	# end
 
 end

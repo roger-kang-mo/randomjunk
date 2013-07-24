@@ -2,7 +2,8 @@ class Thought < ActiveRecord::Base
 	attr_accessible :content,
 					:created_at,
 					:comments,
-					:thumbs
+					:thumbs,
+					:approved
 
 
 
