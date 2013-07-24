@@ -79,6 +79,12 @@ div#thoughts {
 				
 				&#close-comment-modal { margin-right: 10px; }
 			}
+
+			span.comment-error {
+				display:none;
+				margin-left: 10px;
+				font-color: #A60000;
+			}
 		}
 
 	}
@@ -271,7 +277,7 @@ div#thoughts {
 }
 
 #super-secret-page {
-	.col #thoughts .thought {
+	.col #thoughts,#current-thoughts .thought {
 		padding-top:5px;
 
 		.thought-content, .delete {

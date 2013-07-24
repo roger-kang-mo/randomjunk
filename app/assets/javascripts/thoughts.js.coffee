@@ -67,21 +67,28 @@ randoms.thoughts = (args) ->
 			@$newCommentInput = $('#new-comment-author')
 			@$newCommentAuthorInput = $('#new-comment-input')
 
+			@$commentErrorText = $('#comment-error')
+
 			@$saveNewCommentButton.click -> self.saveNewComment(self)
 
 			$(document).on 'click', '.delete-comment', (e) -> self.deleteComment(e, self)
 
 
 		saveNewComment: (self) ->
+			@$commentErrorText.text('').fadeOut()
 			authorVal = @$newCommentInput.val()
 			contentVal = @$newCommentAuthorInput.val()
-			newComment = new Comment({author: authorVal, content: contentVal, thought_id: self.id})
-			newComment.save()
-			
-			self.collection.add(newComment)
+			if authorVal.length > 0 and contentVal.length > 0
+				newComment = new Comment({author: authorVal, content: contentVal, thought_id: self.id})
+				newComment.save()
+				
+				self.collection.add(newComment)
 
-			@$newCommentAuthorInput.val('')
-			@$newCommentInput.val('')
+				@$newCommentAuthorInput.val('')
+				@$newCommentInput.val('')
+			# else
+			# 	@$commentErrorText.text('Both fields are required.').fadeIn()
+
 
 		deleteComment: (e) ->
 			clickedElem = $(e.target)
@@ -89,9 +96,10 @@ randoms.thoughts = (args) ->
 			clickedElem.parent().children().toggleClass('hidden')
 			commentID = commentToDelete.data('id')
 
-			this.collection.get(commentID).destroy()
+			if commentID and this.collection.get(commentID)
+				this.collection.get(commentID).destroy()
 
-			this.render()
+				this.render()
 
 
 
@@ -217,6 +225,7 @@ randoms.thoughts = (args) ->
 			@$commentAuthorInput = $('#new-comment-author')
 			@$commentInput = $('#new-comment-input')
 			@$closeCommentModalButton = $('#close-comment-modal')
+			@$commentErrorText = $('#comment-error')
 
 			# @$commentListViews = []
 			self.$commentsListView = null
@@ -319,6 +328,7 @@ randoms.thoughts = (args) ->
 			self.$modalOverlay.fadeOut()
 
 		closeCommentModal: (self) ->
+			self.$commentErrorText.text('').fadeOut()
 			self.$commentModal.fadeOut()
 			self.$commentAuthorInput.val('')
 			self.$commentInput.val('')
