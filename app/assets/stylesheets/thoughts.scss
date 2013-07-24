@@ -3,7 +3,20 @@ div#thoughts {
 	div#thoughts-top {
 		width: 100%;
 		height: 20%;
-		margin-left: 40%;
+		
+		#add-thought-button { margin-left: 40%; }
+
+		.link-to-github {
+			margin-left: 35%;
+			margin-top: 10px;
+
+			span a{
+				font-size: 50px;	
+				text-decoration:none;
+				&:hover { }
+				
+			}
+		}
 	}
 
 	div#comment-modal {

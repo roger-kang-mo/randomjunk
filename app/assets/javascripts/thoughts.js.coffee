@@ -335,8 +335,6 @@ randoms.thoughts = (args) ->
 		closeCommentModal: (self) ->
 			self.$commentErrorText.text('').fadeOut()
 			self.$commentModal.fadeOut()
-			self.$commentAuthorInput.val('')
-			self.$commentInput.val('')
 			self.$modalOverlay.fadeOut()
 
 		shuffleElements: (self) ->
