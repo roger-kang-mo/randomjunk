@@ -122,9 +122,9 @@ randoms.thoughts = (args) ->
 					</div>
 					<div class="thought-content">
 						<span class="preview <%= previewClass %>">
-							<%= content.slice(0, 100) + (content.length > 100 ? "... <strong>(more)</strong>" : "") %>
+							<%= _.escape(content.slice(0, 100)) + (content.length > 100 ? "... <strong>(more)</strong>" : "") %>
 						</span>
-						<span class="actual-thought hidden <%= thoughtClass %>"><%= content %></span>
+						<span class="actual-thought hidden <%= thoughtClass %>"><%= _.escape(content) %></span>
 					</div><br>
 					<div class="thought-bottom-bar">
 						<span class="thumbs icon-font tips"  title="<%= thumbs %> like this!"><%= thumbs > 0 ? "e" : "f" %></span>
