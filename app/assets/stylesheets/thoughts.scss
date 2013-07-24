@@ -33,11 +33,24 @@ div#thoughts {
 					margin-top: 2px;
 					margin-bottom:2px;
 
+					&.awaiting-delete { opacity: 0.2; }
+
 					.delete-comment {
 						float:right;
-						cursor: pointer;
 						margin: 3% 5% 0 0;
-						font-size: 20px;
+
+						.hidden { display: none; }
+						
+
+						.loader {
+							opacity: 1;
+							width: 50%;
+						}
+
+						.icon-font {
+							font-size: 20px;	
+							cursor: pointer;
+						}
 					}
 
 					.author {

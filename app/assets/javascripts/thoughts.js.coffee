@@ -11,8 +11,8 @@ randoms.thoughts = (args) ->
 
 	CommentView = Backbone.View.extend
 		model: Comment
-		template: _.template('<li class="comment" data-id="<%= id %>"><div class="delete-comment icon-font tips" title="Delete comment">ç</div><div class="author"><h4><%= author %></h4></div>
-			<div class="content"><p><%= content %></p></div></li>')
+		template: _.template('<li class="comment" data-id="<%= id %>"><div class="delete-comment" title="Delete comment"><img src="/assets/loader.gif" alt="loader" class="loader hidden"><span class="icon-font tips">ç</span></div><div class="author"><h4><%= _.escape(author) %></h4></div>
+			<div class="content"><p><%= _.escape(content) %></p></div></li>')
 
 		render: ->
 			$(this.el).html(this.template({id: this.model.get('id'), author: this.model.get('author'), content: this.model.get('content')}))
@@ -28,18 +28,18 @@ randoms.thoughts = (args) ->
 
 		fetch: (callback) ->
 			self = this
-			console.log self.url
+			
 			$.ajax
 				type: "GET"
 				url: self.url
 				dataType: "json"
 				success: (data) ->
-					console.log data
+					# console.log data
 					self.reset data.comments
 					callback()
 
 				error: (data) ->
-					console.log data
+					# console.log data
 
 	CommentsListView = Backbone.View.extend
 		el: $('#comments-list')
@@ -52,7 +52,7 @@ randoms.thoughts = (args) ->
 				  self.appendItem comment
 				), this
 			else
-				self.$el.append "<li><p>No Comments to show. Add one!</p></li>"
+				$(@el).append "<li><p>No Comments to show. Add one!</p></li>"
 
 			randoms.initTips()
 
@@ -69,13 +69,31 @@ randoms.thoughts = (args) ->
 
 			@$saveNewCommentButton.click -> self.saveNewComment(self)
 
+			$(document).on 'click', '.delete-comment', (e) -> self.deleteComment(e, self)
+
+
 		saveNewComment: (self) ->
-			newComment = new Comment({author: @$newCommentInput.val(), content: @$newCommentAuthorInput.val(), thought_id: self.id})
+			authorVal = @$newCommentInput.val()
+			contentVal = @$newCommentAuthorInput.val()
+			newComment = new Comment({author: authorVal, content: contentVal, thought_id: self.id})
 			newComment.save()
+			
+			self.collection.add(newComment)
+
 			@$newCommentAuthorInput.val('')
 			@$newCommentInput.val('')
 
-			self.collection.add(newComment)
+		deleteComment: (e) ->
+			clickedElem = $(e.target)
+			commentToDelete = clickedElem.parents('.comment').addClass('awaiting-delete')
+			clickedElem.parent().children().toggleClass('hidden')
+			commentID = commentToDelete.data('id')
+
+			this.collection.get(commentID).destroy()
+
+			this.render()
+
+
 
 		appendItem: (comment) ->
 		  commentView = new CommentView(model: comment)
@@ -116,10 +134,10 @@ randoms.thoughts = (args) ->
 		initialize: ->
 			_.bindAll(this, 'render')
 			this.model.bind('updateThumbs', this.updateThumbs, this);
-			this.model.bind('updateComments', this.updateComments, this);
+			# this.model.bind('updateComments', this.updateComments, this);
 
-			updateComments: ->
-				console.log 'hi'
+			# updateComments: ->
+			# 	console.log 'hi'
 
 		updateThumbs: ->
 			thumbsCount = this.model.get('thumbs')
@@ -200,7 +218,8 @@ randoms.thoughts = (args) ->
 			@$commentInput = $('#new-comment-input')
 			@$closeCommentModalButton = $('#close-comment-modal')
 
-			@$commentListViews = []
+			# @$commentListViews = []
+			self.$commentsListView = null
 
 			@$saveNewThoughtButton.click ->
 				newThought = new Thought({'content': $('#new-thought').val()})
@@ -213,7 +232,7 @@ randoms.thoughts = (args) ->
 			      buttons:
 			        Okay: 
 			        	action: ->
-			        		console.log 'hi'
+			        		# console.log 'hi'
 
 			@$closeThoughtModalButton.click ->
 				self.closeThoughtSaveModal(self)
@@ -227,20 +246,21 @@ randoms.thoughts = (args) ->
 			@$commentsIcons.click (e) ->
 				clickedElem = $(e.target)
 				thoughtID = clickedElem.parents('.thought-card').data('id')
-				commentsListView = null
+				
+				self.$commentsListView.unbind() if self.$commentsListView
  
-				_(self.$commentsListViews).each ((cListView) ->
-					if cListView.id == thoughtID
-						commentsListView = cListView
-				), this
+				# _(self.$commentsListViews).each ((cListView) ->
+				# 	if cListView.id == thoughtID
+				# 		commentsListView = cListView
+				# ), this
 
-				unless commentsListView
-					commentsList = new CommentsList(null, {thoughtID: thoughtID})
-					commentsListView = new CommentsListView({ id: thoughtID, collection: commentsList})
-					self.$commentListViews.push commentsListView
+				# unless commentsListView
+				commentsList = new CommentsList(null, {thoughtID: thoughtID})
+				self.$commentsListView = new CommentsListView({ id: thoughtID, collection: commentsList})
+				# self.$commentListViews.push commentsListView
 
 
-				commentsListView.collection.fetch(-> 
+				self.$commentsListView.collection.fetch(-> 
 					$('#comment-modal').show()
 					$('#modal-overlay').fadeIn()
 				)
