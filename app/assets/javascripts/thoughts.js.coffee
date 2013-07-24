@@ -55,6 +55,7 @@ randoms.thoughts = (args) ->
 				$(@el).append "<li><p>No Comments to show. Add one!</p></li>"
 
 			randoms.initTips()
+			self.$newCommentAuthorInput.val(self.names[Math.floor(Math.random() * (self.names.length - 1 + 1))])
 
 		initialize: (opts) ->
 			self = this
@@ -64,10 +65,14 @@ randoms.thoughts = (args) ->
 			self.collection.on("reset", this.render, this);
 
 			@$saveNewCommentButton = $('#submit-comment')
-			@$newCommentInput = $('#new-comment-author')
-			@$newCommentAuthorInput = $('#new-comment-input')
+			@$newCommentInput = $('#new-comment-input')
+			@$newCommentAuthorInput = $('#new-comment-author')
 
 			@$commentErrorText = $('#comment-error')
+
+			@names = ["Rambo McQueen", 'Powers Boothe', 'Commander Flex Plexico', 'Duncan Steel', 'Lightning McPhaser', 'Blazer McTaser', 'Jennifer', 'Michelle', 'Sunshine', 'The California Kid', 'Jeeves', 'Kabeer Gbaja-Biamila', 'Coco Crisp', 'World B. Free', "D'Brickashaw Ferguson", 'Chief Kickingstallionsims', 'Sein McFeld', 'H.E. PennyPacker', 
+				'Dr. Martin van Nostrand', 'Kel Varnsen', 'Art Vandelay', 'Cantstandya', 'Buck Naked', 'Max Power', 'Curtis E. Bear', 'Churchy La Femme', 'Plow King', 
+				'Stirling Mortlock', 'Magnus Ver Magnusson', 'Dick Pound', 'Staff Sgt. Max Fightmaster', 'Dick Trickle', 'Tricky Dick', 'A Real American Hero', 'Gaylord Focker', 'Moxie Crimefighter', 'ShaDynasty', 'Pepe Silvia', 'Nightman - Sneaky & Mean', 'Dayman, Fighter of the Nightman', 'Oscar Gamble', '']
 
 			@$saveNewCommentButton.click -> self.saveNewComment(self)
 
@@ -76,15 +81,15 @@ randoms.thoughts = (args) ->
 
 		saveNewComment: (self) ->
 			@$commentErrorText.text('').fadeOut()
-			authorVal = @$newCommentInput.val()
-			contentVal = @$newCommentAuthorInput.val()
-			if authorVal.length > 0 and contentVal.length > 0
+			authorVal = @$newCommentAuthorInput.val()
+			contentVal = @$newCommentInput.val() 
+			if contentVal.length > 0
 				newComment = new Comment({author: authorVal, content: contentVal, thought_id: self.id})
 				newComment.save()
 				
 				self.collection.add(newComment)
 
-				@$newCommentAuthorInput.val('')
+				@$newCommentAuthorInput.val(self.names[Math.floor(Math.random() * (self.names.length - 1 + 1))])
 				@$newCommentInput.val('')
 			# else
 			# 	@$commentErrorText.text('Both fields are required.').fadeIn()
