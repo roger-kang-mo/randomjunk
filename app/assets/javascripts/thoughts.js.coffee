@@ -95,6 +95,7 @@ randoms.thoughts = (args) ->
 			@$modalOverlay = $('#modal-overlay')
 
 			@$passcodeSubmit.click -> self.deleteComment(self)
+			@$passcodeInput.keyup (e) -> self.deleteComment(self) if e.which == 13
 			@$passcodeClose.click -> self.closePassCodeModal(self)
 
 			$(document).on 'click', '.delete-comment', (e) -> self.showPasscodeModal(e, self)
@@ -105,10 +106,11 @@ randoms.thoughts = (args) ->
 			contentVal = @$newCommentInput.val() 
 			if contentVal.length > 0
 				newComment = new Comment({author: authorVal, content: contentVal, thought_id: self.id, passcode: randoms.getGUID()})
-				data = newComment.save(null, { 
-					success: (data) ->
-						console.log data
-				})
+				newComment.save()
+				# data = newComment.save(null, { 
+				# 	success: (data) ->
+				# 		# console.log data
+				# })
 
 
 				@$newCommentPasscodeInput.val(newComment.get('passcode'))
@@ -123,15 +125,13 @@ randoms.thoughts = (args) ->
 		showPasscodeModal: (e, self) ->
 			clickedElem = $(e.target)
 			commentToDelete = clickedElem.parents('.comment').addClass('awaiting-delete')
-			# clickedElem.parent().children().toggleClass('hidden')
 			self.$passcodeModal.fadeIn()
-			self.$modalOverlay.fadeIn()
 			self.$commentModal.addClass('passcode-modal-shown')
+			self.$passcodeInput.focus()
 
 		closePassCodeModal: (self)->
 			$('.awaiting-delete').removeClass('awaiting-delete')
 			self.$passcodeModal.fadeOut()
-			self.$modalOverlay.fadeOut()
 			self.$passcodeInput.val('').removeClass('incorrect')
 			self.$commentModal.removeClass('passcode-modal-shown')
 

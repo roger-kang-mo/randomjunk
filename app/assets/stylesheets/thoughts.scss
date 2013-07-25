@@ -65,6 +65,7 @@ div#thoughts {
 		z-index: 10001;
 		position: fixed;
 		background-color: #E5E5E5;
+		border: 1px solid #000000;
 
 		&.passcode-modal-shown {
 			opacity: 0.4;
