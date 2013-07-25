@@ -39,11 +39,18 @@
 			<div id="add-comment-area">
 				<input type="text" id="new-comment-author" placeholder="Your name"> <span id="comment-error"></span><br>
 				<textarea name="" id="new-comment-input" limit="400" cols="200" rows="2" placeholder="Thoughts?"></textarea><br>
+				<input type="text" id="new-comment-passcode" class="tips" title="This box will contain the passcode for your comment. You'll need it if you want to delete your comment.">
 				<button class="btn btn-inverse" id="submit-comment">Submit</button>
 				<button class="btn btn-inverse" id="close-comment-modal">Close</button>
 			</div>
 		</div>
 
+		<div id="passcode-modal">
+			<div id="passcode-area">
+				<input type="text" id="passcode-input" placeholder="passcode" /><br>
+				<button class="btn btn-inverse" id="close-passcode-modal">Close</button><button class="btn btn-inverse" id="submit-passcode">Submit</button>
+			</div>
+		</div>
 	</div>
 
 	<script>randoms.thoughts({ thoughts: <%= JSON((@thoughts or {}).as_json).html_safe %> })</script>

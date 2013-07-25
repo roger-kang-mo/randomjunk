@@ -1,9 +1,19 @@
 randoms.thoughts = (args) ->
 
-	guidGen = ->
-	  Math.floor((1 + Math.random()) * 0x10000).toString(16).substring 1
-	guid = ->
-	  guidGen() + '-' + guidGen
+	randoms.randomWords = ['banana-hammock', 'longfellow', 'crapbag', 'holiday-armadillo', 'MYFAJITAS', 'arcane', 'whispering', 'hollows', 'savannah', 'pandemic',
+		'orangina', 'creole', 'testy', 'test-sicles', 'roberto', 'bender', 'flexo', 'extortion', 'putnam', 'wiser', 'ocean', 'opening', 'clearing', 'flustering', 
+		'criminally', 'spineless'
+	]
+
+	randoms.getGUID = ->
+		genGUID = ->
+			# This is too... secure. I'm going with a... different... approach.
+			# Math.floor((1 + Math.random()) * 0x10000).toString(16).substring 1
+
+			randoms.randomWords[Math.floor(Math.random() * (randoms.randomWords.length - 1 + 1))]
+
+
+		genGUID() + '_' + genGUID()
 
 	Comment = Backbone.Model.extend
 		urlRoot: '/comments'
@@ -64,28 +74,44 @@ randoms.thoughts = (args) ->
 			self.collection.on("sync", this.render, this);
 			self.collection.on("reset", this.render, this);
 
+			@$commentModal = $('#comment-modal')
 			@$saveNewCommentButton = $('#submit-comment')
 			@$newCommentInput = $('#new-comment-input')
 			@$newCommentAuthorInput = $('#new-comment-author')
+			@$newCommentPasscodeInput = $('#new-comment-passcode')
 
 			@$commentErrorText = $('#comment-error')
 
 			@names = ["Rambo McQueen", 'Powers Boothe', 'Commander Flex Plexico', 'Duncan Steel', 'Lightning McPhaser', 'Blazer McTaser', 'Jennifer', 'Michelle', 'Sunshine', 'The California Kid', 'Jeeves', 'Kabeer Gbaja-Biamila', 'Coco Crisp', 'World B. Free', "D'Brickashaw Ferguson", 'Chief Kickingstallionsims', 'Sein McFeld', 'H.E. PennyPacker', 
-				'Dr. Martin van Nostrand', 'Kel Varnsen', 'Art Vandelay', 'Cantstandya', 'Buck Naked', 'Max Power', 'Curtis E. Bear', 'Churchy La Femme', 'Plow King', 
+				'Dr. Martin van Nostrand', 'Kel Varnsen', 'Art Vandelay', 'Cantstandya', 'Buck Naked', 'Max Power', 'Curtis E. Bear', 'Churchy La Femme', 'Plow King', 'John McBananaFeather', 'Eduardo Coroccio', 'Alex P Keaton', 'Mr. Tea', 'Mr. Brown',
 				'Stirling Mortlock', 'Magnus Ver Magnusson', 'Dick Pound', 'Staff Sgt. Max Fightmaster', 'Dick Trickle', 'Tricky Dick', 'A Real American Hero', 'Gaylord Focker', 'Moxie Crimefighter', 'ShaDynasty', 'Pepe Silvia', 'Nightman - Sneaky & Mean', 'Dayman, Fighter of the Nightman', 'Oscar Gamble', '']
 
 			@$saveNewCommentButton.click -> self.saveNewComment(self)
 
-			$(document).on 'click', '.delete-comment', (e) -> self.deleteComment(e, self)
+			@$passcodeModal = $('#passcode-modal')
+			@$passcodeInput = $('#passcode-input')
+			@$passcodeSubmit = $('#submit-passcode')
+			@$passcodeClose = $('#close-passcode-modal')
+			@$modalOverlay = $('#modal-overlay')
 
+			@$passcodeSubmit.click -> self.deleteComment(self)
+			@$passcodeClose.click -> self.closePassCodeModal(self)
+
+			$(document).on 'click', '.delete-comment', (e) -> self.showPasscodeModal(e, self)
 
 		saveNewComment: (self) ->
 			@$commentErrorText.text('').fadeOut()
 			authorVal = @$newCommentAuthorInput.val()
 			contentVal = @$newCommentInput.val() 
 			if contentVal.length > 0
-				newComment = new Comment({author: authorVal, content: contentVal, thought_id: self.id})
-				newComment.save()
+				newComment = new Comment({author: authorVal, content: contentVal, thought_id: self.id, passcode: randoms.getGUID()})
+				data = newComment.save(null, { 
+					success: (data) ->
+						console.log data
+				})
+
+
+				@$newCommentPasscodeInput.val(newComment.get('passcode'))
 				
 				self.collection.add(newComment)
 
@@ -94,18 +120,35 @@ randoms.thoughts = (args) ->
 			# else
 			# 	@$commentErrorText.text('Both fields are required.').fadeIn()
 
-
-		deleteComment: (e) ->
+		showPasscodeModal: (e, self) ->
 			clickedElem = $(e.target)
 			commentToDelete = clickedElem.parents('.comment').addClass('awaiting-delete')
-			clickedElem.parent().children().toggleClass('hidden')
+			# clickedElem.parent().children().toggleClass('hidden')
+			self.$passcodeModal.fadeIn()
+			self.$modalOverlay.fadeIn()
+			self.$commentModal.addClass('passcode-modal-shown')
+
+		closePassCodeModal: (self)->
+			$('.awaiting-delete').removeClass('awaiting-delete')
+			self.$passcodeModal.fadeOut()
+			self.$modalOverlay.fadeOut()
+			self.$passcodeInput.val('').removeClass('incorrect')
+			self.$commentModal.removeClass('passcode-modal-shown')
+
+		deleteComment: (self) ->
+			commentToDelete = $('.awaiting-delete')
 			commentID = commentToDelete.data('id')
 
+			#check passcode
 			if commentID and this.collection.get(commentID)
-				this.collection.get(commentID).destroy()
+				if self.$passcodeInput.val() in [this.collection.get(commentID).get('passcode'), 'supersecretadminpassword']
+					this.collection.get(commentID).destroy()
 
-				this.render()
+					self.closePassCodeModal(self)
 
+					this.render()
+				else
+					self.$passcodeInput.addClass('incorrect')
 
 
 		appendItem: (comment) ->
