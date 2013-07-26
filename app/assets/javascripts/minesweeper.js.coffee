@@ -107,10 +107,10 @@ randoms.minesweeper = (args) ->
 
 			generateBoard(boardParams)
 		else
-			updateStatus('TOO MANY MINES') if numMines > (width * height)
+			updateStatus('TOO MANY MINES') if numMines >= (width * height)
 			updateStatus('TOO FEW MINES') if numMines < 1
-			updateStatus('Height must be between 2 and 15') if height < 2 or height > 15
-			updateStatus('Width must be between 2 and 15') if width < 2 or width > 15
+			updateStatus('Height must be between 2 and 15') if width < 2 or width > 15 
+			updateStatus('Width must be between 2 and 15') if height < 2 or height > 15
 
 	generateBoard = (args) ->
 		width = args.width
