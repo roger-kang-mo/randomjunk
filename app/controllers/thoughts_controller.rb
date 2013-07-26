@@ -61,10 +61,14 @@ class ThoughtsController < ApplicationController
 		end
 	end	
 
+	# basically the admin panel
 	def secret_page
 
 		@unapproved_thoughts = Thought.where(:approved => false)
 		@current_thoughts = Thought.where(:approved => true)
+
+		# =S
+		@latest_comments = Comment.find(:all, :limit => 5)
 
 		respond_to do |format|
 			format.html

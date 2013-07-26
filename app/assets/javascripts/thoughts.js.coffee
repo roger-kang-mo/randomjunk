@@ -274,6 +274,7 @@ randoms.thoughts = (args) ->
 			@$commentInput = $('#new-comment-input')
 			@$closeCommentModalButton = $('#close-comment-modal')
 			@$commentErrorText = $('#comment-error')
+			@$newCommentPasscodeInput = $('#new-comment-passcode')
 
 			# @$commentListViews = []
 			self.$commentsListView = null
@@ -376,6 +377,7 @@ randoms.thoughts = (args) ->
 			self.$modalOverlay.fadeOut()
 
 		closeCommentModal: (self) ->
+			self.$newCommentPasscodeInput.val('')
 			self.$commentErrorText.text('').fadeOut()
 			self.$commentModal.fadeOut()
 			self.$modalOverlay.fadeOut()
