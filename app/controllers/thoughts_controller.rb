@@ -68,7 +68,7 @@ class ThoughtsController < ApplicationController
 		@current_thoughts = Thought.where(:approved => true)
 
 		# =S
-		@latest_comments = Comment.find(:all, :limit => 5)
+		@latest_comments = Comment.find(:all,:order => "id desc", :limit => 5)
 
 		respond_to do |format|
 			format.html
