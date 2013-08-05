@@ -1,4 +1,8 @@
 randoms.minesweeper = (args) ->
+	closeModalButtons = $('.md-button')
+	modalOverlay = $('#modal-overlay')
+	modalWindow = $('.md-modal')
+
 	widthBox = $('#board-width')
 	heightBox = $('#board-height')
 	minesBox = $('#num-mines')
@@ -12,6 +16,8 @@ randoms.minesweeper = (args) ->
 	gameOver = false
 	revealFuncs = [[], []]
 
+	cachedBoardVals = {}
+
 	window.oncontextmenu = (e) ->
 		clickedElem = $(e.target)
 		if $('#mineboard').find(clickedElem).length
@@ -23,18 +29,58 @@ randoms.minesweeper = (args) ->
 					clickedElem.addClass('flagged')
 			return false
 
+	$(document).on 'keyup', 'body', (e)->
+		if e.which == 82 and not (e.ctrlKey or e.metaKey)
+			if Object.keys(cachedBoardVals).length > 0
+				if gameOver
+					generateBoard(cachedBoardVals)
+				else
+					modalWindow.addClass('md-show')
+					modalOverlay.fadeIn()
+
+	closeModalButtons.click (e) ->
+		clickedElem = $(e.target)
+		clickedElem = clickedElem.parents('.md-button') unless clickedElem.hasClass('md-button')
+
+		modalWindow.removeClass('md-show')
+		modalOverlay.fadeOut()
+
+		generateBoard(cachedBoardVals) if clickedElem.attr('id') == 'restart'
+		initiateBeastMode() if clickedElem.attr('id') == 'beast-mode'
+
+	modalOverlay.click ->
+		modalWindow.removeClass('md-show')
+		modalOverlay.fadeOut()
+
+	initiateBeastMode = ->
+
+		width = parseInt(cachedBoardVals.width)
+		height = parseInt(cachedBoardVals.height)
+		mines = parseInt(cachedBoardVals.mines)
+
+		remainingSpots = (width * height) - mines
+
+		mines += Math.floor(Math.random() * ((remainingSpots - 5)/2))
+
+		minesBox.val(mines)
+		boardParams = { width: width, height: height, mines: mines}
+		cachedBoardVals = boardParams
+
+
+		generateBoard(boardParams)
 
 	$(document).on 'click', '.boardspot', (e) ->
 		clickedElem = $(e.target)
 		clickedElem = clickedElem.parents('.boardspot') if clickedElem.hasClass('spotval') or clickedElem.hasClass('flagspot')
 		unless gameOver or clickedElem.hasClass('revealed') or clickedElem.hasClass('flagged')
-			clickedElem.addClass('revealed').css("-webkit-transition","all 0.6s ease")
-		    .css("backgroundColor","#999")
-		    .css("-moz-transition","all 0.6s ease")
-		    .css("-o-transition","all 0.6s ease")
-		    .css("-ms-transition","all 0.6s ease")
+			clickedElem.addClass('revealed').css
+			  "-webkit-transition": "all 0.6s ease"
+			  backgroundColor: "#999"
+			  "-moz-transition": "all 0.6s ease"
+			  "-o-transition": "all 0.6s ease"
+			  "-ms-transition": "all 0.6s ease"
 			numRevealed++
-			console.log(clickedElem.data('coords') + ' revealed')
+			# console.log(clickedElem.data('coords') + ' revealed')
 
 			if clickedElem.data('value') == 'W'
 				loseCase()
@@ -49,7 +95,7 @@ randoms.minesweeper = (args) ->
 				seqParams.params = revealFuncs[1]
 				revealFuncs = [[], []]
 				$.sequentialize(seqParams)
-			console.log 'numRevealed: ' + numRevealed
+			# console.log 'numRevealed: ' + numRevealed
 
 	revealConnectedZeros = (coords) ->
 		updateSpotNumbers(coords, ['W',1,2,3,4,5,6,7,8,9,10], (foundIn, x, y) ->
@@ -58,20 +104,22 @@ randoms.minesweeper = (args) ->
 				if foundIn
 					if board[x][y] != 'W' and thisSpot
 						unless thisSpot.hasClass('revealed')
-							thisSpot.addClass('revealed').removeClass('flagged').css("-webkit-transition","all 0.6s ease")
-						    .css("backgroundColor","#999")
-						    .css("-moz-transition","all 0.6s ease")
-						    .css("-o-transition","all 0.6s ease")
-						    .css("-ms-transition","all 0.6s ease")
+							thisSpot.addClass('revealed').removeClass('flagged').css
+							  "-webkit-transition": "all 0.6s ease"
+							  backgroundColor: "#999"
+							  "-moz-transition": "all 0.6s ease"
+							  "-o-transition": "all 0.6s ease"
+							  "-ms-transition": "all 0.6s ease"
 							numRevealed++
 
 				else if thisSpot # is a 0
 					unless thisSpot.hasClass('revealed')
-							thisSpot.addClass('revealed').removeClass('flagged').css("-webkit-transition","all 0.6s ease")
-						    .css("backgroundColor","#999")
-						    .css("-moz-transition","all 0.6s ease")
-						    .css("-o-transition","all 0.6s ease")
-						    .css("-ms-transition","all 0.6s ease")
+							thisSpot.addClass('revealed').removeClass('flagged').css
+							  "-webkit-transition": "all 0.6s ease"
+							  backgroundColor: "#999"
+							  "-moz-transition": "all 0.6s ease"
+							  "-o-transition": "all 0.6s ease"
+							  "-ms-transition": "all 0.6s ease"
 							numRevealed++
 
 					revealFuncs[0].push revealConnectedZeros
@@ -83,11 +131,13 @@ randoms.minesweeper = (args) ->
 
 	loseCase = ->
 		updateStatus('You lose')
-		$('.boardspot').addClass('revealed').removeClass('flagged').css("-webkit-transition","all 0.6s ease")
-	    .css("backgroundColor","#999")
-	    .css("-moz-transition","all 0.6s ease")
-	    .css("-o-transition","all 0.6s ease")
-	    .css("-ms-transition","all 0.6s ease")
+		gameOver = true
+		$('.boardspot').addClass('revealed').removeClass('flagged').css
+			  "-webkit-transition": "all 0.6s ease"
+			  backgroundColor: "#999"
+			  "-moz-transition": "all 0.6s ease"
+			  "-o-transition": "all 0.6s ease"
+			  "-ms-transition": "all 0.6s ease"
 
 	winCase = ->
 		updateStatus('You Win! B)')
@@ -101,16 +151,16 @@ randoms.minesweeper = (args) ->
 		height = heightBox.val()
 		numMines = minesBox.val()
 
-		if width > 1 and width < 16 and height < 16 and height > 1 and numMines > 0 and numMines < (width * height)
+		if width > 1 and width < 21 and height < 21 and height > 1 and numMines > 0 and numMines < (width * height)
 
 			boardParams = { width: width, height: height, mines: numMines}
-
+			cachedBoardVals = boardParams
 			generateBoard(boardParams)
 		else
 			updateStatus('TOO MANY MINES') if numMines >= (width * height)
 			updateStatus('TOO FEW MINES') if numMines < 1
-			updateStatus('Height must be between 2 and 15') if width < 2 or width > 15 
-			updateStatus('Width must be between 2 and 15') if height < 2 or height > 15
+			updateStatus('Height must be between 2 and 20') if width < 2 or width > 21
+			updateStatus('Width must be between 2 and 20') if height < 2 or height > 21
 
 	generateBoard = (args) ->
 		width = args.width

@@ -2,18 +2,44 @@
 <div id="minesweeper-main" class="section group">
 	<div id="words_space" class="col span_1_of_3">
 		<h1 class="input-header">Board Setup</h1>
-		<div class="input-title">Height <span class="mini-text">(limit 15)</span>: <input type="number" id="board-width" class="mine-input" placeholder="ex: 12"></div>
-		<div class="input-title">Width<span class="mini-text">(limit 15)</span>: <input type="number" id="board-height" class="mine-input" placeholder="ex: 8"></div>
+		<div class="input-title">Height <span class="mini-text">(limit 20)</span>: <input type="number" id="board-width" class="mine-input" placeholder="ex: 12"></div>
+		<div class="input-title">Width<span class="mini-text">(limit 20)</span>: <input type="number" id="board-height" class="mine-input" placeholder="ex: 8"></div>
 		<div class="input-title">Num. Mines:<input type="number" id="num-mines" class="mine-input" placeholder="ex: 15"></div>
 		<button id="generate-board" class="btn btn-inverse">Generate</button>
 		<br/>
 
 		<div class="status-header">GET STARTED</div>
+
+		<div id="controls" class="col span_1_of_3">
+			<p><h3>Controls: </h3></p>
+			<ul>
+				<li><strong>Left Click</strong>:  Reveal spot</li>
+				<li><strong>Right Click</strong>:  Place flag</li>
+				<li><strong>'R' Key</strong>:  Recreate Board</li>
+			</ul>
+		</div>
 	</div>
 
 
 	<div id="board_space" class="col span_2_of_3">
 
+	</div>
+
+	<div class="md-modal md-effect-16" id="modal-16">
+		<div class="md-content">
+			<h3>End Game in Progress?</h3>
+			<div>
+				<p>So you want to quit this game? The way I see it, these are your choices:</p>
+				<ul>
+					<li><strong>Go back:</strong> You can do it. Just think it out. Or close your eyes and click somewhere.</li>
+					<li><strong>Quit:</strong> Go ahead. It's not like you were good enough to win anyway.</li>
+					<li><strong>Beast Mode:</strong> That's right.</li>
+				</ul>
+				<button class="md-button">Go back</button>
+				<button class="md-button" id="restart">I want a new board</button>
+				<button class="md-button" id="beast-mode">Beast Mode</button>
+			</div>
+		</div>
 	</div>
 </div>
 

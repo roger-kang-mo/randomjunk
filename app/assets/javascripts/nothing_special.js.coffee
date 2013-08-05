@@ -25,6 +25,8 @@ $(document).ready ->
 			$('#page-load-overlay').fadeIn(100)
 			$('.page-loader').show()
 
+
+
 randoms.initTips = ->
 	$('.tips').qtip
 	    content:
@@ -34,3 +36,5 @@ randoms.initTips = ->
 	      at: 'top center'
 	    adjust:
 	    	y: -5
+
+	    	

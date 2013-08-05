@@ -35,6 +35,13 @@ div#minesweeper-main {
 			font-size: 30px;
 			color: #3F3F3F;
 		}
+
+		div#controls {
+			margin-top: 15%;
+			width: 100%;
+
+			ul > li > strong { font-size: 17px; }
+		}
 	}
 
 	div#board_space {
