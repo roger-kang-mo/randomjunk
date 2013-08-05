@@ -15,7 +15,8 @@ gem 'awesome_print'
 gem 'rspec'
 # gem 'jasmine', :group => [:development, :test]
 gem 'evergreen', :require => 'evergreen/rails', :group => [:development, :test]
-gem 'site_prism', :group => [:test]
+# gem 'site_prism', :group => [:test]
+gem 'rspec-rails', :group => [:test]
 
 # Gems used only for assets and not required
 # in production environments by default.
