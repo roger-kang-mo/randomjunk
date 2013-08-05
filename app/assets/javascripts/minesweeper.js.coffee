@@ -30,7 +30,7 @@ randoms.minesweeper = (args) ->
 			return false
 
 	$(document).on 'keyup', 'body', (e)->
-		if e.which == 82 and not (e.ctrlKey or e.metaKey)
+		if modalWindow.css('visibility') == 'hidden' and e.which == 82 and not (e.ctrlKey or e.metaKey)
 			if Object.keys(cachedBoardVals).length > 0
 				if gameOver
 					generateBoard(cachedBoardVals)
