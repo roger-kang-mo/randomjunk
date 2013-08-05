@@ -14,7 +14,7 @@ randoms.minesweeper = (args) ->
 	numRevealed = 0
 	numMines = 0
 	nonMineSpots = 0
-	gameOver = false
+	gameOver = true
 	revealFuncs = [[], []]
 
 	cachedBoardVals = {}
@@ -152,20 +152,26 @@ randoms.minesweeper = (args) ->
 		$('#generate-board').click() if e.which == 13
 
 	$('#generate-board').click ->
-		width = widthBox.val()
-		height = heightBox.val()
-		numMines = minesBox.val()
 
-		if width > 1 and width < 21 and height < 21 and height > 1 and numMines > 0 and numMines < (width * height)
-
-			boardParams = { width: width, height: height, mines: numMines}
-			cachedBoardVals = boardParams
-			generateBoard(boardParams)
+		if cachedBoardVals and not gameOver
+			modalWindow.addClass('md-show')
+			modalOverlay.addClass('show')
+			blurContainer.addClass('blurred')
 		else
-			updateStatus('TOO MANY MINES') if numMines >= (width * height)
-			updateStatus('TOO FEW MINES') if numMines < 1
-			updateStatus('Height must be between 2 and 20') if width < 2 or width > 21
-			updateStatus('Width must be between 2 and 20') if height < 2 or height > 21
+			width = widthBox.val()
+			height = heightBox.val()
+			numMines = minesBox.val()
+
+			if width > 1 and width < 21 and height < 21 and height > 1 and numMines > 0 and numMines < (width * height)
+
+				boardParams = { width: width, height: height, mines: numMines}
+				cachedBoardVals = boardParams
+				generateBoard(boardParams)
+			else
+				updateStatus('TOO MANY MINES') if numMines >= (width * height)
+				updateStatus('TOO FEW MINES') if numMines < 1
+				updateStatus('Height must be between 2 and 20') if width < 2 or width > 21
+				updateStatus('Width must be between 2 and 20') if height < 2 or height > 21
 
 	generateBoard = (args) ->
 		width = args.width
