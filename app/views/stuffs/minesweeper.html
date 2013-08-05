@@ -1,5 +1,5 @@
 <% content_for :main do %>
-<div id="minesweeper-main" class="section group">
+<div id="minesweeper-main" class="section group md-container">
 	<div id="words_space" class="col span_1_of_3">
 		<h1 class="input-header">Board Setup</h1>
 		<div class="input-title">Height <span class="mini-text">(limit 20)</span>: <input type="number" id="board-width" class="mine-input" placeholder="ex: 12"></div>
@@ -25,7 +25,8 @@
 
 	</div>
 
-	<div class="md-modal md-effect-16" id="modal-16">
+</div>
+<div class="md-modal md-effect-16" id="modal-16">
 		<div class="md-content">
 			<h3>End Game in Progress?</h3>
 			<div>
@@ -41,7 +42,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 
 <script type="text/javascript">
 	randoms.minesweeper();	

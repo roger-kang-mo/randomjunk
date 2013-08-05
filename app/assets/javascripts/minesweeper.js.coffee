@@ -2,6 +2,7 @@ randoms.minesweeper = (args) ->
 	closeModalButtons = $('.md-button')
 	modalOverlay = $('#modal-overlay')
 	modalWindow = $('.md-modal')
+	blurContainer = $('.md-container')
 
 	widthBox = $('#board-width')
 	heightBox = $('#board-height')
@@ -21,6 +22,7 @@ randoms.minesweeper = (args) ->
 	window.oncontextmenu = (e) ->
 		clickedElem = $(e.target)
 		if $('#mineboard').find(clickedElem).length
+			e.stopPropagation()
 			clickedElem = clickedElem.parents('.boardspot') if clickedElem.hasClass('spotval') or clickedElem.hasClass('flagspot')
 			unless clickedElem.hasClass('revealed') or gameOver
 				if clickedElem.hasClass('flagged')
@@ -36,21 +38,24 @@ randoms.minesweeper = (args) ->
 					generateBoard(cachedBoardVals)
 				else
 					modalWindow.addClass('md-show')
-					modalOverlay.fadeIn()
+					modalOverlay.addClass('show')
+					blurContainer.addClass('blurred')
 
 	closeModalButtons.click (e) ->
 		clickedElem = $(e.target)
 		clickedElem = clickedElem.parents('.md-button') unless clickedElem.hasClass('md-button')
 
 		modalWindow.removeClass('md-show')
-		modalOverlay.fadeOut()
+		modalOverlay.removeClass('show')
+		blurContainer.removeClass('blurred')
 
 		generateBoard(cachedBoardVals) if clickedElem.attr('id') == 'restart'
 		initiateBeastMode() if clickedElem.attr('id') == 'beast-mode'
 
 	modalOverlay.click ->
 		modalWindow.removeClass('md-show')
-		modalOverlay.fadeOut()
+		modalOverlay.removeClass('show')
+		blurContainer.removeClass('blurred')
 
 	initiateBeastMode = ->
 
