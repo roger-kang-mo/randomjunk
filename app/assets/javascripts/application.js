@@ -15,4 +15,7 @@
 //= require nothing_special.js.coffee
 //= require underscore.js
 //= require backbone.js
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
 //= require_tree .

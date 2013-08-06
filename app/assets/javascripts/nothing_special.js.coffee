@@ -2,6 +2,8 @@ window.randoms = {
 	
 }
 
+window.ThoughtsHolder = {}  if typeof ThoughtsHolder is "undefined"
+
 window.onload = ->
 	$('#main-page-loader').fadeOut('slow')
 	$('#page-load-overlay').fadeOut('slow')
