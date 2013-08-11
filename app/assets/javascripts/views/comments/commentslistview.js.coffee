@@ -1,6 +1,6 @@
-window.ThoughtsHolder = {}  if typeof ThoughtsHolder is "undefined"
+window.BackboneHolder = {}  if typeof BackboneHolder is "undefined"
 
-ThoughtsHolder.CommentsListView = Backbone.View.extend
+BackboneHolder.CommentsListView = Backbone.View.extend
 		el: $('#comments-list')
 		tagName: 'ul'
 		render: ->
@@ -56,13 +56,12 @@ ThoughtsHolder.CommentsListView = Backbone.View.extend
 			authorVal = @$newCommentAuthorInput.val()
 			contentVal = @$newCommentInput.val() 
 			if contentVal.length > 0
-				newComment = new ThoughtsHolder.Comment({author: authorVal, content: contentVal, thought_id: self.id, passcode: randoms.getGUID()})
+				newComment = new BackboneHolder.Comment({author: authorVal, content: contentVal, thought_id: self.id, passcode: randoms.getGUID()})
 				newComment.save()
 				# data = newComment.save(null, { 
 				# 	success: (data) ->
 				# 		# console.log data
 				# })
-
 
 				@$newCommentPasscodeInput.val(newComment.get('passcode'))
 				
@@ -103,5 +102,5 @@ ThoughtsHolder.CommentsListView = Backbone.View.extend
 
 
 		appendItem: (comment) ->
-		  commentView = new ThoughtsHolder.CommentView(model: comment)
+		  commentView = new BackboneHolder.CommentView(model: comment)
 		  $(@el).append commentView.render().el

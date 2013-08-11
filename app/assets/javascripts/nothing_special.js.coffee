@@ -2,7 +2,7 @@ window.randoms = {
 	
 }
 
-window.ThoughtsHolder = {}  if typeof ThoughtsHolder is "undefined"
+window.BackboneHolder = {}  if typeof BackboneHolder is "undefined"
 
 window.onload = ->
 	$('#main-page-loader').fadeOut('slow')
@@ -27,8 +27,6 @@ $(document).ready ->
 			$('#page-load-overlay').fadeIn(100)
 			$('.page-loader').show()
 
-
-
 randoms.initTips = ->
 	$('.tips').qtip
 	    content:
@@ -38,5 +36,8 @@ randoms.initTips = ->
 	      at: 'top center'
 	    adjust:
 	    	y: -5
+
+
+$('.md-setperspective')
 
 	    	

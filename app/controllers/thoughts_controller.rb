@@ -18,8 +18,6 @@ class ThoughtsController < ApplicationController
 		end
 	end
 
-
-
 	def get_all
 		@thoughts = Thought.all
 

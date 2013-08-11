@@ -1,31 +1,43 @@
 <% content_for :main do %>
-<div id="index-main">
+<div id="index-main" class="section group">
 	<h1>Welcome!</h1>
 
 	<p class="intro-info">
 		This is a an app I created to gather together some random, smaller projects.
 	</p>
 
+	<div id="implementations">
+	    <!-- <img src='assets/thoughts.png'> -->
+	        <!-- <span>
+	            I didn't want the pressue to fill entire blog posts. So I created a way to keep track of short thoughts... then I filled it with funny tweets.
+	        </span> -->
+	    <!-- <img src='assets/minesweeper.png'> -->
+	    <!--     <span>
+	            Everybody remembers minesweeper! Give it a shot, you won't be disappointed. Nostalgia Hoooooo!
+	        </span> -->
+        <!-- <img src='assets/notes.png'> -->
+        <!-- <span>
+            I wanted a way for people to leave messages directly on here. Plus, I saw something that was like this and I thought, that might be fun to make!
+        </span> -->
+        <!-- <img src='assets/cards.png'> -->
+        <!-- <span>
+            I've never played Cards Against Humanity, but I have played Apples to Apples. While fun/funny enough, Cards Against Humanity just looks hilarious. So, I looked up the cards and now I've got a page I can have on a second monitor that I can look to for a giggle.
+        </span> -->
+        <!-- <img src='assets/scattergories.png'> -->
+        <!-- <span>
+            I've been meaning to go back and create a Scattergories implementation that would involve multiplayer, but Skype will have to do for now.
+        </span> -->
+	
 
-	<div class="section group" id="implementations">
-		<div class="col span_1_of_3">
-			<p class="intro-info">
-				A very bad implementation of minesweeper. I didn't do a very good job of revealing spots adjacent to the one you click.
-			</p><p><img src="assets/minesweeper-screencap.png" alt=""></p>
-		</div>
-		<div class="col span_1_of_3">
-			<p>Some Zoidberg. Because why not?</p>
-			<p><img src="/assets/zoidberg-paying-attention.png"/></p>
+	    <div data-src="assets/thoughts.png"></div>
+	    
+	    <div data-src="assets/minesweeper.png"></div>
+	    
 
-		</div>
-		<div class="col span_1_of_3">
-			<p>You can play scattergories! Er... Copyright.. Disperseagories.</p>
-			<p><img src="assets/scattergories-screencap.png" alt=""></p>
-		</div>
 	</div>
 
-	<br><br>
-	</span>
 </div>
+
+<script> randoms.landing(); </script>
 
 <% end %>

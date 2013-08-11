@@ -1,7 +1,7 @@
-window.ThoughtsHolder = {}  if typeof ThoughtsHolder is "undefined"
+window.BackboneHolder = {}  if typeof BackboneHolder is "undefined"
 
-ThoughtsHolder.ThoughtsView = Backbone.View.extend
-		model: ThoughtsHolder.Thought
+BackboneHolder.ThoughtsView = Backbone.View.extend
+		model: BackboneHolder.Thought
 		
 		template: _.template('<div data-id="<%= id %>" class="thought-card <%= themeNum %>">
 					<div class="thought-header">

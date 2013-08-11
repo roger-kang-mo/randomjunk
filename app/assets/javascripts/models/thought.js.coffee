@@ -1,6 +1,6 @@
-window.ThoughtsHolder = {}  if typeof ThoughtsHolder is "undefined"
+window.BackboneHolder = {}  if typeof BackboneHolder is "undefined"
 
-ThoughtsHolder.Thought = Backbone.Model.extend
+BackboneHolder.Thought = Backbone.Model.extend
 		urlRoot: '/thoughts'
 		defaults: 
 			content: ''
@@ -11,3 +11,4 @@ ThoughtsHolder.Thought = Backbone.Model.extend
 		initialize: (args) ->
 			themeNum = 'theme' + Math.floor(Math.random() * (13) + 1)
 			this.set('themeNum', themeNum)
+

@@ -21,10 +21,12 @@ Randomjunk::Application.routes.draw do
 
   get '/thoughts/comments/get_comments_for/:id' => 'comments#get_comments_for'
 
+  get '/records/query_records' => 'records#query_records'
 
   resources :notes
   resources :thoughts
   resources :comments
+  resources :minesweeper_records
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

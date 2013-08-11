@@ -5,11 +5,16 @@
 		<div class="input-title">Height <span class="mini-text">(limit 20)</span>: <input type="number" id="board-width" class="mine-input" placeholder="ex: 12"></div>
 		<div class="input-title">Width<span class="mini-text">(limit 20)</span>: <input type="number" id="board-height" class="mine-input" placeholder="ex: 8"></div>
 		<div class="input-title">Num. Mines:<input type="number" id="num-mines" class="mine-input" placeholder="ex: 15"></div>
-		<button id="generate-board" class="btn btn-inverse">Generate</button>
+		<div class="buttons clearfix">
+			<button id="generate-board" class="btn btn-inverse">Generate</button>
+			<button id="show-records" class="btn btn-inverse">Scores</button>
+		</div>
 		<br/>
 
 		<div class="status-header">GET STARTED</div>
-
+		<div id="timer" class="col span_1_of_3">
+			
+		</div>
 		<div id="controls" class="col span_1_of_3">
 			<p><h3>Controls: </h3></p>
 			<ul>
@@ -20,14 +25,13 @@
 		</div>
 	</div>
 
-
 	<div id="board_space" class="col span_2_of_3">
 
 	</div>
-
 </div>
-<div class="md-modal md-effect-16" id="modal-16">
-		<div class="md-content">
+<div class="md-modal md-effect-blur" id="modal-16">
+	<div class="md-content">
+		<div id="content-quit" class="variable-content content-show">
 			<h3>End Game in Progress?</h3>
 			<div>
 				<p>So you want to quit this game? The way I see it, these are your choices:</p>
@@ -36,15 +40,43 @@
 					<li><strong>Quit:</strong> Go ahead. It's not like you were good enough to win anyway.</li>
 					<li><strong>Beast Mode:</strong> That's right. (WARNING: ADDS MORE MINES)</li>
 				</ul>
-				<button class="md-button">Go back</button>
+				<button class="md-button" id="no-action">Go back</button>
 				<button class="md-button" id="restart">I want a new board</button>
 				<button class="md-button" id="beast-mode">Beast Mode</button>
 			</div>
 		</div>
+	
+		<div id="content-win" class="variable-content content-show">
+			<h3>Congratulations!</h3>
+			<div>
+				<p>You've done very well and are a real American hero!</p>
+				<ul>
+					<li id="record-stats"></li>
+				</ul>
+				<input type="text" id="record-name" class="big-input md-input">
+				<button class="md-button" id="save-record">Save</button>
+				<button class="md-button" id="no-save-record">Or Don't!</button>
+			</div>
+		</div>
+
+		<div id="content-records" class="variable-content content-show">
+			<h3>Previous Games</h3>
+			<div>
+				<table id="records-list">	
+				</table>
+			</div>
+		</div>
 	</div>
+</div>
+
+
+<!-- <div class="md-modal md-effect-makeway" id="modal-win">
+	
+</div> -->
+
 
 <script type="text/javascript">
-	randoms.minesweeper();	
+	randoms.minesweeper({ records: <%= JSON((@minesweeper_records or {}).as_json).html_safe %>});	
 </script>
 
 <% end %>

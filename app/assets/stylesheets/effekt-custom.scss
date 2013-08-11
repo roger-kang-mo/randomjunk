@@ -46,6 +46,36 @@
   position: relative;
   border-radius: 3px;
   margin: 0 auto;
+
+  .variable-content {
+    display:none;
+
+    &.content-show {
+      display:block;
+    }
+
+    &#content-records {
+      table#records-list {
+        overflow-y: scroll;
+        width: 100%;
+        tbody { 
+          tr:first-child {
+            border-bottom: 3px solid #fff;
+          }
+
+          tr {
+            border: 1px solid #fff;
+            
+
+            td:nth-child(n+1), th:nth-child(n+1) {
+              padding-left: 5%;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .md-content h3 {
@@ -55,7 +85,7 @@
   font-size: 2.4em;
   font-weight: 300;
   opacity: 0.8;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.5);
   border-radius: 3px 3px 0 0;
 }
 
@@ -97,7 +127,7 @@
   filter: blur(3px);
 }
 
-.md-effect-16 .md-content {
+.md-effect-blur .md-content {
   -webkit-transform: translateY(-5%);
   -moz-transform: translateY(-5%);
   -ms-transform: translateY(-5%);
@@ -105,14 +135,14 @@
   opacity: 0;
 }
 
-.md-show.md-effect-16 ~ .md-container,
-.md-effect-16 .md-content {
+.md-show.md-effect-blur ~ .md-container,
+.md-effect-blur .md-content {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
 }
 
-.md-show.md-effect-16 .md-content {
+.md-show.md-effect-blur .md-content {
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
@@ -137,4 +167,85 @@ button.md-button {
 
 button.md-button:hover {
   background: #7F4040;
+}
+
+
+// .md-show.md-effect-makeway ~ .md-body {
+//   height: 100%;
+//   overflow: hidden;
+// }
+
+.md-show.md-effect-makeway ~ .md-overlay {
+  background: rgba(143,27,15,0.8);
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.md-show.md-effect-makeway ~ .md-body,
+.md-show.md-effect-makeway ~ .md-overlay {
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform-origin: 0% 50%;
+  -webkit-animation: rotateRightSideFirst 0.5s forwards ease-in;
+  -moz-transform-style: preserve-3d;
+  -moz-transform-origin: 0% 50%;
+  -moz-animation: rotateRightSideFirst 0.5s forwards ease-in;
+  transform-style: preserve-3d;
+  transform-origin: 0% 50%;
+  animation: rotateRightSideFirst 0.5s forwards ease-in;
+}
+
+@-webkit-keyframes rotateRightSideFirst {
+  50% { -webkit-transform: translateZ(-50px) rotateY(5deg); -webkit-animation-timing-function: ease-out; }
+  100% { -webkit-transform: translateZ(-200px); }
+}
+
+@-moz-keyframes rotateRightSideFirst {
+  50% { -moz-transform: translateZ(-50px) rotateY(5deg); -moz-animation-timing-function: ease-out; }
+  100% { -moz-transform: translateZ(-200px); }
+}
+
+@keyframes rotateRightSideFirst {
+  50% { transform: translateZ(-50px) rotateY(5deg); animation-timing-function: ease-out; }
+  100% { transform: translateZ(-200px); }
+}
+
+.md-effect-makeway .md-content {
+  -webkit-transform: translateX(200%);
+  -moz-transform: translateX(200%);
+  -ms-transform: translateX(200%);
+  transform: translateX(200%);
+  opacity: 0;
+}
+
+.md-show.md-effect-makeway .md-content {
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  opacity: 1;
+  -webkit-transition: all 0.5s 0.1s;
+  -moz-transition: all 0.5s 0.1s;
+  transition: all 0.5s 0.1s;
+}
+
+input.md-input {
+  -webkit-border-radius: 2px; //For Safari, etc.
+  -moz-border-radius: 2px; //For Mozilla, etc.
+  border-radius: 2px; //CSS3 Feature
+  height: 37px;
+  margin-right:3px;
+  margin-top:8px;
+  border:3px solid #fff;
+  -moz-box-sizing:border-box;
+  -ms-box-sizing:border-box;
+  box-sizing:border-box;
+  -webkit-box-shadow:0px 0px 5px 0px rgba(0, 0, 0, .10);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .10);
+
+  &:focus {
+    border-color: rgba(0, 0, 0, .65);
+    -webkit-box-shadow:none;
+    box-shadow:none;
+  }
 }

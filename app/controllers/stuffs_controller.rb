@@ -7,6 +7,8 @@ class StuffsController < ApplicationController
 	end
 
 	def minesweeper
+		@minesweeper_records = MinesweeperRecord.find(:all, :order => 'id desc', :limit => 10)
+
 		respond_to do |format|
 			format.html
 		end

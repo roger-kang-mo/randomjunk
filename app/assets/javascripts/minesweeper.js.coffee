@@ -3,6 +3,12 @@ randoms.minesweeper = (args) ->
 	modalOverlay = $('#modal-overlay')
 	modalWindow = $('.md-modal')
 	blurContainer = $('.md-container')
+	recordStats = $('#record-stats')
+	recordName = $('#record-name')
+	closeModalNoAction = $('#no-action')
+	showRecordsButton = $('#show-records')
+	saveRecordButton = $('#save-record')
+
 
 	widthBox = $('#board-width')
 	heightBox = $('#board-height')
@@ -16,8 +22,20 @@ randoms.minesweeper = (args) ->
 	nonMineSpots = 0
 	gameOver = true
 	revealFuncs = [[], []]
+	timeElapsed = 0
 
 	cachedBoardVals = {}
+
+	recordsList = new BackboneHolder.RecordsList()
+	recordsListView = null
+
+	$(document).ready ->
+		records = args.records
+		for i in [0...records.length]
+			recordsList.add(new BackboneHolder.Record(records[i]))
+			recordsListView = new BackboneHolder.RecordsListView({ collection: recordsList })
+		recordsListView.render()
+
 
 	window.oncontextmenu = (e) ->
 		clickedElem = $(e.target)
@@ -32,25 +50,54 @@ randoms.minesweeper = (args) ->
 			return false
 
 	$(document).on 'keyup', 'body', (e)->
-		if modalWindow.css('visibility') == 'hidden' and e.which == 82 and not (e.ctrlKey or e.metaKey)
+		if e.which == 82 and (modalWindow.css('visibility') == 'hidden' and not (e.ctrlKey or e.metaKey))
 			if Object.keys(cachedBoardVals).length > 0
 				if gameOver
 					generateBoard(cachedBoardVals)
 				else
-					modalWindow.addClass('md-show')
-					modalOverlay.addClass('show')
-					blurContainer.addClass('blurred')
+					showModal('quit')
+		else if e.which == 27 and modalWindow.css('visibility') == 'visible'
+			closeModal(closeModalNoAction)
 
-	closeModalButtons.click (e) ->
-		clickedElem = $(e.target)
+	showRecordsButton.click -> showModal('scores')
+	$(document).ready ->
+		recordName.keyup = (e) ->  closeModal(saveRecordButton) if e.which == 13
+
+	closeModalButtons.click (e) -> closeModal(e)
+
+	showModal = (type)->
+		$('.md-content .content-show').removeClass('content-show')
+
+		switch type
+			when 'quit'
+				$('#content-quit').addClass('content-show')
+			when 'scores'
+				recordsListView.render()
+				$('#content-records').addClass('content-show')
+			else
+				$('#content-win').addClass('content-show')
+				recordStats.text('You safely uncovered ' + numMines + ' mines on a ' + width + 'x' + height + ' board.')
+			
+		modalOverlay.addClass('show')
+		blurContainer.addClass('blurred')
+		modalWindow.addClass('md-show')
+
+
+	closeModal = (elem) ->
+		clickedElem = $(elem.target)
 		clickedElem = clickedElem.parents('.md-button') unless clickedElem.hasClass('md-button')
-
+		
 		modalWindow.removeClass('md-show')
 		modalOverlay.removeClass('show')
 		blurContainer.removeClass('blurred')
 
-		generateBoard(cachedBoardVals) if clickedElem.attr('id') == 'restart'
-		initiateBeastMode() if clickedElem.attr('id') == 'beast-mode'
+		switch clickedElem.attr('id')
+			
+			when 'restart' then generateBoard(cachedBoardVals) 
+			when 'beast-mode' then initiateBeastMode()
+			when 'save-record' then saveRecord()
+
+		recordName.val('')
 
 	modalOverlay.click ->
 		modalWindow.removeClass('md-show')
@@ -71,8 +118,14 @@ randoms.minesweeper = (args) ->
 		boardParams = { width: width, height: height, mines: mines}
 		cachedBoardVals = boardParams
 
-
 		generateBoard(boardParams)
+
+	saveRecord = ->
+		newRecordData = { time: timeElapsed, name: recordName.val(), width: width, height: height, mines: numMines }
+		newRecord = new BackboneHolder.Record(newRecordData)
+		newRecord.save()
+		recordsList.add(newRecord)
+		console.log recordsList
 
 	$(document).on 'click', '.boardspot', (e) ->
 		clickedElem = $(e.target)
@@ -147,6 +200,7 @@ randoms.minesweeper = (args) ->
 	winCase = ->
 		updateStatus('You Win! B)')
 		gameOver = true
+		showModal('win')
 
 	$('#num-mines').keyup (e) ->
 		$('#generate-board').click() if e.which == 13
@@ -269,4 +323,5 @@ randoms.minesweeper = (args) ->
 
 	updateStatus = (message) ->
 		statusBar.text(message)
+
 

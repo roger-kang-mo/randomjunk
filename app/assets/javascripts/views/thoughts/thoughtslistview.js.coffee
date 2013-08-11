@@ -1,6 +1,6 @@
-window.ThoughtsHolder = {}  if typeof ThoughtsHolder is "undefined"
+window.BackboneHolder = {}  if typeof BackboneHolder is "undefined"
 
-ThoughtsHolder.ThoughtsListView = Backbone.View.extend
+BackboneHolder.ThoughtsListView = Backbone.View.extend
 		el: $('#thoughts-area')
 		render: ->
 			self = this
@@ -43,7 +43,7 @@ ThoughtsHolder.ThoughtsListView = Backbone.View.extend
 			self.$commentsListView = null
 
 			@$saveNewThoughtButton.click ->
-				newThought = new ThoughtsHolder.Thought({'content': $('#new-thought').val()})
+				newThought = new BackboneHolder.Thought({'content': $('#new-thought').val()})
 				newThought.save()
 				# self.collection.add(newThought)
 				self.closeThoughtSaveModal(self)
@@ -76,8 +76,9 @@ ThoughtsHolder.ThoughtsListView = Backbone.View.extend
 				# ), this
 
 				# unless commentsListView
-				commentsList = new ThoughtsHolder.CommentsList(null, {thoughtID: thoughtID})
-				self.$commentsListView = new ThoughtsHolder.CommentsListView({ id: thoughtID, collection: commentsList})
+				commentsList = undefined
+				commentsList = new BackboneHolder.CommentsList(null, {thoughtID: thoughtID})
+				self.$commentsListView = new BackboneHolder.CommentsListView({ id: thoughtID, collection: commentsList})
 				# self.$commentListViews.push commentsListView
 
 
@@ -160,5 +161,5 @@ ThoughtsHolder.ThoughtsListView = Backbone.View.extend
 	      				parseInt $elem.find('.actual-thought').text().length
 
 		appendItem: (thought) ->
-		  thoughtView = new ThoughtsHolder.ThoughtsView(model: thought)
+		  thoughtView = new BackboneHolder.ThoughtsView(model: thought)
 		  $(@el).append thoughtView.render().el

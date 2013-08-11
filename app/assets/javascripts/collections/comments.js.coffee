@@ -1,7 +1,7 @@
-window.ThoughtsHolder = {}  if typeof ThoughtsHolder is "undefined"
+window.BackboneHolder = {}  if typeof BackboneHolder is "undefined"
 
-ThoughtsHolder.CommentsList = Backbone.Collection.extend
-		model: ThoughtsHolder.Comment
+BackboneHolder.CommentsList = Backbone.Collection.extend
+		model: BackboneHolder.Comment
 		url: '/thoughts/comments/get_comments_for/'
 		initialize: (models, opts) ->
 			self = this

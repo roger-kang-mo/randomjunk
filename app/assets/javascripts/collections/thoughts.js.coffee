@@ -1,5 +1,5 @@
-window.ThoughtsHolder = {}  if typeof ThoughtsHolder is "undefined"
+window.BackboneHolder = {}  if typeof BackboneHolder is "undefined"
 
-ThoughtsHolder.ThoughtsList = Backbone.Collection.extend
-		model: ThoughtsHolder.Thought
+BackboneHolder.ThoughtsList = Backbone.Collection.extend
+		model: BackboneHolder.Thought
 		url: '/thoughts/get_all'

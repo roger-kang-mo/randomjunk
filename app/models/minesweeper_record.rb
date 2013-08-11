@@ -1,10 +1,5 @@
 class MinesweeperRecord < ActiveRecord::Base
 
-	attr_accessible :time
+	attr_accessible :time, :name, :width, :height, :mines
 
-	attr_default :time, 0
-
-	def initialize
-		super
-	end
 end

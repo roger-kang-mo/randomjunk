@@ -18,12 +18,12 @@ randoms.thoughts = (args) ->
 
 
 	createModelsFromArgs = (thoughts, thoughtsList) ->
-		for i in [0..thoughts.length - 1] by 1
-			thoughtsList.add(new ThoughtsHolder.Thought(thoughts[i]))
+		for i in [0...thoughts.length]
+			thoughtsList.add(new BackboneHolder.Thought(thoughts[i]))
 
 	$(document).ready ->
-		thoughtsList = new ThoughtsHolder.ThoughtsList()
+		thoughtsList = new BackboneHolder.ThoughtsList()
 
 		createModelsFromArgs(args.thoughts, thoughtsList)
 
-		thoughtsListView = new ThoughtsHolder.ThoughtsListView({ collection: thoughtsList })
+		thoughtsListView = new BackboneHolder.ThoughtsListView({ collection: thoughtsList })

@@ -53,10 +53,10 @@
 		</div>
 	</div>
 
+	
+
 	<script>
 	randoms.thoughts({ thoughts: <%= JSON((@thoughts or {}).as_json).html_safe %> })
-	// createBackbone({ thoughts: <%= JSON((@thoughts or {}).as_json).html_safe %> })
-	
 	</script>
 
 <% end %>
