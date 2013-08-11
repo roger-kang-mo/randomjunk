@@ -40,8 +40,8 @@ randoms.scattergories = (args) ->
 
 		categoryList.html('')
 
-		for i in [0..newList.length - 1]
-			newListHtml += '<li class="cat">' + newList[i] + '</li>'
+		for category in newList
+			newListHtml += '<li class="cat">' + category + '</li>'
 
 		newListHtml += '</ol>'
 

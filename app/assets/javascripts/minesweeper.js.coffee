@@ -31,10 +31,10 @@ randoms.minesweeper = (args) ->
 
 	$(document).ready ->
 		records = args.records
-		for i in [0...records.length]
-			recordsList.add(new BackboneHolder.Record(records[i]))
+		for record in records
+			recordsList.add(new BackboneHolder.Record(record))
 			recordsListView = new BackboneHolder.RecordsListView({ collection: recordsList })
-		recordsListView.render()
+		recordsListView.render() if records.length > 0
 
 
 	window.oncontextmenu = (e) ->
@@ -237,13 +237,13 @@ randoms.minesweeper = (args) ->
 
 		nonMineSpots = (width * height) - numMines
 
-		for i in [0..width - 1]
+		for i in [0...width]
 			board[i] = new Array(width)
-			for j in [0..height - 1]
+			for j in [0...height]
 				board[i][j] = '0'
 
 		# place mines
-		for mineCount in [0..numMines - 1]
+		for mineCount in [0...numMines]
 			spotFound = false
 			while not spotFound
 				coords = gimmeRandomCoords()
@@ -261,8 +261,8 @@ randoms.minesweeper = (args) ->
 
 	printBoardToConsole = ->
 		printString = ""
-		for i in [0..width - 1]
-			for j in [0..height - 1]
+		for i in [0...width]
+			for j in [0...height]
 				printString += board[i][j] 
 				printString += " "
 			console.log printString
@@ -310,9 +310,9 @@ randoms.minesweeper = (args) ->
 		rowsToAppend = "<table id='mineboard'>"
 		boardSpace = $('#board_space').html('')
 
-		for i in [0..width - 1]
+		for i in [0...width]
 			rowsToAppend += '<tr>'
-			for j in [0..height - 1]
+			for j in [0...height]
 				valHTML = if board[i][j] == 'W' then "<strong class='spotval minespot icon-font'>" else "<strong class='spotval'>"
 				valHTML += board[i][j] + "</strong>"
 				rowsToAppend += "<td class='boardspot' data-coords=" + i + "," + j + " data-value='" + board[i][j] + "'><span class='flagspot icon-font'>j</span>" + valHTML + "</td>"

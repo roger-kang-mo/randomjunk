@@ -18,7 +18,7 @@ randoms.notes = (args) ->
 			})
 
 		allNotes = args.notes
-		for i in [0..allNotes.length - 1]
+		for i in [0...allNotes.length]
 			currentZ = allNotes[i].z
 			highestZ = currentZ if currentZ > highestZ 
 			highestZ++
@@ -114,7 +114,6 @@ randoms.notes = (args) ->
 
 	# savePosition.click -> saveNotePositions()
 
-	#  TODO: Save only last one
 	saveNotePositions = (args, saveAll = null) ->
 		# positionLoader.show()
 
@@ -144,12 +143,11 @@ randoms.notes = (args) ->
 
 		retData = []
 
-		for i in [0..notes.length - 1]
-			thisNote = notes[i]
-			thisID =  $(notes[i]).data('id')
-			thisX = $(notes[i]).position().left
-			thisY = $(notes[i]).position().top
-			thisZ = $(notes[i]).css('z-index') - zOffset
+		for note in notes
+			thisID =  $(note).data('id')
+			thisX = $(note).position().left
+			thisY = $(note).position().top
+			thisZ = $(note).css('z-index') - zOffset
 
 			retData.push { id: thisID, coords: { x: thisX, y: thisY, z: thisZ }}
 
