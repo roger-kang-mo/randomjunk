@@ -64,6 +64,7 @@ randoms.minesweeper = (args) ->
 	showRecordsButton.click -> 
 		recordsList.fetch()
 		showModal('scores')
+
 	$(document).ready ->
 		recordName.keyup = (e) ->  closeModal(saveRecordButton) if e.which == 13
 
@@ -74,6 +75,7 @@ randoms.minesweeper = (args) ->
 
 		switch type
 			when 'quit'
+				timerNode.removeClass('started')
 				$('#content-quit').addClass('content-show')
 			when 'scores'
 				recordsListView.render()
@@ -101,12 +103,11 @@ randoms.minesweeper = (args) ->
 			when 'beast-mode' then initiateBeastMode()
 			when 'save-record' then saveRecord()
 
+		timerNode.addClass('started') unless gameOver
 		recordName.val('')
 
 	modalOverlay.click ->
-		modalWindow.removeClass('md-show')
-		modalOverlay.removeClass('show')
-		blurContainer.removeClass('blurred')
+		closeModal(closeModalNoAction)
 
 	initiateBeastMode = ->
 
