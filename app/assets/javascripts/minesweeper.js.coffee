@@ -8,6 +8,7 @@ randoms.minesweeper = (args) ->
 	closeModalNoAction = $('#no-action')
 	showRecordsButton = $('#show-records')
 	saveRecordButton = $('#save-record')
+	timerNode = $('#timer')
 
 
 	widthBox = $('#board-width')
@@ -76,7 +77,7 @@ randoms.minesweeper = (args) ->
 				$('#content-records').addClass('content-show')
 			else
 				$('#content-win').addClass('content-show')
-				recordStats.text('You safely uncovered ' + numMines + ' mines on a ' + width + 'x' + height + ' board.')
+				recordStats.text("You safely uncovered #{numMines} mines on a #{height}x#{width} board with a time of #{getTimeFromTimer()}.")
 			
 		modalOverlay.addClass('show')
 		blurContainer.addClass('blurred')
@@ -121,7 +122,7 @@ randoms.minesweeper = (args) ->
 		generateBoard(boardParams)
 
 	saveRecord = ->
-		newRecordData = { time: timeElapsed, name: recordName.val(), width: width, height: height, mines: numMines }
+		newRecordData = { time: timeElapsed, name: recordName.val(), width: width, height: height, mines: numMines, time: getTimeFromTimer() }
 		newRecord = new BackboneHolder.Record(newRecordData)
 		newRecord.save()
 		recordsList.add(newRecord)
@@ -196,11 +197,26 @@ randoms.minesweeper = (args) ->
 			  "-moz-transition": "all 0.6s ease"
 			  "-o-transition": "all 0.6s ease"
 			  "-ms-transition": "all 0.6s ease"
+		timerNode.removeClass('started')
 
 	winCase = ->
 		updateStatus('You Win! B)')
 		gameOver = true
 		showModal('win')
+		timerNode.removeClass('started')
+
+	getTimeFromTimer = ->
+		timeParts = timerNode.find('.numbers')
+		timeString = ''
+
+		for part in timeParts
+			if $(part).hasClass('divide')
+				timeString += ':'
+			else
+				timeString += Math.abs(parseInt($(part).css('top'))/40)
+
+		console.log timeString
+		timeString
 
 	$('#num-mines').keyup (e) ->
 		$('#generate-board').click() if e.which == 13
@@ -234,6 +250,7 @@ randoms.minesweeper = (args) ->
 		board = new Array(width)
 		numRevealed = 0
 		gameOver = false
+		timerNode.addClass('reset')
 
 		nonMineSpots = (width * height) - numMines
 
@@ -258,6 +275,7 @@ randoms.minesweeper = (args) ->
 		# printBoardToConsole()
 		renderBoard()
 		updateStatus('Good luck!')
+		timerNode.removeClass('reset').addClass('started')
 
 	printBoardToConsole = ->
 		printString = ""

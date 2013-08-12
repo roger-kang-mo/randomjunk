@@ -18,10 +18,10 @@
   -webkit-filter: blur(0px);
   -moz-filter: blur(0px);
   filter: blur(0px);
-}
 
-.md-show {
-  visibility: visible;
+  &.md-show {
+    visibility: visible;
+  }
 }
 
 .md-overlay {

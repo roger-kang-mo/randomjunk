@@ -23,10 +23,7 @@ div#minesweeper-main {
 		}
 
 		.buttons {
-			float:right;
-			// button#generate-board {
-				
-			// }	
+			float:right;	
 		}
 		
 		div.status-header {
@@ -37,7 +34,7 @@ div#minesweeper-main {
 		}
 
 		div#controls {
-			margin-top: 15%;
+			margin-top: 5%;
 			width: 100%;
 
 			ul > li > strong { font-size: 17px; }

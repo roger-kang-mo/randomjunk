@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130808184943) do
+ActiveRecord::Schema.define(:version => 20130812001108) do
 
   create_table "comments", :force => true do |t|
     t.text     "author"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20130808184943) do
   end
 
   create_table "minesweeper_records", :force => true do |t|
-    t.integer "time"
+    t.string  "time"
     t.string  "name"
     t.integer "width"
     t.integer "height"
