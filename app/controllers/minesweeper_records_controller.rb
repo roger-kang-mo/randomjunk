@@ -41,8 +41,13 @@ class MinesweeperRecordsController < ApplicationController
 		high_low = params[:data][:high_low] or 'high'
 		high_low = high_low == 'high' ? 'id asc' : 'id desc'
 
-		MinesweeperRecord.find(:all, :order => high_low, :limit => limit)
+		# MinesweeperRecord.find(:all, :order => high_low, :limit => limit)
+		@records = MinesweeperRecord.find(:all, :order => high_low)
 		# MinesweeperRecord.select("records.*").having("")
+
+		respond_to do |format|
+			format.json { render :json => @records}
+		end
 
 	end
 end

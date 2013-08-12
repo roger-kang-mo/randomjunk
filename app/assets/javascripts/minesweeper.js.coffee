@@ -54,13 +54,16 @@ randoms.minesweeper = (args) ->
 		if e.which == 82 and (modalWindow.css('visibility') == 'hidden' and not (e.ctrlKey or e.metaKey))
 			if Object.keys(cachedBoardVals).length > 0
 				if gameOver
+					timerNode.addClass('reset')
 					generateBoard(cachedBoardVals)
 				else
 					showModal('quit')
 		else if e.which == 27 and modalWindow.css('visibility') == 'visible'
 			closeModal(closeModalNoAction)
 
-	showRecordsButton.click -> showModal('scores')
+	showRecordsButton.click -> 
+		recordsList.fetch()
+		showModal('scores')
 	$(document).ready ->
 		recordName.keyup = (e) ->  closeModal(saveRecordButton) if e.which == 13
 
@@ -219,10 +222,13 @@ randoms.minesweeper = (args) ->
 		timeString
 
 	$('#num-mines').keyup (e) ->
-		$('#generate-board').click() if e.which == 13
+		if e.which == 13
+			timerNode.addClass('reset')
+			$('#generate-board').click()
 
 	$('#generate-board').click ->
 
+		timerNode.addClass('reset')
 		if cachedBoardVals and not gameOver
 			modalWindow.addClass('md-show')
 			modalOverlay.addClass('show')
@@ -250,7 +256,6 @@ randoms.minesweeper = (args) ->
 		board = new Array(width)
 		numRevealed = 0
 		gameOver = false
-		timerNode.addClass('reset')
 
 		nonMineSpots = (width * height) - numMines
 
