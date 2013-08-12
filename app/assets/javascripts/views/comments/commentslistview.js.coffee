@@ -58,10 +58,6 @@ BackboneHolder.CommentsListView = Backbone.View.extend
 			if contentVal.length > 0
 				newComment = new BackboneHolder.Comment({author: authorVal, content: contentVal, thought_id: self.id, passcode: randoms.getGUID()})
 				newComment.save()
-				# data = newComment.save(null, { 
-				# 	success: (data) ->
-				# 		# console.log data
-				# })
 
 				@$newCommentPasscodeInput.val(newComment.get('passcode'))
 				
@@ -104,3 +100,13 @@ BackboneHolder.CommentsListView = Backbone.View.extend
 		appendItem: (comment) ->
 		  commentView = new BackboneHolder.CommentView(model: comment)
 		  $(@el).append commentView.render().el
+
+		destroy: ->
+			@$saveNewCommentButton.unbind('click')
+			@$passcodeSubmit.unbind('click')
+			@$passcodeInput.unbind('keyup')
+			@$passcodeClose.unbind('click')
+			$('.delete-comment').unbind('click')
+
+			@unbind()
+			# @remove()

@@ -68,7 +68,7 @@ BackboneHolder.ThoughtsListView = Backbone.View.extend
 				clickedElem = $(e.target)
 				thoughtID = clickedElem.parents('.thought-card').data('id')
 				
-				self.$commentsListView.unbind() if self.$commentsListView
+				self.$commentsListView.destroy() if self.$commentsListView
  
 				# _(self.$commentsListViews).each ((cListView) ->
 				# 	if cListView.id == thoughtID
@@ -76,7 +76,7 @@ BackboneHolder.ThoughtsListView = Backbone.View.extend
 				# ), this
 
 				# unless commentsListView
-				commentsList = undefined
+				commentsList.destroyAll() if commentsList
 				commentsList = new BackboneHolder.CommentsList(null, {thoughtID: thoughtID})
 				self.$commentsListView = new BackboneHolder.CommentsListView({ id: thoughtID, collection: commentsList})
 				# self.$commentListViews.push commentsListView
@@ -87,7 +87,7 @@ BackboneHolder.ThoughtsListView = Backbone.View.extend
 					$('#modal-overlay').fadeIn()
 				)
 
-				# commentsListView.render()
+				self.$commentsListView.render()
 
 			@$thoughtBottomBars.on 'click', '.thumbs', (e) ->
 				clickedElem = $(e.target)

@@ -22,3 +22,11 @@ BackboneHolder.CommentsList = Backbone.Collection.extend
 
 				error: (data) ->
 					# console.log data
+
+		destroyAll: ->
+			promises = []
+			promises.push @models[0].destroy() while @models.length > 0
+			# handle errors communicating with the server
+			$.when(promises).fail (response) ->
+				@trigger "syncError", response
+		  	.bind(this)
