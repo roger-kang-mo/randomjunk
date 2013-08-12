@@ -37,7 +37,3 @@ randoms.initTips = ->
 	    adjust:
 	    	y: -5
 
-
-$('.md-setperspective')
-
-	    	

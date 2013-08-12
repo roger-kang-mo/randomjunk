@@ -36,9 +36,14 @@ class MinesweeperRecordsController < ApplicationController
 	end
 
 	def query_records
-		start_index = params[:data][:start] or 0
-		limit = params[:data][:limit] or 10
-		high_low = params[:data][:high_low] or 'high'
+		start_index = params[:data][:start] if params and params[:data]
+		start_index ||= 0
+
+		limit = params[:data][:limit] if params and params[:data]
+		limit ||= 10
+
+		high_low = params[:data][:high_low] if params and params[:data]
+		high_low ||= 'high'
 		high_low = high_low == 'high' ? 'id asc' : 'id desc'
 
 		# MinesweeperRecord.find(:all, :order => high_low, :limit => limit)

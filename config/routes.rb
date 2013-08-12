@@ -21,7 +21,7 @@ Randomjunk::Application.routes.draw do
 
   get '/thoughts/comments/get_comments_for/:id' => 'comments#get_comments_for'
 
-  get '/records/query_records' => 'records#query_records'
+  get '/records/query_records' => 'minesweeper_records#query_records'
 
   resources :notes
   resources :thoughts
