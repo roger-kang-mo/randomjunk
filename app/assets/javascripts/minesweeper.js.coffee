@@ -62,8 +62,8 @@ randoms.minesweeper = (args) ->
 			closeModal(closeModalNoAction)
 
 	showRecordsButton.click -> 
-		recordsList.fetch()
-		showModal('scores')
+		$.when(recordsList.fetch()).then -> showModal('scores')
+		
 
 	$(document).ready ->
 		recordName.keyup = (e) ->  closeModal(saveRecordButton) if e.which == 13
@@ -143,7 +143,6 @@ randoms.minesweeper = (args) ->
 			  "-o-transition": "all 0.6s ease"
 			  "-ms-transition": "all 0.6s ease"
 			numRevealed++
-			# console.log(clickedElem.data('coords') + ' revealed')
 
 			if clickedElem.data('value') == 'W'
 				loseCase()
@@ -158,7 +157,6 @@ randoms.minesweeper = (args) ->
 				seqParams.params = revealFuncs[1]
 				revealFuncs = [[], []]
 				$.sequentialize(seqParams)
-			# console.log 'numRevealed: ' + numRevealed
 
 	revealConnectedZeros = (coords) ->
 		updateSpotNumbers(coords, ['W',1,2,3,4,5,6,7,8,9,10], (foundIn, x, y) ->

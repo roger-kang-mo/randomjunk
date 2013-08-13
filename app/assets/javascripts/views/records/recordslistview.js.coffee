@@ -23,6 +23,8 @@ BackboneHolder.RecordsListView = Backbone.View.extend
 		self = this
 		@$container = $(self.el)
 
+		@collection.on('sync', @render());
+
 	appendItem: (record) ->
 		  recordView = new BackboneHolder.RecordView(model: record)
 		  $(@el).append recordView.render().el
