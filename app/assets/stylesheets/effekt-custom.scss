@@ -65,6 +65,24 @@
 
           tr {
             border: 1px solid #fff;
+
+            th { 
+              cursor: pointer;
+
+              .sort-icon { display: none; }
+              
+              &.sorted {
+                // color: #000;
+                // text-shadow: 0 0 0.5em #FFF, 0 0 0.5em #FFF;
+                .sort-icon {
+                  display: inline-block;
+                  background:url(glyphicons-halflings.png) transparent;
+                  background-position: -312px -113px;
+                  width: 20px;
+                  height: 20px;
+                }
+              }
+            }
             
 
             td:nth-child(n+1), th:nth-child(n+1) {

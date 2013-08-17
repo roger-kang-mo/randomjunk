@@ -32,10 +32,11 @@ randoms.minesweeper = (args) ->
 
 	$(document).ready ->
 		records = args.records
+
 		for record in records
 			recordsList.add(new BackboneHolder.Record(record))
-			recordsListView = new BackboneHolder.RecordsListView({ collection: recordsList })
-		recordsListView.render() if records.length > 0
+
+		recordsListView = new BackboneHolder.RecordsListView({ collection: recordsList })
 
 
 	window.oncontextmenu = (e) ->
@@ -129,8 +130,8 @@ randoms.minesweeper = (args) ->
 		newRecordData = { time: timeElapsed, name: recordName.val(), width: width, height: height, mines: numMines, time: getTimeFromTimer() }
 		newRecord = new BackboneHolder.Record(newRecordData)
 		newRecord.save()
-		recordsList.add(newRecord)
-		console.log recordsList
+		# recordsList.add(newRecord)
+		# console.log recordsList
 
 	$(document).on 'click', '.boardspot', (e) ->
 		clickedElem = $(e.target)
@@ -217,7 +218,7 @@ randoms.minesweeper = (args) ->
 			else
 				timeString += Math.abs(parseInt($(part).css('top'))/40)
 
-		console.log timeString
+		# console.log timeString
 		timeString
 
 	$('#num-mines').keyup (e) ->
