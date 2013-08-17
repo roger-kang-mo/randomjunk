@@ -69,7 +69,6 @@ describe ThoughtsController do
 
 			expect{ Thought.find(to_delete_id) }.to raise_error
 		end
-
 	end
 
 	describe 'post approve_thought' do
@@ -77,7 +76,8 @@ describe ThoughtsController do
 		let(:to_approve_id) { thought_to_approve.id }
 
 		it 'should set the approved flag to true' do
-			expect(Thought.find(thought_to_approve).approved).to eq(false)
+			expect(Thought.find(thought_to_approve).approved).to eq(false) # sanity test
+
 			post :approve_thought, :format => :json, :id => to_approve_id
 			expect(Thought.find(thought_to_approve).approved).to eq(true)
 		end
