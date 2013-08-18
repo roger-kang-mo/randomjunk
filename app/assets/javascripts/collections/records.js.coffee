@@ -6,8 +6,15 @@ BackboneHolder.RecordsList = Backbone.Collection.extend
 	comparator: (property) ->
         selectedStrategy.apply(BackboneHolder.Record.get(property))
 
+    changeSortDir: ->
+    	if @sort_dir == 'down' 
+    		@sort_dir = 'up' 
+    	else
+    		@sort_dir = 'down'
+
 	initialize: ->
 		@sort_key = 'id'
+		@sort_dir = 'up'
 
 	comparator: (a,b) ->
 		aKey = a.get(@sort_key)
@@ -22,5 +29,8 @@ BackboneHolder.RecordsList = Backbone.Collection.extend
 		else if @sort_key == 'dimensions'
 			aKey = a.get('width') * a.get('height')
 			bKey = b.get('width') * b.get('height')
-			 
-		(if aKey > bKey then 1 else (if aKey < bKey then -1 else 0))
+		
+		if @sort_dir == 'up'
+			(if aKey > bKey then 1 else (if aKey < bKey then -1 else 0))
+		else
+			(if aKey > bKey then -1 else (if aKey < bKey then 1 else 0))

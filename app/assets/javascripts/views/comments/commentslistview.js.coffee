@@ -102,6 +102,9 @@ BackboneHolder.CommentsListView = Backbone.View.extend
 		  $(@el).append commentView.render().el
 
 		destroy: ->
+			@collection.each (elem) ->
+				elem.destroy()
+
 			@$saveNewCommentButton.unbind('click')
 			@$passcodeSubmit.unbind('click')
 			@$passcodeInput.unbind('keyup')

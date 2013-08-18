@@ -69,17 +69,25 @@
             th { 
               cursor: pointer;
 
-              .sort-icon { display: none; }
+              .sort-icon { 
+                display: none; 
+                width: 15px;
+                height: 15px;
+                background:url(glyphicons-halflings.png) transparent;
+              }
               
-              &.sorted {
-                // color: #000;
-                // text-shadow: 0 0 0.5em #FFF, 0 0 0.5em #FFF;
+              &.sort-up {
                 .sort-icon {
                   display: inline-block;
-                  background:url(glyphicons-halflings.png) transparent;
                   background-position: -312px -117px;
-                  width: 15px;
-                  height: 15px;
+                  
+                }
+              }
+
+              &.sort-down {
+                .sort-icon {
+                  display: inline-block;
+                  background-position: -288px -118px;
                 }
               }
             }
